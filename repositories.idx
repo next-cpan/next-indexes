@@ -1,0 +1,26 @@
+{
+ "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
+ "version": 20200327215202,
+ "columns": ["repository", "version", "sha", "signature"],
+ "data": [
+    ["A1z-HTML5-Template", "0.22", "31f5f25a31d06ac3611d4d5fca9958f726703e71", "65e20bb0a05ef27009f785a2bd7b77c8"],
+    ["A1z-Html", "0.003", "47509e9692fb02565b1b803d11e5e72dcc2835db", "5b57fd023eb2929e1ecfe697f7ef65b8"],
+    ["AAAA-Mail-SpamAssassin", "0.002", "ea3955b3c3757259d0947af56ed325ae23dc456d", "a3f15bc49db2bcec84ce78b93da49ff1"],
+    ["AAC-Pvoice", "0.91", "cc09f12986fd60bc54364011baec961c3c54fb06", "1ed94c205ac8040e85ff03db0f4528d3"],
+    ["ABI", "1.0", "2dcba763956f00017995a62fdbc96cb2ec8d270c", "33c9f80c8a8f54f6100b020575400a59"],
+    ["ABNF-Grammar", "0.08", "d4a4bb47310e9746eb4465bfaa2df1b02cede66f", "a95e7f8280bb6370acbeb4e9bd0892ec"],
+    ["AC-DC", "1.1", "31b5d6f8257a98c204338ee267b98298355ea485", "d04bf2a64550b1a9850ab5798185efff"],
+    ["AC-MrGamoo", "1", "ca784ac05054869ab99f4c48c39996ee50c088cd", "bb95193ed9ce0d85488681dc9429f7fb"],
+    ["AC-Yenta", "1.1", "32167e7b8004e504ce0bd42e956f331f164dea49", "920f2ecffac56044fa2da38e019654ca"],
+    ["ACH", "0.01", "7d21255475eeb4bb69f5410c48ae9dc029919636", "fa22bf55e682cd8711b93a78d05a97c8"],
+    ["ACH-Generator", "0.01", "20e2820d2f4488ea06f38d971aef521d65f5f52b", "93b4f1cef7883ca3673cdd738aa81bf8"],
+    ["ACH-Parser", "0.01", "b932c14baf1ac3e43cf1ec504f2b2aeeb967130f", "f30a402058382471c622007cd43eae6d"],
+    ["ACL-Lite", "0.0004", "9fe06cb061c94ba9285eda0a1881e82c69b85f1e", "24a672fd9735deed68ca9b4f99d4f702"],
+    ["ACL-Regex", "0.0002", "a0d4710d45b6289c0501f1a4b43f1930101df736", "69c470648633ea64154a93f153a86b28"],
+    ["Aard", "0.001", "c15137e856295acd9e741e3f54ffec6fd3ec6f9e", "69a65d47c4a605c3b9928b87b92b8fc7"],
+    ["Abilities", "0.2", "58278c54e626a9b72f8631aadf49e49f7908a2ef", "e796d053e35351773a4be325d3bab9f0"],
+    ["Abstract-Meta-Class", "0.11", "4183cc50ec630233be6663a6081f7897ebfdb6e5", "4fad8e47055ac8efc40f134a524b3e9b"],
+    ["AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"],
+    ["Acme", "1.11111111111", "f02db70d86de8d394b22a623c23f8927daa3f827", "34589d703cc3dd11a3ee535d47e9505d"],
+    ["Acme-123", "0.04", "1bc0ae2ccce1e121a48ff8991a91fed00183afaa", "de66c349e9f050f92d98fc3ae9d0d888"]
+ ] }
