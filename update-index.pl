@@ -1,9 +1,15 @@
-#!/perl/bin/perl
+#!/usr/bin/env perl
 
-package PauseToGithubRepo;
+package UpdateIndex;
 
 use strict;
 use warnings;
+
+use FindBin;
+
+BEGIN {
+    unshift @INC, $FindBin::Bin . "/vendor/lib";
+}
 
 use Moose;
 with 'MooseX::SimpleConfig';
@@ -11,15 +17,17 @@ with 'MooseX::Getopt';
 
 use experimental 'signatures';
 
-use FindBin;
-
 use LWP::UserAgent     ();
 use File::Basename     ();
 use CPAN::Meta::YAML   ();
 use CPAN::DistnameInfo ();
 use version            ();
 use Net::GitHub::V3;
-BEGIN { $Net::GitHub::V3::Orgs::VERSION == '2.0' or die("Need custom version of Net::GitHub::V3::Orgs to work!") }
+
+BEGIN {
+    $Net::GitHub::V3::Orgs::VERSION == '2.0' or die("Need custom version of Net::GitHub::V3::Orgs to work!");
+}
+
 use YAML::Syck   ();
 use Git::Wrapper ();
 
@@ -535,117 +543,7 @@ sub align ( $left = '', $right = '' ) {
 
 package main;
 
-my $ptgr = PauseToGithubRepo->new_with_options( configfile => "${FindBin::Bin}/settings.ini" );
+my $ptgr = UpdateIndex->new_with_options( configfile => "${FindBin::Bin}/settings.ini" );
 
 exit( $ptgr->run );
-
-__END__
-
-print "Writing out distros to $settings->{base_dir}/distros\n";
-chdir($settings->{'base_dir'}) or die($!);
-
-my %processed_tarball;
-my $fh = open_otwo_packages_file();
-while (my $line = <$fh>) {
-    my ($module, $module_version, $author_path) = split(qr/\s+/, $line);
-    next if $author_path =~ m{\.pm\.gz$};
-    next if $author_path =~ m{/Bundle-FinalTest2.tar.gz$};
-    next if $author_path =~ m{/Spreadsheet-WriteExcel-WebPivot2.tar.gz$};
-    next if $author_path =~ m{/perl5.00402-bindist04-msvcAlpha.tar.gz$};
-    next if $author_path =~ m{/Geo-GoogleEarth-Document-modules2.tar.gz$};
-    
-    chomp $author_path;
-    my $tarball_file = $self->path_to_tarball_cache_file($author_path);
-        
-    next if $processed_tarball{$tarball_file};
-    $processed_tarball{$tarball_file} = 1;
-    -f $tarball_file && !-z _ or die("ZERO TARBALL??? $tarball_file");
-    
-    next if was_parsed($author_path);
-
-    DEBUG("Parsing $author_path");
-    my $extracted_distro_name = expand_distro($tarball_file, $author_path);
-}
-
-exit;
-
-my %tarball_parsed_cache;
-sub was_parsed {
-    my $author_path = shift or die;
-    return 1 if $tarball_parsed_cache{$author_path};
-    open(my $fh, '<', $tarball_parsed_file) or return 0;
-    while (<$fh>) {
-        chomp;
-        $tarball_parsed_cache{$_} = 1;
-    }
-
-    return $tarball_parsed_cache{$author_path};
-}
-
-sub write_stored_version_info {
-    my ($distro, $version, $author_path) = @_;
-    $author_path or die("Can't write meta without author_path! $distro $version");
-    $distro or die("Can't process $author_path without a distro");
-    $version ||= 0;
-    
-    my $letter = substr($distro, 0, 1);
-
-    mkdir "$distro_meta_dir/$letter";
-    -d "$distro_meta_dir/$letter" or die ("Can't create directory $distro_meta_dir/$letter");
-    
-    my $distro_meta_dir 
-    
-    my $meta_file = "$distro_meta_dir/$letter/$distro.yml";
-
-    open(my $fh, '>', $meta_file) or die "Can't write $meta_file";
-    print {$fh} "---\ndistro: $distro\nversion: $version\nauthor_path: $author_path\n";
-    close $fh;  
-}
-
-
-
-
-
-
-
-sub get_packages_info {
-    my $fh = open_otwo_packages_file();
-    
-    my $packages = {};
-    # Which files do we want to download and maintain??
-    while (my $line = <$fh>) {
-        my ($module, $module_version, $file) = split(qr/\s+/, $line);
-        chomp $file;
-        next if !length $module_version; # Means we didn't read it in.
-        next if !length $file; # Means we didn't read it in.
-        next if $module_version eq 'undef';
-        next if ($file =~ m/\.pm\.gz$/i);
-    
-        my $distro_file = $file;
-    
-        $distro_file =~ s/\.pm\.gz$//; # https://github.com/andk/pause/issues/237
-        
-        my $d = CPAN::DistnameInfo->new($distro_file);
-        my $distro = $d->dist || $distro_file;
-        my $version = $d->version || $module_version;
-
-        # Skip if we have a newer version for $distro already.
-        next if( $packages->{$distro} && compare($packages->{$distro}->{'version'}, '>=', $version) );
-    
-#        $file =~ m/"/ and die("$file unexpectedly had a \" in it??");
-        # Store it.
-        $packages->{$distro} = {
-            author => $d->cpanid,
-            version => $version,
-            author_path => $file,
-            file => File::Basename::fileparse($file),
-            distro => $distro,
-        };
-    }
-    return $packages;
-}
-
-
-
-
 
