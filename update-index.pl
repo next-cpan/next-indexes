@@ -144,6 +144,7 @@ sub write_idx_files($self) {
 
     $self->write_module_idx();
     $self->write_explicit_versions_idx();
+    $self->write_repositories_idx();
 
     return;
 }
@@ -156,12 +157,16 @@ sub _explicit_versions_idx($self) {
     return $self->base_dir() . '/explicit_versions.idx';
 }
 
+sub _repositories_idx($self) {
+    return $self->base_dir() . '/repositories.idx';
+}
+
 sub max($a, $b) { 
     return $a > $b ? $a : $b;
 }
 
 sub write_module_idx($self) {
-    return $self->_write_idx(
+    return $self->_write_idx_jsonl(
         $self->_module_idx,
         undef,
         [ qw{module version repository repository_version} ], 
@@ -171,7 +176,7 @@ sub write_module_idx($self) {
 
 sub write_explicit_versions_idx($self) {
 
-    return $self->_write_idx(
+    return $self->_write_idx_jsonl(
         $self->_explicit_versions_idx,
         undef,
         [ qw{module version repository repository_version sha signature} ], 
@@ -179,6 +184,37 @@ sub write_explicit_versions_idx($self) {
     );
 }
 
+sub write_repositories_idx($self) {
+    return $self->_write_idx_jsonl(
+        $self->_repositories_idx,
+        undef,
+        [ qw{repository repository_version sha signature} ], 
+        $self->{repositories}
+    );
+}
+
+sub _write_idx_jsonl( $self, $file, $headers, $columns, $data ) {
+    return unless $data && ref $data;
+
+    die unless ref $columns eq 'ARRAY';
+
+    my $json = $self->json->pretty(0)->space_after->canonical;
+
+    open( my $fh, '>:utf8', $file ) or die;
+
+    if ( $headers ) {
+        chomp $headers;
+        print {$fh} $headers . "\n";
+    }
+
+    foreach my $k ( sort keys $data->%* ) {
+        print {$fh} $json->encode( $data->{$k} ) . "\n";
+    }
+
+    return;
+}
+
+### note using .jsonl makes more sense
 sub _write_idx( $self, $file, $headers, $columns, $data ) {
 
     return unless $data && ref $data;
@@ -245,14 +281,13 @@ sub index_module($self, $module, $version, $repository, $repository_version, $sh
         repository => $repository,
         repository_version => $repository_version,
         sha => $sha,
-        signature => 'beef',
+        signature => q[***signature***],
     };
-
 
     return;
 }
 
-sub index_repository($self, $version, $sha1, $signature) {
+sub index_repository($self, $repository, $repository_version, $sha, $signature) {
 =pod
 # latest distro index https://raw.githubusercontent.com/newpause/index_repo/p7/distros.idx
 # http://github.com/newpause/${distro}/archive/${sha}.tar.gz
@@ -260,6 +295,15 @@ distro     version   sha            signature
 foo-bar  1.005     deadbeef   abcdef123435
 =cut
 
+    $self->{repositories} //= {};
+    $self->{repositories}->{$repository} = {
+        repository => $repository, ## maybe rename
+        version    => $repository_version,
+        sha => $sha,
+        signature => $signature,
+    };
+
+    return;
 }
 
 sub refresh_repository($self, $repository) {
@@ -273,14 +317,19 @@ sub refresh_repository($self, $repository) {
     my $build = $self->get_build_info( $repository );
     return unless $build;
 
-    #$self->index_repository(...);
-
     my $repository_version = $build->{version};
+    my $sha = $build->{sha} or die "missing sha for $repository";
+
+    $self->index_repository(
+        $repository,
+        $repository_version,
+        $sha,
+        q[***signature***],
+    );
 
     my $provides = $build->{provides} // {};
     foreach my $module ( keys $provides->%* ) {
         my $version = $provides->{$module}->{version} // $repository_version;
-        my $sha = $build->{sha} or die "missing sha for $repository";
 
         $self->index_module(
             $module, $version, $repository, $repository_version, $sha
