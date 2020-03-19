@@ -52,6 +52,7 @@ use constant INTERNAL_REPO => qw{pause-index pause-monitor};
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
 has 'repo'        => ( is => 'rw', isa => 'Str' );
+has 'limit'       => ( is => 'rw', isa => 'Int', default => 0 );
 
 # settings.ini
 has 'base_dir'     => ( isa => 'Str', is => 'rw', required => 1, documentation => 'REQUIRED - The base directory where our data is stored.' );                     # = /root/projects/pause-monitor
@@ -421,9 +422,16 @@ sub refresh_all_repositories($self) {
     my $all_repos = $self->github_repos;
 
     my $c = 0;
+    my $limit = $self->limit;
+
     foreach my $repository ( sort keys %$all_repos ) {
         $self->refresh_repository( $repository );
-        last if ++$c > 2;
+        last if ++$c > $limit && $limit;
+    } continue {
+        if ( $c % 10 == 0 ) { # flush from time to time idx on disk
+            INFO("Updating indexes...");
+            $self->write_idx_files;
+        }
     }
 
     return;
@@ -431,9 +439,9 @@ sub refresh_all_repositories($self) {
 
 sub _log(@args) {
     my $dt     = DateTime->now;
-    my $hms    = $dt->hms;
+    my $ts    = $dt->ymd . ' ' . $dt->hms;
 
-    my $msg = join( ' ', "[${hms}]", grep { defined $_ } @args );
+    my $msg = join( ' ', "[${ts}]", grep { defined $_ } @args );
     chomp $msg;
     $msg .= "\n";
 
@@ -493,6 +501,7 @@ Sample usages:
 $0                  refresh all modules
 $0 --repo Foo       only refresh a single repository
 $0 --full_update    regenerate the index files
+$0 --limit 5        stop after reading X repo
 
 EOS
 };
