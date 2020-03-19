@@ -2,6 +2,7 @@
 
 package UpdateIndex;
 
+use autodie;
 use strict;
 use warnings;
 use utf8;
@@ -22,6 +23,7 @@ with 'MooseX::Getopt';
 
 use experimental 'signatures';
 
+use DateTime           ();
 use LWP::UserAgent     ();
 use File::Basename     ();
 use CPAN::Meta::YAML   ();
@@ -45,8 +47,12 @@ use Data::Dumper;
 
 use constant INTERNAL_REPO => qw{pause-index pause-monitor};
 
+# main arguments
+has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
+has 'repo'        => ( is => 'rw', isa => 'Str' );
+
 # settings.ini
-has 'base_dir'     => ( isa => 'Str', is => 'ro', required => 1, documentation => 'REQUIRED - The base directory where our data is stored.' );                     # = /root/projects/pause-monitor
+has 'base_dir'     => ( isa => 'Str', is => 'rw', required => 1, documentation => 'REQUIRED - The base directory where our data is stored.' );                     # = /root/projects/pause-monitor
 has 'github_user'  => ( isa => 'Str', is => 'ro', required => 1, documentation => q{REQUIRED - The github username we'll use to create and update repos.} );       # = pause-parser
 has 'github_token' => ( isa => 'Str', is => 'ro', required => 1, documentation => q{REQUIRED - The token we'll use to authenticate.} );
 has 'github_org'   => ( isa => 'Str', is => 'ro', required => 1, documentation => q{REQUIRED - The github organization we'll be creating/updating repos in.} );    # = pause-play
@@ -90,44 +96,243 @@ sub get_build_info($self, $repo) {
         );
     };
     if ( $@ || !ref $content || ! length $content->{content} ) {
-        warn "Cannot find '$build_file' from $repo\n";
+        ERROR( "Cannot find '$build_file' from $repo" );
         return;
     }
 
     my $decoded = MIME::Base64::decode_base64( $content->{content} );
+    my $build = $self->json->decode( $decoded );
 
-    return $self->json->decode( $decoded );
+    $build->{sha} = $content->{sha}; # add the sha to the build information
+
+    return $build;
 }
 
 sub run ($self) {
 
     my $base_dir = $self->base_dir;
+    if ( $base_dir =~ s{~}{$ENV{HOME}} ) {
+        $self->base_dir($base_dir);
+    }
 
     mkdir $base_dir unless -d $base_dir;
 
-    my $repos = $self->github_repos;
-    #note explain $repos;
-
-    my $c = 0;
-    foreach my $repo ( sort keys %$repos ) {        
-        note "# repo $repo";
-        $self->sleep_until_not_throttled; # check API rate limit
-
-        next if $self->is_internal_repo( $repo );
-
-        my $build = $self->get_build_info( $repo );
-
-        note explain $build;
-
-        last if ++$c > 2;
+    if ( ! $self->full_update ) {
+        # read existing files
+        $self->load_idx_files;
     }
+
+    if ( $self->repo ) {
+        # refresh a single repo
+        $self->refresh_repository( $self->repo );
+    } else {
+        # default 
+        $self->refresh_all_repositories();
+    }
+
+    # ... update files... 
+    $self->write_idx_files;
 
     return 0;
 }
 
-sub DEBUG ($msg) {
+sub load_idx_files($self) {
+
+}
+
+sub write_idx_files($self) {
+
+    $self->write_module_idx();
+    $self->write_explicit_versions_idx();
+
+    return;
+}
+
+sub _module_idx($self) {
+    return $self->base_dir() . '/module.idx';
+}
+
+sub _explicit_versions_idx($self) {
+    return $self->base_dir() . '/explicit_versions.idx';
+}
+
+sub max($a, $b) { 
+    return $a > $b ? $a : $b;
+}
+
+sub write_module_idx($self) {
+    return $self->_write_idx(
+        $self->_module_idx,
+        undef,
+        [ qw{module version repository repository_version} ], 
+        $self->{latest_module}
+    );
+}
+
+sub write_explicit_versions_idx($self) {
+
+    return $self->_write_idx(
+        $self->_explicit_versions_idx,
+        undef,
+        [ qw{module version repository repository_version sha signature} ], 
+        $self->{all_modules}
+    );
+}
+
+sub _write_idx( $self, $file, $headers, $columns, $data ) {
+
+    return unless $data && ref $data;
+
+    die unless ref $columns eq 'ARRAY';
+
+    my @L = map { length $_ } @$columns;
+    $L[0] += 2; # '# ' in front
+
+    foreach my $k ( sort keys $data->%* ) {
+        my @values = map { $data->{$k}->{$_} } @$columns;
+        
+        for ( my $i = 0; $i < scalar @L; ++$i ) {
+            $L[$i] = max( $L[$i], length $values[$i] );
+        } 
+    }
+
+    @L = map { $_ + 1 } @L; # add an extra space
+
+    my $format = join( "\t", map { "%-${_}s" } @L );
+
+    open( my $fh, '>:utf8', $file ) or die;
+    if ( $headers ) {
+        chomp $headers;
+        print {$fh} $headers . "\n";
+    }
+    printf( $fh "# $format\n", @$columns );
+
+    foreach my $k ( sort keys $data->%* ) {
+        printf( $fh "$format\n", map { $data->{$k}->{$_} } @$columns );   
+    }
+
+    return 1;
+}
+
+sub index_module($self, $module, $version, $repository, $repository_version, $sha ) {
+# latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
+# module        version      repo
+# foo::bar::baz   1.000   foo-bar
+# foo::bar::biz   2.000   foo-bar
+
+    $self->{latest_module} //= {};
+
+    $self->{latest_module}->{$module} = {
+        module     => $module, # easier to write the file content
+        version    => $version,
+        repository => $repository,  # or repo@1.0
+        repository_version => $repository_version,
+    };
+
+# all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
+# module    version        repo  repo_version sha signature
+# foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
+# foo::bar::baz   0.04_01  foo-bar deadbaaf
+# foo::bar::biz    2.000  foo-bar deadbeef
+
+    $self->{all_modules} //= {};
+
+    my $key = "$module||$version";
+
+    $self->{all_modules}->{$key} = {
+        module => $module,
+        version => $version,
+        repository => $repository,
+        repository_version => $repository_version,
+        sha => $sha,
+        signature => 'beef',
+    };
+
+
+    return;
+}
+
+sub index_repository($self, $version, $sha1, $signature) {
+=pod
+# latest distro index https://raw.githubusercontent.com/newpause/index_repo/p7/distros.idx
+# http://github.com/newpause/${distro}/archive/${sha}.tar.gz
+distro     version   sha            signature
+foo-bar  1.005     deadbeef   abcdef123435
+=cut
+
+}
+
+sub refresh_repository($self, $repository) {
+
+    return if $self->is_internal_repo( $repository );
+
+    INFO( "refresh_repository", $repository );
+    
+    $self->sleep_until_not_throttled; # check API rate limit
+
+    my $build = $self->get_build_info( $repository );
+    return unless $build;
+
+    #$self->index_repository(...);
+
+    my $repository_version = $build->{version};
+
+    my $provides = $build->{provides} // {};
+    foreach my $module ( keys $provides->%* ) {
+        my $version = $provides->{$module}->{version} // $repository_version;
+        my $sha = $build->{sha} or die "missing sha for $repository";
+
+        $self->index_module(
+            $module, $version, $repository, $repository_version, $sha
+        );
+    }
+
+    #note explain $build;
+
+    return;
+}
+
+sub refresh_all_repositories($self) {
+    my $all_repos = $self->github_repos;
+
+    my $c = 0;
+    foreach my $repository ( sort keys %$all_repos ) {        
+        $self->refresh_repository( $repository );
+        last if ++$c > 2;
+    }
+
+    return;
+}
+
+sub _log(@args) {
+    my $dt     = DateTime->now;
+    my $hms    = $dt->hms;
+
+    my $msg = join( ' ', "[${hms}]", grep { defined $_ } @args );
     chomp $msg;
-    print $msg . "\n";
+    $msg .= "\n";
+    
+    print STDERR $msg;    
+    ### .. log to an error file
+
+    return $msg;
+}
+
+sub INFO (@what) {
+    _log( '[INFO]', @what );
+
+    return;
+}
+
+
+sub DEBUG (@what) {
+    _log( '[DEBUG]', @what );
+
+    return;
+}
+
+sub ERROR (@what) {
+    _log( '[ERROR]', @what );
     return;
 }
 
@@ -148,17 +353,36 @@ sub sleep_until_not_throttled ($self) {
         $gh->update_rate_limit();
     }
 
-    DEBUG( "        Rate remaining is $rate_remaining. Resets in " . ( time - $gh->rate_limit_reset() ) . " sec" ) if !$loop;
+    DEBUG( "        Rate remaining is $rate_remaining. Resets in", ( time - $gh->rate_limit_reset() ), "sec" ) if !$loop;
 
     $loop = $loop + 1 % 10;
 
     return;
 }
 
+after 'print_usage_text'  => sub { 
+    print <<EOS
+
+Sample usages:
+
+$0                  refresh all modules
+$0 --repo Foo       only refresh a single repository
+$0 --full_update    regenerate the index files
+
+EOS
+};
 
 package main;
 
-my $ptgr = UpdateIndex->new_with_options( configfile => "${FindBin::Bin}/settings.ini" );
+use strict;
+use warnings;
 
-exit( $ptgr->run );
+$| = 1;
 
+if ( ! caller ) {
+    my $update = UpdateIndex->new_with_options( configfile => "${FindBin::Bin}/settings.ini" );
+
+    exit( $update->run );    
+}
+
+1;

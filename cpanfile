@@ -2,6 +2,7 @@ requires "Config::Tiny"           => 0;
 requires "CPAN::DistnameInfo"     => 0;
 requires "CPAN::Meta::YAML"       => 0;
 requires "Data::Dumper"           => 0;
+requires "DateTime"               => 0;
 requires "File::Basename"         => 0;
 requires "Git::Wrapper"           => 0;
 requires "IO::Uncompress::Gunzip" => 0;
