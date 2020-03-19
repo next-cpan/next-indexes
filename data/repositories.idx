@@ -1,0 +1,6 @@
+{
+ "columns": ["repository", "version", "sha", "signature"],
+ "data": [
+    ["A1z-HTML5-Template", "0.22", "b7ca5dd0d14445fa39b3cb4a16f876cb7b92818f", "***signature***"],
+    ["A1z-Html", "0.003", "68bda645264597f8d9dd6e6f5316bd77d7aa0c7f", "***signature***"]
+ ] }
