@@ -1,2 +1,6 @@
-{"module": "A1z::HTML5::Template", "repository": "A1z-HTML5-Template", "repository_version": "0.22", "version": "0.22"}
-{"module": "A1z::Html", "repository": "A1z-Html", "repository_version": "0.003", "version": "0.003"}
+{
+ "columns": ["module", "version", "repository", "repository_version"],
+ "data": [
+    ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
+    ["A1z::Html", "0.003", "A1z-Html", "0.003"]
+ ] }

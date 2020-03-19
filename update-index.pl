@@ -166,7 +166,7 @@ sub max($a, $b) {
 }
 
 sub write_module_idx($self) {
-    return $self->_write_idx_jsonl(
+    return $self->_write_idx(
         $self->_module_idx,
         undef,
         [ qw{module version repository repository_version} ], 
@@ -176,7 +176,7 @@ sub write_module_idx($self) {
 
 sub write_explicit_versions_idx($self) {
 
-    return $self->_write_idx_jsonl(
+    return $self->_write_idx(
         $self->_explicit_versions_idx,
         undef,
         [ qw{module version repository repository_version sha signature} ], 
@@ -185,15 +185,15 @@ sub write_explicit_versions_idx($self) {
 }
 
 sub write_repositories_idx($self) {
-    return $self->_write_idx_jsonl(
+    return $self->_write_idx(
         $self->_repositories_idx,
         undef,
-        [ qw{repository repository_version sha signature} ], 
+        [ qw{repository version sha signature} ], 
         $self->{repositories}
     );
 }
 
-sub _write_idx_jsonl( $self, $file, $headers, $columns, $data ) {
+sub _write_idx( $self, $file, $headers, $columns, $data ) {
     return unless $data && ref $data;
 
     die unless ref $columns eq 'ARRAY';
@@ -207,15 +207,33 @@ sub _write_idx_jsonl( $self, $file, $headers, $columns, $data ) {
         print {$fh} $headers . "\n";
     }
 
-    foreach my $k ( sort keys $data->%* ) {
-        print {$fh} $json->encode( $data->{$k} ) . "\n";
+    print {$fh} "{\n";
+    print {$fh} " " .q["columns": ] . $json->encode( $columns ) . ",\n";
+    print {$fh} " " . qq{"data": [} ."\n";
+
+    my @keys = sort keys $data->%*;
+    my $c = 0;
+    foreach my $k ( @keys ) {
+        ++$c;
+        my $end = $c == scalar @keys ? "\n" : ",\n";
+        print {$fh} "    " . $json->encode( [ map { $data->{$k}->{$_} } @$columns ]  ) . $end;
+    }
+
+    print {$fh} " ] }\n";
+    close($fh);
+
+    {
+        local $/;
+        open( my $fh, '<:utf8', $file ) or die;
+        my $content = <$fh>;
+
+        $json->decode( $content ) or die "Fail to decode file $file";
     }
 
     return;
 }
 
-### note using .jsonl makes more sense
-sub _write_idx( $self, $file, $headers, $columns, $data ) {
+sub _write_idx_txt( $self, $file, $headers, $columns, $data ) {
 
     return unless $data && ref $data;
 
