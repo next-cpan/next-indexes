@@ -45,9 +45,9 @@ my %__methods = (
     is_public_member => { url => "/orgs/%s/public_members/%s", check_status => 204 },
     publicize_member => { url => "/orgs/%s/public_members/%s", method => 'PUT', check_status => 204 },
     conceal_member => { url => "/orgs/%s/public_members/%s", method => 'DELETE', check_status => 204 },
-    membership => { url => "/orgs/:org/memberships/:username", method => 'GET' },
-    update_membership => { url => "/orgs/:org/memberships/:username", method => 'PUT', args => 1 },
-    delete_membership => { url => "/orgs/:org/memberships/:username", method => 'DELETE', check_status => 204 },
+    membership => { url => "/orgs/:org/memberships/:username", method => 'GET', v => 2 },
+    update_membership => { url => "/orgs/:org/memberships/:username", method => 'PUT', args => 1, v => 2 },
+    delete_membership => { url => "/orgs/:org/memberships/:username", method => 'DELETE', check_status => 204, v => 2 },
     # Org Teams API
     teams => { url => "/orgs/%s/teams", paginate => 1 },
     team  => { url => "/teams/%s" },
@@ -65,8 +65,18 @@ my %__methods = (
     delete_team_repos => { url => "/teams/%s/repos/%s", method => 'DELETE', check_status => 204 },
     # Org repos
     list_repos => { url => "/orgs/%s/repos", paginate => 1, method => 'GET' },
+    # Contents
+    # GET /repos/:owner/:repo/contents/:path ? ref=
+    contents => { url => "/repos/%s/%s/contents/%s", method => 'GET' },
+
+    contents_v2 => { url => "/repos/:owner/:repo/contents/:path", method => 'GET', v => 2 },
+    contents_ref => { url => "/repos/%s/%s/contents/%s?ref=%s", method => 'GET' },
+    ### idea 
+    # contents => { url => "/repos/:owner/:repo/contents/:path?ref=:ref", method => 'GET' },
     
 );
+
+# return $self->query($method, $u, @qargs);
 __build_methods(__PACKAGE__, %__methods);
 
 no Moo;
@@ -163,7 +173,7 @@ L<http://developer.github.com/v3/orgs/members/>
 
 =item delete_membership
 
-    my $membership = $org->membership('perlchina', 'fayland');
+    my $membership = $org->membership( org => 'perlchina', username => 'fayland');
     my $membership = $org->update_membership('perlchina', 'fayland', {
         role => 'admin',
     });
