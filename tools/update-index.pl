@@ -54,6 +54,7 @@ use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
 has 'repo'        => ( is => 'rw', isa => 'Str' );
 has 'limit'       => ( is => 'rw', isa => 'Int', default => 0 );
+has 'force'       => ( is => 'rw', isa => 'Bool', default => 0, documentation => 'force refresh one or more modules' );
 
 # settings.ini
 has 'base_dir'       => ( isa => 'Str', is => 'rw', default => sub { Cwd::abs_path( $FindBin::Bin . "/.." ) }, documentation => 'The base directory where our idx files are stored.' );
@@ -99,7 +100,7 @@ local $SIG{'INT'} = sub {
 
 sub _build_idx_version($self) {
     my $dt = DateTime->now;
-    return $dt->ymd('') . $dt->hms('');   
+    return $dt->ymd('') . $dt->hms('');
 }
 
 sub is_internal_repo ( $self, $repository ) {
@@ -112,22 +113,47 @@ sub get_build_info ( $self, $repository ) {
 
     my $build_file = 'BUILD.json';
 
-    my $content;
+    ## first get HEAD commit for the main_branch
+
+    ## detect HEAD state
+    my $HEAD;
     eval {
-        $content = $self->gh->repos->get_content(
-            { owner => $self->github_org, repo => $repository, path => $build_file },
-            { ref   => $self->main_branch }
+        my $api_answer = $self->gh->repos->commit(
+            # FIXME move to v2 - once merged
+            # GET /repos/:owner/:repo/commits/:ref
+            $self->github_org, $repository, $self->main_branch
         );
+
+        $HEAD = $api_answer->{sha};
     };
-    if ( $@ || !ref $content || !length $content->{content} ) {
-        ERROR($repository, "Cannot find '$build_file'");
+
+    if ( $@ || !defined $HEAD ) {
+        ERROR( $repository, "fail to detect HEAD commit" );
         return;
     }
 
-    my $decoded = MIME::Base64::decode_base64( $content->{content} );
-    my $build   = $self->json->decode($decoded);
+    ## retrieve build status
+    my $build;
+    eval {
+        my $api_answer = $self->gh->repos->get_content(
+            { owner => $self->github_org, repo => $repository, path => $build_file },
+            { ref   => $HEAD } # make sure we use the same state as HEAD
+        );
 
-    $build->{sha} = $content->{sha};    # add the sha to the build information
+        die q[No API answer from get_content] unless ref $api_answer;
+        die q[No content from get_content] unless length $api_answer->{content};
+
+        my $decoded = MIME::Base64::decode_base64( $api_answer->{content} );
+        $build   = $self->json->decode($decoded);
+    };
+
+    if ( $@ || !ref $build ) {
+        ERROR($repository, "Cannot find '$build_file'", $@ );
+        return;
+    }
+
+    # add the sha to the build information
+    $build->{sha} = $HEAD;
 
     return $build;
 }
@@ -266,9 +292,14 @@ sub write_explicit_versions_idx($self) {
 }
 
 sub write_repositories_idx($self) {
+    # move to accessor
+    state $template_url = q[https://github.com/].$self->github_org.q[/:repository/archive/:sha.tar.gz];
+
+    my $headers = qq[ "template_url": "$template_url",];
+
     return $self->_write_idx(
         $self->_repositories_idx,
-        undef,
+        $headers,
         [qw{repository version sha signature}],
         $self->{repositories}
     );
@@ -283,15 +314,14 @@ sub _write_idx ( $self, $file, $headers, $columns, $data ) {
 
     open( my $fh, '>:utf8', $file ) or die;
 
+    print {$fh} "{\n";
     if ($headers) {
         chomp $headers;
         print {$fh} $headers . "\n";
     }
-
-    print {$fh} "{\n";    
-    print {$fh} " " . q["version": ] . $self->idx_version . ",\n";
-    print {$fh} " " . q["columns": ] . $json->encode($columns) . ",\n";
-    print {$fh} " " . qq{"data": [} . "\n";
+    print {$fh} q[ "version": ] . $self->idx_version . ",\n";
+    print {$fh} q[ "columns": ] . $json->encode($columns) . ",\n";
+    print {$fh} q{ "data": [} . "\n";
 
     my @keys = sort keys $data->%*;
     my $c    = 0;
@@ -420,7 +450,7 @@ sub refresh_repository ( $self, $repository ) {
     my $repository_version = $build->{version};
     my $sha                = $build->{sha} or die "missing sha for $repository";
 
-    if ( $self->{repositories}->{$repository} && defined $self->{repositories}->{$repository}->{sha}
+    if ( !$self->force && $self->{repositories}->{$repository} && defined $self->{repositories}->{$repository}->{sha}
         && $sha eq $self->{repositories}->{$repository}->{sha} )  {
         DEBUG($repository, "no changes detected - skip" );
         return;
@@ -531,10 +561,11 @@ after 'print_usage_text' => sub {
 
 Sample usages:
 
-$0                  # refresh all modules
-$0 --repo A1z-Html  # only refresh a single repository
-$0 --full_update    # regenerate the index files
-$0 --limit 5        # stop after reading X repo
+$0                          # refresh all modules
+$0 --repo A1z-Html          # only refresh a single repository
+$0 --repo A1z-Html --force  # only refresh a single repository
+$0 --full_update            # regenerate the index files
+$0 --limit 5                # stop after reading X repo
 
 EOS
 };
