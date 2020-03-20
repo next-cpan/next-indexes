@@ -2,7 +2,7 @@
 
 This repository provides alternate index files to use CPAN modules without depending on PAUSE.
 
-(https://pause-play.github.io/pause-index/)[https://pause-play.github.io/pause-index/]
+[https://pause-play.github.io/pause-index/](https://pause-play.github.io/pause-index/)
 
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
