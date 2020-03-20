@@ -1,4 +1,5 @@
 {
+ "version": 20200320170532,
  "columns": ["module", "version", "repository", "repository_version", "sha", "signature"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "b7ca5dd0d14445fa39b3cb4a16f876cb7b92818f", "***signature***"],

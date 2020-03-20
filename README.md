@@ -128,7 +128,7 @@ Also consider using traditional CPAN Clients, relying on PAUSE index:
 - [X] use GitHub pages and update idx URLs to use GitHub CDN
 - [ ] minimal static website listing all available distribution/packages
 - [ ] remove the repository_version from `module.idx`
-- [ ] add a `version` field to the `.idx` files
+- [X] add a `version` field to the `.idx` files
 - [ ] add `template_url` field to get the URL to download the tarball
 - [ ] do not list trial versions in `distro.idx` file
 - [ ] use cplay instead of cpanm to install dependencies

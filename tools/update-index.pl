@@ -80,6 +80,8 @@ has 'github_repos' => (
     },
 );
 
+has 'idx_version' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
+
 has 'json' => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { JSON::XS->new->utf8->pretty } );
 
 my $GOT_SIG_SIGNAL;
@@ -94,6 +96,11 @@ local $SIG{'INT'} = sub {
 
     return;
 };
+
+sub _build_idx_version($self) {
+    my $dt = DateTime->now;
+    return $dt->ymd('') . $dt->hms('');   
+}
 
 sub is_internal_repo ( $self, $repository ) {
     $self->{_internal_repo} //= { map { $_ => 1 } INTERNAL_REPO };
@@ -281,7 +288,8 @@ sub _write_idx ( $self, $file, $headers, $columns, $data ) {
         print {$fh} $headers . "\n";
     }
 
-    print {$fh} "{\n";
+    print {$fh} "{\n";    
+    print {$fh} " " . q["version": ] . $self->idx_version . ",\n";
     print {$fh} " " . q["columns": ] . $json->encode($columns) . ",\n";
     print {$fh} " " . qq{"data": [} . "\n";
 
