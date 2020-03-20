@@ -2,6 +2,8 @@
 
 This repository provides alternate index files to use CPAN modules without depending on PAUSE.
 
+(https://pause-play.github.io/pause-index/)[https://pause-play.github.io/pause-index/]
+
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
 This repo `pause-index` host some index files which can be consumed to download and install most Perl modules.
@@ -78,7 +80,36 @@ It's useful to get for example an older or TRIAL version.
 
 # Tools
 
+Installing App::cpanminus: `curl -L https://cpanmin.us | perl - App::cpanminus`
+Installing dependencies: `cpanm --installdeps . --cpanfile tools/cpanfile`
+
 ## How to refresh the index
+
+The command `./tools/update-index.pl` is going to parse all GitHub repositories for new distribution.
+
+```
+# refresh the index
+./tools/update-index.pl
+```
+
+You can also limit the number of repositories to check:
+```
+./tools/update-index.pl --limit 5
+```
+
+### Updating a single repository
+
+```
+./tools/update-index.pl --repo A1z-Html
+```
+
+### Perform a full update
+
+```
+./tools/update-index.pl --full-update
+```
+
+You can also use `--limit X`.
 
 # See Also
 
@@ -96,3 +127,4 @@ Also consider using traditional CPAN Clients, relying on PAUSE index:
 - [ ] add a `version` field to the `.idx` files
 - [ ] add `template_url` field to get the URL to download the tarball
 - [ ] do not list trial versions in `distro.idx` file
+- [ ] use cplay instead of cpanm to install dependencies
