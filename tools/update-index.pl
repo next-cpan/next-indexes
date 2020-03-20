@@ -85,6 +85,8 @@ has 'idx_version' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_i
 
 has 'json' => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { JSON::XS->new->utf8->pretty } );
 
+has 'template_url' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_template_url' );
+
 my $GOT_SIG_SIGNAL;
 local $SIG{'INT'} = sub {
     if ( $GOT_SIG_SIGNAL ) {
@@ -101,6 +103,10 @@ local $SIG{'INT'} = sub {
 sub _build_idx_version($self) {
     my $dt = DateTime->now;
     return $dt->ymd('') . $dt->hms('');
+}
+
+sub _build_template_url($self) {
+    return q[https://github.com/].$self->github_org.q[/:repository/archive/:sha.tar.gz];
 }
 
 sub is_internal_repo ( $self, $repository ) {
@@ -292,9 +298,7 @@ sub write_explicit_versions_idx($self) {
 }
 
 sub write_repositories_idx($self) {
-    # move to accessor
-    state $template_url = q[https://github.com/].$self->github_org.q[/:repository/archive/:sha.tar.gz];
-
+    my $template_url = $self->template_url;
     my $headers = qq[ "template_url": "$template_url",];
 
     return $self->_write_idx(
