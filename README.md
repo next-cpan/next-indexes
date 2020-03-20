@@ -8,6 +8,9 @@ Rather than using distribution tarball from PAUSE itself, `play` is relying on G
 
 This repo `pause-index` host some index files which can be consumed to download and install most Perl modules.
 
+`cplay` is the recommended CPAN client using these indexes and GitHub repositories.
+You can read more about cplay client on the [cplay website](https://pause-play.github.io/cplay/).
+
 # List of index files
 
 The index files in this repository are a replacement for the traditional index file `02packages.details.txt.gz` used by CPAN and most/all CPAN clients.
@@ -115,6 +118,7 @@ You can also use `--limit X`.
 
 Also consider using traditional CPAN Clients, relying on PAUSE index:
 
+- [cplay](https://pause-play.github.io/cplay/) - CPAN client using pause-play indexes
 - cpan
 - [App::cpanminus](https://metacpan.org/pod/App::cpanminus) - get, unpack, build and install modules from CPAN
 - [App::cpm](https://metacpan.org/pod/App::cpm) - a fast CPAN moduler installer
