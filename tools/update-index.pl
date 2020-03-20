@@ -32,13 +32,20 @@ use CPAN::DistnameInfo ();
 use version            ();
 use Net::GitHub::V3;
 
+use Crypt::Digest::MD5 ();
+use IO::Socket::SSL    ();    # q/SSL_VERIFY_NONE/;
+use Mojo::UserAgent    ();
+
 use List::MoreUtils qw{zip};
+
+use File::Temp ();
 
 use MIME::Base64 ();
 use JSON::XS     ();
 
 BEGIN {
-    $Net::GitHub::V3::Orgs::VERSION == '2.0' or die("Need custom version of Net::GitHub::V3::Orgs to work!");
+    $Net::GitHub::V3::Orgs::VERSION == '2.0'
+        or die("Need custom version of Net::GitHub::V3::Orgs to work!");
 }
 
 use YAML::Syck   ();
@@ -54,47 +61,106 @@ use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
 has 'repo'        => ( is => 'rw', isa => 'Str' );
 has 'limit'       => ( is => 'rw', isa => 'Int', default => 0 );
-has 'force'       => ( is => 'rw', isa => 'Bool', default => 0, documentation => 'force refresh one or more modules' );
+has 'force'       => (
+    is            => 'rw', isa => 'Bool', default => 0,
+    documentation => 'force refresh one or more modules'
+);
 
 # settings.ini
-has 'base_dir'       => ( isa => 'Str', is => 'rw', default => sub { Cwd::abs_path( $FindBin::Bin . "/.." ) }, documentation => 'The base directory where our idx files are stored.' );
-has 'github_user'    => ( isa => 'Str', is => 'ro', required => 1, documentation => q{REQUIRED - The github username we'll use to create and update repos.} );                            # = pause-parser
-has 'github_token'   => ( isa => 'Str', is => 'ro', required => 1, documentation => q{REQUIRED - The token we'll use to authenticate.} );
-has 'github_org'     => ( isa => 'Str', is => 'ro', required => 1, documentation => q{REQUIRED - The github organization we'll be creating/updating repos in.} );                         # = pause-play
-has 'repo_user_name' => ( isa => 'Str', is => 'ro', required => 1, documentation => 'The name that will be on commits for this repo.' );
-has 'repo_email'     => ( isa => 'Str', is => 'ro', required => 1, documentation => 'The email that will be on commits for this repo.' );
+has 'base_dir' => (
+    isa           => 'Str', is => 'rw',
+    default       => sub { Cwd::abs_path( $FindBin::Bin . "/.." ) },
+    documentation => 'The base directory where our idx files are stored.'
+);
+has 'github_user' => (
+    isa => 'Str', is => 'ro', required => 1,
+    documentation =>
+        q{REQUIRED - The github username we'll use to create and update repos.}
+);    # = pause-parser
+has 'github_token' => (
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => q{REQUIRED - The token we'll use to authenticate.}
+);
+has 'github_org' => (
+    isa => 'Str', is => 'ro', required => 1,
+    documentation =>
+        q{REQUIRED - The github organization we'll be creating/updating repos in.}
+);    # = pause-play
+has 'repo_user_name' => (
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => 'The name that will be on commits for this repo.'
+);
+has 'repo_email' => (
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => 'The email that will be on commits for this repo.'
+);
 
-has 'git_binary' => ( isa => 'Str', is => 'ro', lazy => 1, default => '/usr/bin/git', documentation => 'The location of the git binary that should be used.' );
+has 'git_binary' => (
+    isa           => 'Str', is => 'ro', lazy => 1, default => '/usr/bin/git',
+    documentation => 'The location of the git binary that should be used.'
+);
 
-has 'gh'      => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { Net::GitHub::V3->new( version => 3, login => $_[0]->github_user, access_token => $_[0]->github_token ) } );
-has 'gh_org'  => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { $_[0]->gh->org } );
-has 'gh_repo' => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { $_[0]->gh->repos } );
+has 'gh' => (
+    isa     => 'Object',
+    is      => 'ro',
+    lazy    => 1,
+    default => sub {
+        Net::GitHub::V3->new(
+            version      => 3, login => $_[0]->github_user,
+            access_token => $_[0]->github_token
+        );
+    }
+);
+has 'gh_org' => (
+    isa     => 'Object', is => 'ro', lazy => 1,
+    default => sub { $_[0]->gh->org }
+);
+has 'gh_repo' => (
+    isa     => 'Object', is => 'ro', lazy => 1,
+    default => sub { $_[0]->gh->repos }
+);
 
-has 'main_branch' => ( isa => 'Str', is => 'ro', default => 'p5', documentation => 'The main branch we are working on: p5, p7, ...' );
+has 'main_branch' => (
+    isa           => 'Str', is => 'ro', default => 'p5',
+    documentation => 'The main branch we are working on: p5, p7, ...'
+);
 
 has 'github_repos' => (
     isa     => 'HashRef',
     is      => 'rw',
     lazy    => 1,
     default => sub ($self) {
-        return { map { $_->{'name'} => $_ } $self->gh_org->list_repos( $self->github_org ) };
+        return { map { $_->{'name'} => $_ }
+                $self->gh_org->list_repos( $self->github_org ) };
     },
 );
 
-has 'idx_version' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
+has 'idx_version' =>
+    ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
 
-has 'json' => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { JSON::XS->new->utf8->pretty } );
+has 'json' => (
+    isa     => 'Object', is => 'ro', lazy => 1,
+    default => sub { JSON::XS->new->utf8->pretty }
+);
 
-has 'template_url' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_template_url' );
+has 'template_url' =>
+    ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_template_url' );
+
+has 'tmp_dir' => (
+    isa     => 'Object', is => 'ro', lazy => 1,
+    default => sub { File::Temp->newdir() }
+);
 
 my $GOT_SIG_SIGNAL;
 local $SIG{'INT'} = sub {
-    if ( $GOT_SIG_SIGNAL ) {
+    if ($GOT_SIG_SIGNAL) {
         INFO("SIGINT sent twice... going to abort the program!");
         exit(1);
     }
 
-    INFO("SIGINT requested, stopping parsing at the end of next repo. Please Wait!");
+    INFO(
+        "SIGINT requested, stopping parsing at the end of next repo. Please Wait!"
+    );
     $GOT_SIG_SIGNAL = 1;
 
     return;
@@ -106,7 +172,10 @@ sub _build_idx_version($self) {
 }
 
 sub _build_template_url($self) {
-    return q[https://github.com/].$self->github_org.q[/:repository/archive/:sha.tar.gz];
+    return
+          q[https://github.com/]
+        . $self->github_org
+        . q[/:repository/archive/:sha.tar.gz];
 }
 
 sub is_internal_repo ( $self, $repository ) {
@@ -125,6 +194,7 @@ sub get_build_info ( $self, $repository ) {
     my $HEAD;
     eval {
         my $api_answer = $self->gh->repos->commit(
+
             # FIXME move to v2 - once merged
             # GET /repos/:owner/:repo/commits/:ref
             $self->github_org, $repository, $self->main_branch
@@ -142,19 +212,22 @@ sub get_build_info ( $self, $repository ) {
     my $build;
     eval {
         my $api_answer = $self->gh->repos->get_content(
-            { owner => $self->github_org, repo => $repository, path => $build_file },
-            { ref   => $HEAD } # make sure we use the same state as HEAD
+            {   owner => $self->github_org, repo => $repository,
+                path  => $build_file
+            },
+            { ref => $HEAD }    # make sure we use the same state as HEAD
         );
 
         die q[No API answer from get_content] unless ref $api_answer;
-        die q[No content from get_content] unless length $api_answer->{content};
+        die q[No content from get_content]
+            unless length $api_answer->{content};
 
         my $decoded = MIME::Base64::decode_base64( $api_answer->{content} );
-        $build   = $self->json->decode($decoded);
+        $build = $self->json->decode($decoded);
     };
 
     if ( $@ || !ref $build ) {
-        ERROR($repository, "Cannot find '$build_file'", $@ );
+        ERROR( $repository, "Cannot find '$build_file'", $@ );
         return;
     }
 
@@ -256,7 +329,8 @@ sub load_repositories_idx($self) {
 sub load_explicit_versions_idx($self) {
     my $rows = $self->_load_idx( $self->_explicit_versions_idx ) or return;
 
-    $self->{all_modules} = { map { $_->{module} . "||" . $_->{version} => $_ } @$rows };
+    $self->{all_modules}
+        = { map { $_->{module} . "||" . $_->{version} => $_ } @$rows };
 
     return;
 }
@@ -272,7 +346,8 @@ sub _load_idx ( $self, $file ) {
         open( my $fh, '<:utf8', $file ) or die;
         my $content = <$fh>;
 
-        $idx = $self->json->decode($content) or die "Fail to decode file $file";
+        $idx = $self->json->decode($content)
+            or die "Fail to decode file $file";
     }
 
     my $columns = $idx->{columns} or die;
@@ -299,7 +374,7 @@ sub write_explicit_versions_idx($self) {
 
 sub write_repositories_idx($self) {
     my $template_url = $self->template_url;
-    my $headers = qq[ "template_url": "$template_url",];
+    my $headers      = qq[ "template_url": "$template_url",];
 
     return $self->_write_idx(
         $self->_repositories_idx,
@@ -332,7 +407,9 @@ sub _write_idx ( $self, $file, $headers, $columns, $data ) {
     foreach my $k (@keys) {
         ++$c;
         my $end = $c == scalar @keys ? "\n" : ",\n";
-        print {$fh} "    " . $json->encode( [ map { $data->{$k}->{$_} } @$columns ] ) . $end;
+        print {$fh} "    "
+            . $json->encode( [ map { $data->{$k}->{$_} } @$columns ] )
+            . $end;
     }
 
     print {$fh} " ] }\n";
@@ -368,7 +445,7 @@ sub _write_idx_txt ( $self, $file, $headers, $columns, $data ) {
 
     @L = map { $_ + 1 } @L;    # add an extra space
 
-    my $format = join( "\t", map { "%-${_}s" } @L );
+    my $format = join( "\t", map {"%-${_}s"} @L );
 
     open( my $fh, '>:utf8', $file ) or die;
     if ($headers) {
@@ -384,27 +461,30 @@ sub _write_idx_txt ( $self, $file, $headers, $columns, $data ) {
     return 1;
 }
 
-sub index_module ( $self, $module, $version, $repository, $repository_version, $sha ) {
+sub index_module (
+    $self,               $module, $version, $repository,
+    $repository_version, $sha,    $signature
+) {
 
-    # latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
-    # module        version      repo
-    # foo::bar::baz   1.000   foo-bar
-    # foo::bar::biz   2.000   foo-bar
+# latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
+# module        version      repo
+# foo::bar::baz   1.000   foo-bar
+# foo::bar::biz   2.000   foo-bar
 
     $self->{latest_module} //= {};
 
     $self->{latest_module}->{$module} = {
-        module             => $module,               # easier to write the file content
-        version            => $version,
-        repository         => $repository,           # or repo@1.0
+        module     => $module,        # easier to write the file content
+        version    => $version,
+        repository => $repository,    # or repo@1.0
         repository_version => $repository_version,
     };
 
-    # all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
-    # module    version        repo  repo_version sha signature
-    # foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
-    # foo::bar::baz   0.04_01  foo-bar deadbaaf
-    # foo::bar::biz    2.000  foo-bar deadbeef
+# all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
+# module    version        repo  repo_version sha signature
+# foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
+# foo::bar::baz   0.04_01  foo-bar deadbaaf
+# foo::bar::biz    2.000  foo-bar deadbeef
 
     $self->{all_modules} //= {};
 
@@ -416,13 +496,16 @@ sub index_module ( $self, $module, $version, $repository, $repository_version, $
         repository         => $repository,
         repository_version => $repository_version,
         sha                => $sha,
-        signature          => q[***signature***],
+        signature          => $signature,
     };
 
     return;
 }
 
-sub index_repository ( $self, $repository, $repository_version, $sha, $signature ) {
+sub index_repository (
+    $self, $repository, $repository_version, $sha,
+    $signature
+) {
 
 =pod
 # latest distro index https://raw.githubusercontent.com/newpause/index_repo/p7/distros.idx
@@ -442,6 +525,34 @@ foo-bar  1.005     deadbeef   abcdef123435
     return;
 }
 
+sub compute_build_signature ( $self, $build ) {
+    return unless ref $build;
+
+    my $url = $self->template_url;
+
+    my $repository = $build->{name} or die;
+    my $sha        = $build->{sha}  or die;
+
+    $url =~ s{:repository}{$repository};
+    $url =~ s{:sha}{$sha};
+
+    DEBUG( "... downloading:", $url );
+
+    my $tmp_file = $self->tmp_dir . '/dist.tar.gz';
+
+    if ( -e $tmp_file ) {
+        unlink($tmp_file) or die "Fail to remove tmp_file: $tmp_file";
+    }
+
+    my $ua = Mojo::UserAgent->new;
+    $ua->max_redirects(5)->get($url)->result->save_to($tmp_file);
+
+    my $signature = Crypt::Digest::MD5::md5_file_hex($tmp_file);
+    unlink($tmp_file);
+
+    return $signature;
+}
+
 sub refresh_repository ( $self, $repository ) {
 
     return if $self->is_internal_repo($repository);
@@ -452,28 +563,35 @@ sub refresh_repository ( $self, $repository ) {
     return unless $build;
 
     my $repository_version = $build->{version};
-    my $sha                = $build->{sha} or die "missing sha for $repository";
+    my $sha = $build->{sha} or die "missing sha for $repository";
 
-    if ( !$self->force && $self->{repositories}->{$repository} && defined $self->{repositories}->{$repository}->{sha}
-        && $sha eq $self->{repositories}->{$repository}->{sha} )  {
-        DEBUG($repository, "no changes detected - skip" );
+    if (  !$self->force
+        && $self->{repositories}->{$repository}
+        && defined $self->{repositories}->{$repository}->{sha}
+        && $sha eq $self->{repositories}->{$repository}->{sha} ) {
+        DEBUG( $repository, "no changes detected - skip" );
         return;
     }
 
     INFO( "refresh_repository", $repository );
 
+    my $signature = $self->compute_build_signature($build);
+
     $self->index_repository(
         $repository,
         $repository_version,
         $sha,
-        q[***signature***],
+        $signature,
     );
 
     my $provides = $build->{provides} // {};
     foreach my $module ( keys $provides->%* ) {
         my $version = $provides->{$module}->{version} // $repository_version;
 
-        $self->index_module( $module, $version, $repository, $repository_version, $sha );
+        $self->index_module(
+            $module,             $version, $repository,
+            $repository_version, $sha,     $signature
+        );
     }
 
     #note explain $build;
@@ -490,8 +608,10 @@ sub refresh_all_repositories($self) {
     foreach my $repository ( sort keys %$all_repos ) {
         $self->refresh_repository($repository);
         last if ++$c > $limit && $limit;
-        if ( $GOT_SIG_SIGNAL ) {
-            INFO("SIGINT received - Stopping parsing modules. Writting indexes to disk.");
+        if ($GOT_SIG_SIGNAL) {
+            INFO(
+                "SIGINT received - Stopping parsing modules. Writting indexes to disk."
+            );
             last;
         }
     }
@@ -547,13 +667,18 @@ sub sleep_until_not_throttled ($self) {
         my $time_to_wait = time - $gh->rate_limit_reset() + 1;
         $time_to_wait > 0 or die("time_remaining == $time_to_wait");
         $time_to_wait = int( $time_to_wait / 2 );
-        DEBUG("Only $rate_remaining API queries are allowed for the next $time_to_wait seconds.");
+        DEBUG(
+            "Only $rate_remaining API queries are allowed for the next $time_to_wait seconds."
+        );
         DEBUG("Sleeping until we can send more API queries");
         sleep 10;
         $gh->update_rate_limit();
     }
 
-    DEBUG( "        Rate remaining is $rate_remaining. Resets in", ( time - $gh->rate_limit_reset() ), "sec" ) if !$loop;
+    DEBUG(
+        "        Rate remaining is $rate_remaining. Resets in",
+        ( time - $gh->rate_limit_reset() ), "sec"
+    ) if !$loop;
 
     $loop = $loop + 1 % 10;
 

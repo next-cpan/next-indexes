@@ -123,6 +123,18 @@ Also consider using traditional CPAN Clients, relying on PAUSE index:
 - [App::cpanminus](https://metacpan.org/pod/App::cpanminus) - get, unpack, build and install modules from CPAN
 - [App::cpm](https://metacpan.org/pod/App::cpm) - a fast CPAN moduler installer
 
+# Known issues
+
+## installation
+
+### Installing Crypt::SSLeay for Net::SSL on macOS
+
+```
+PERL_USE_UNSAFE_INC=1 perl Makefile.PL --incpath="/usr/local/Cellar/openssl@1.1/1.1.1d/include" --libpath="/usr/local/Cellar/openssl@1.1/1.1.1d/lib"
+```
+
+
+
 # TODO
 
 - [X] use GitHub pages and update idx URLs to use GitHub CDN
