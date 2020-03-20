@@ -95,25 +95,25 @@ local $SIG{'INT'} = sub {
     return;
 };
 
-sub is_internal_repo ( $self, $repo ) {
+sub is_internal_repo ( $self, $repository ) {
     $self->{_internal_repo} //= { map { $_ => 1 } INTERNAL_REPO };
 
-    return $self->{_internal_repo}->{$repo};
+    return $self->{_internal_repo}->{$repository};
 }
 
-sub get_build_info ( $self, $repo ) {
+sub get_build_info ( $self, $repository ) {
 
     my $build_file = 'BUILD.json';
 
     my $content;
     eval {
         $content = $self->gh->repos->get_content(
-            { owner => $self->github_org, repo => $repo, path => $build_file },
+            { owner => $self->github_org, repo => $repository, path => $build_file },
             { ref   => $self->main_branch }
         );
     };
     if ( $@ || !ref $content || !length $content->{content} ) {
-        ERROR("Cannot find '$build_file' from $repo");
+        ERROR($repository, "Cannot find '$build_file'");
         return;
     }
 
@@ -404,8 +404,6 @@ sub refresh_repository ( $self, $repository ) {
 
     return if $self->is_internal_repo($repository);
 
-    INFO( "refresh_repository", $repository );
-
     $self->sleep_until_not_throttled;    # check API rate limit
 
     my $build = $self->get_build_info($repository);
@@ -413,6 +411,14 @@ sub refresh_repository ( $self, $repository ) {
 
     my $repository_version = $build->{version};
     my $sha                = $build->{sha} or die "missing sha for $repository";
+
+    if ( $self->{repositories}->{$repository} && defined $self->{repositories}->{$repository}->{sha}
+        && $sha eq $self->{repositories}->{$repository}->{sha} )  {
+        DEBUG($repository, "no changes detected - skip" );
+        return;
+    }
+
+    INFO( "refresh_repository", $repository );
 
     $self->index_repository(
         $repository,
