@@ -82,6 +82,19 @@ has 'github_repos' => (
 
 has 'json' => ( isa => 'Object', is => 'ro', lazy => 1, default => sub { JSON::XS->new->utf8->pretty } );
 
+my $GOT_SIG_SIGNAL;
+local $SIG{'INT'} = sub {
+    if ( $GOT_SIG_SIGNAL ) {
+        INFO("SIGINT sent twice... going to abort the program!");
+        exit(1);
+    }
+
+    INFO("SIGINT requested, stopping parsing at the end of next repo. Please Wait!");
+    $GOT_SIG_SIGNAL = 1;
+
+    return;
+};
+
 sub is_internal_repo ( $self, $repo ) {
     $self->{_internal_repo} //= { map { $_ => 1 } INTERNAL_REPO };
 
@@ -429,6 +442,10 @@ sub refresh_all_repositories($self) {
     foreach my $repository ( sort keys %$all_repos ) {
         $self->refresh_repository($repository);
         last if ++$c > $limit && $limit;
+        if ( $GOT_SIG_SIGNAL ) {
+            INFO("SIGINT received - Stopping parsing modules. Writting indexes to disk.");
+            last;
+        }
     }
     continue {
         if ( $c % 10 == 0 ) {    # flush from time to time idx on disk
