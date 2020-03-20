@@ -1,1 +1,17 @@
+# Name of your site (displayed in the header)
+Name: Pause Play Index files
+
+# Short bio or description (displayed in the header)
+description: Index of GitHub repositories mapping CPAN Pause
+
+# URL of your avatar or profile pic (you could use your GitHub profile pic)
+avatar: https://avatars2.githubusercontent.com/u/61987988?s=400&u=b6ab9952dd2ea88ee8d27b145b650561fb884488&v=4
+
 theme: jekyll-theme-architect
+
+# Includes an icon in the footer for each user name you enter
+footer-links:
+  github: pause-play/pause-index
+  twitter: pause-play
+
+# https://github.com/barryclark/jekyll-now/blob/master/_config.yml
