@@ -17,6 +17,10 @@ The index files in this repository are a replacement for the traditional index f
 
 [https://www.cpan.org/modules/02packages.details.txt.gz](https://www.cpan.org/modules/02packages.details.txt.gz)
 
+1. module.idx
+2. repositories.idx
+3. explicit_versions.idx
+
 ## module.idx
 
 The `module.idx` file list the last available version of a module. For each module it indicates which distribution/repository provides it.
@@ -38,7 +42,7 @@ For every module you can know:
  ] }
  ```
 
-## distro.idx
+## repositories.idx
 
 The `repositories.idx` file list the last available version of all CPAN distributions.
 Each CPAN distribution is available from a repository.
@@ -141,6 +145,6 @@ PERL_USE_UNSAFE_INC=1 perl Makefile.PL --incpath="/usr/local/Cellar/openssl@1.1/
 - [ ] minimal static website listing all available distribution/packages
 - [ ] remove the repository_version from `module.idx`
 - [X] add a `version` field to the `.idx` files
-- [ ] add `template_url` field to get the URL to download the tarball
-- [ ] do not list trial versions in `distro.idx` file
+- [X] add `template_url` field to get the URL to download the tarball
+- [X] do not list trial versions in `distro.idx` file
 - [ ] use cplay instead of cpanm to install dependencies

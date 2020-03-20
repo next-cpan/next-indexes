@@ -363,10 +363,12 @@ sub _load_idx ( $self, $file ) {
 }
 
 sub write_explicit_versions_idx($self) {
+    my $template_url = $self->template_url;
+    my $headers      = qq[ "template_url": "$template_url",];
 
     return $self->_write_idx(
         $self->_explicit_versions_idx,
-        undef,
+        $headers,
         [qw{module version repository repository_version sha signature}],
         $self->{all_modules}
     );
@@ -508,11 +510,16 @@ sub index_repository (
 ) {
 
 =pod
-# latest distro index https://raw.githubusercontent.com/newpause/index_repo/p7/distros.idx
+# latest distro index https://raw.githubusercontent.com/newpause/index_repo/p7/repositories.idx
 # http://github.com/newpause/${distro}/archive/${sha}.tar.gz
 distro     version   sha            signature
 foo-bar  1.005     deadbeef   abcdef123435
 =cut
+
+    if ( index( $repository_version, '_' ) >= 0 ) {
+        DEBUG("$repository do not index development version: ", $repository_version, "in repositories.idx" );
+        return;
+    }
 
     $self->{repositories} //= {};
     $self->{repositories}->{$repository} = {
