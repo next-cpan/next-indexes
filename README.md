@@ -32,13 +32,17 @@ For every module you can know:
 - the repository(/CPAN distribution) providing this module
 - the repository version # FIXME maybe useless...
 
-```
-{
+```json
+ {
+ "version": 20200320203836,
  "columns": ["module", "version", "repository", "repository_version"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
-    ["A1z::Html", "0.003", "A1z-Html", "0.003"]
-    ...
+    ["A1z::Html", "0.003", "A1z-Html", "0.003"],
+    ["AC::MrGamoo", "1.0", "AC-MrGamoo", "1"],
+    ["AC::MrGamoo::AC::FileList", 0, "AC-MrGamoo", "1"],
+    ["AC::MrGamoo::AC::MySelf", 0, "AC-MrGamoo", "1"],
+    ["AC::MrGamoo::AC::ReadInput", 0, "AC-MrGamoo", "1"]
  ] }
  ```
 
@@ -58,13 +62,15 @@ For each distribution you can know:
 - signature of the tarball
 
 Sample extract:
-```
+```json
 {
+ "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
+ "version": 20200320203836,
  "columns": ["repository", "version", "sha", "signature"],
  "data": [
-    ["A1z-HTML5-Template", "0.22", "b7ca5dd0d14445fa39b3cb4a16f876cb7b92818f", "***signature***"],
-    ["A1z-Html", "0.003", "68bda645264597f8d9dd6e6f5316bd77d7aa0c7f", "***signature***"]
-    ...
+    ["A1z-HTML5-Template", "0.22", "01dc40b38e40f4f905bc7c902e2df08ccad22640", "f96dbc99fbb4dc833945c881c0f81925"],
+    ["A1z-Html", "0.003", "43484feee16a3ba360490890a203105525db91fb", "c54c2727eb29d7caab44d5e641491c4c"],
+    ["AC-MrGamoo", "1", "517730e24b94805eaf535b3ef4dbba9f776baaab", "7a598f9d71c1999063d91290f19523c5"]
  ] }
 ```
 
@@ -75,44 +81,54 @@ It's useful to get for example an older or TRIAL version.
 
 [https://pause-play.github.io/pause-index/explicit_versions.idx](https://pause-play.github.io/pause-index/explicit_versions.idx)
 
-```
+```json
 {
+ "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
+ "version": 20200320203836,
  "columns": ["module", "version", "repository", "repository_version", "sha", "signature"],
  "data": [
-    ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "b7ca5dd0d14445fa39b3cb4a16f876cb7b92818f", "***signature***"],
-    ["A1z::Html", "0.003", "A1z-Html", "0.003", "68bda645264597f8d9dd6e6f5316bd77d7aa0c7f", "***signature***"]
-    ...
+    ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "01dc40b38e40f4f905bc7c902e2df08ccad22640", "f96dbc99fbb4dc833945c881c0f81925"],
+    ["A1z::Html", "0.003", "A1z-Html", "0.003", "43484feee16a3ba360490890a203105525db91fb", "c54c2727eb29d7caab44d5e641491c4c"]
  ] }
 ```
 
 # Tools
 
-Installing App::cpanminus: `curl -L https://cpanmin.us | perl - App::cpanminus`
-Installing dependencies: `cpanm --installdeps . --cpanfile tools/cpanfile`
+## Installing App::cpanminus:
+
+```sh
+curl -L https://cpanmin.us | perl - App::cpanminus
+```
+
+## Installing dependencies:
+
+```sh
+cpanm --installdeps . --cpanfile tools/cpanfile
+```
 
 ## How to refresh the index
 
 The command `./tools/update-index.pl` is going to parse all GitHub repositories for new distribution.
 
-```
+```sh
 # refresh the index
 ./tools/update-index.pl
 ```
 
 You can also limit the number of repositories to check:
-```
+```sh
 ./tools/update-index.pl --limit 5
 ```
 
 ### Updating a single repository
 
-```
+```sh
 ./tools/update-index.pl --repo A1z-Html
 ```
 
 ### Perform a full update
 
-```
+```sh
 ./tools/update-index.pl --full-update
 ```
 
@@ -136,8 +152,6 @@ Also consider using traditional CPAN Clients, relying on PAUSE index:
 ```
 PERL_USE_UNSAFE_INC=1 perl Makefile.PL --incpath="/usr/local/Cellar/openssl@1.1/1.1.1d/include" --libpath="/usr/local/Cellar/openssl@1.1/1.1.1d/lib"
 ```
-
-
 
 # TODO
 
