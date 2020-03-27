@@ -1,6 +1,6 @@
 {
  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200325192006,
+ "version": 20200327215202,
  "columns": ["module", "version", "repository", "repository_version", "sha", "signature"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "31f5f25a31d06ac3611d4d5fca9958f726703e71", "65e20bb0a05ef27009f785a2bd7b77c8"],
@@ -147,9 +147,9 @@
     ["Abilities::Features", "0", "Abilities", "0.2", "58278c54e626a9b72f8631aadf49e49f7908a2ef", "e796d053e35351773a4be325d3bab9f0"],
     ["Abilities::Scoped", "0", "Abilities", "0.2", "58278c54e626a9b72f8631aadf49e49f7908a2ef", "e796d053e35351773a4be325d3bab9f0"],
     ["Abilities", "0", "Abilities", "0.2", "58278c54e626a9b72f8631aadf49e49f7908a2ef", "e796d053e35351773a4be325d3bab9f0"],
-    ["Abstract::Meta::Attribute::Method", "0", "Abstract-Meta-Class", "0.11", "985d26f52146bf42413a892e69fdd11361139e9d", "d77e2885d02347707cb10b1d07fee8a4"],
-    ["Abstract::Meta::Attribute", "0", "Abstract-Meta-Class", "0.11", "985d26f52146bf42413a892e69fdd11361139e9d", "d77e2885d02347707cb10b1d07fee8a4"],
-    ["Abstract::Meta::Class", "0", "Abstract-Meta-Class", "0.11", "985d26f52146bf42413a892e69fdd11361139e9d", "d77e2885d02347707cb10b1d07fee8a4"],
+    ["Abstract::Meta::Attribute::Method", "0", "Abstract-Meta-Class", "0.11", "4183cc50ec630233be6663a6081f7897ebfdb6e5", "4fad8e47055ac8efc40f134a524b3e9b"],
+    ["Abstract::Meta::Attribute", "0", "Abstract-Meta-Class", "0.11", "4183cc50ec630233be6663a6081f7897ebfdb6e5", "4fad8e47055ac8efc40f134a524b3e9b"],
+    ["Abstract::Meta::Class", "0", "Abstract-Meta-Class", "0.11", "4183cc50ec630233be6663a6081f7897ebfdb6e5", "4fad8e47055ac8efc40f134a524b3e9b"],
     ["Ace::Browser::AceSubs", "0", "AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"],
     ["Ace::Browser::GeneSubs", "0", "AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"],
     ["Ace::Browser::SearchSubs", "0", "AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"],
@@ -193,6 +193,6 @@
     ["Ace::SocketServer", "0", "AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"],
     ["Ace", "0", "AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"],
     ["Acme::123", "0", "Acme-123", "0.04", "1bc0ae2ccce1e121a48ff8991a91fed00183afaa", "de66c349e9f050f92d98fc3ae9d0d888"],
-    ["Acme", "1.11111111111", "Acme", "1.11111111111", "c1874f08768f26162861b3c4a9c78cbcb9741ce7", "b4c25e38d6195e299d802bb58cccc25c"],
+    ["Acme", "1.11111111111", "Acme", "1.11111111111", "f02db70d86de8d394b22a623c23f8927daa3f827", "34589d703cc3dd11a3ee535d47e9505d"],
     ["GFF::Filehandle", "0", "AcePerl", "1.92", "8cda2f75a5fb7e5d47593779a442b2bfb40744c3", "66e684cc8283be41ab014f4290c611a2"]
  ] }
