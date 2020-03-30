@@ -1,5 +1,5 @@
 {
- "version": 20200327215202,
+ "version": 20200330215338,
  "columns": ["module", "version", "repository", "repository_version"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
