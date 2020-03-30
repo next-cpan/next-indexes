@@ -92,47 +92,72 @@ It's useful to get for example an older or TRIAL version.
  ] }
 ```
 
-# Tools
-
-## Installing App::cpanminus:
-
-```sh
-curl -L https://cpanmin.us | perl - App::cpanminus
-```
+# How to update the indexes:
 
 ## Installing dependencies:
 
+In order to use `update-index.pl` you have to install first all dependencies required by the module.
+This can be used by installing/using App::cpanminus and the cpanfile.
+
 ```sh
-cpanm --installdeps . --cpanfile tools/cpanfile
+curl -L https://cpanmin.us | perl - App::cpanminus
+cpanm --installdeps .
+```
+
+## Setup
+
+### Git Repository Setup
+
+The tools are provided in the master branch, whereas the index files are contained in the `p5` branch.
+
+It's recommended to clone the repo in two different locations.
+One directory is going to provide the tools whereas the other will points to the index files.
+
+```sh
+# the tools
+git clone git@github.com:pause-play/pause-index.git pause-index
+
+# the index location
+git clone git@github.com:pause-play/pause-index.git pause-index-p5
+cd pause-index-p5
+git checkout -t origin/p5
+```
+
+### settings.ini
+
+In the `pause-index@master` you will have to copy and adjust the `settings.ini` file.
+
+```
+cp settings.ini.sample settings.ini
+# then adjust entries in the file
 ```
 
 ## How to refresh the index
 
-The command `./tools/update-index.pl` is going to parse all GitHub repositories for new distribution.
+The command `./update-index.pl` is going to parse all GitHub repositories for new distribution.
 
 ```sh
 # refresh the index
-./tools/update-index.pl
+./update-index.pl
 ```
 
 You can also limit the number of repositories to check:
 ```sh
-./tools/update-index.pl --limit 5
+./update-index.pl --limit 5
 ```
 
 ### Updating a single repository
 
 ```sh
-./tools/update-index.pl --repo A1z-Html
+./update-index.pl --repo A1z-Html
 ```
 
 ### Perform a full update
 
 ```sh
-./tools/update-index.pl --full-update
+./update-index.pl --full-update
 ```
 
-You can also use `--limit X`.
 
 # See Also
 
@@ -155,10 +180,6 @@ PERL_USE_UNSAFE_INC=1 perl Makefile.PL --incpath="/usr/local/Cellar/openssl@1.1/
 
 # TODO
 
-- [X] use GitHub pages and update idx URLs to use GitHub CDN
 - [ ] minimal static website listing all available distribution/packages
 - [ ] remove the repository_version from `module.idx`
-- [X] add a `version` field to the `.idx` files
-- [X] add `template_url` field to get the URL to download the tarball
-- [X] do not list trial versions in `distro.idx` file
-- [ ] use cplay instead of cpanm to install dependencies
+- [ ] use cplay itself instead of cpanm to install dependencies

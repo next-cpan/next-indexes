@@ -1,0 +1,10 @@
+
+github_user  	= YOUR_USER
+github_token 	= YOUR_TOKEN
+github_org 		= pause-play
+
+repo_user_name 	= pause-parser
+repo_email 		= gh@atoomic.org
+
+# path of pause-index@p5 [duplicate repo on p5 branch]
+base_dir  = ~/SOME-WHERE/pause-index-p5
