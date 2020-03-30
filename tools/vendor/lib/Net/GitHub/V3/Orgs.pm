@@ -65,18 +65,8 @@ my %__methods = (
     delete_team_repos => { url => "/teams/%s/repos/%s", method => 'DELETE', check_status => 204 },
     # Org repos
     list_repos => { url => "/orgs/%s/repos", paginate => 1, method => 'GET' },
-    # Contents
-    # GET /repos/:owner/:repo/contents/:path ? ref=
-    contents => { url => "/repos/%s/%s/contents/%s", method => 'GET' },
-
-    contents_v2 => { url => "/repos/:owner/:repo/contents/:path", method => 'GET', v => 2 },
-    contents_ref => { url => "/repos/%s/%s/contents/%s?ref=%s", method => 'GET' },
-    ### idea 
-    # contents => { url => "/repos/:owner/:repo/contents/:path?ref=:ref", method => 'GET' },
-    
 );
 
-# return $self->query($method, $u, @qargs);
 __build_methods(__PACKAGE__, %__methods);
 
 no Moo;
