@@ -13,19 +13,23 @@ You can read more about cplay client on the [cplay website](https://pause-play.g
 
 # List of index files
 
-The index files in this repository are a replacement for the traditional index file `02packages.details.txt.gz` used by CPAN and most/all CPAN clients.
+The index files in this repository are a replacement for the traditional index file [02packages.details.txt.gz](https://www.cpan.org/modules/02packages.details.txt.gz) used by CPAN and most/all CPAN clients.
 
-[https://www.cpan.org/modules/02packages.details.txt.gz](https://www.cpan.org/modules/02packages.details.txt.gz)
+You can download a tarball with all the .idx files using:
+[https://github.com/pause-play/pause-index/archive/p5.tar.gz](https://github.com/pause-play/pause-index/archive/p5.tar.gz)
 
 1. module.idx
 2. repositories.idx
 3. explicit_versions.idx
 
+You can also browse these files from:
+[https://github.com/pause-play/pause-index/tree/p5](https://github.com/pause-play/pause-index/tree/p5)
+
 ## module.idx
 
-The `module.idx` file list the last available version of a module. For each module it indicates which distribution/repository provides it.
+The `module.idx` file lists the last available version of a module. For each module it indicates which distribution/repository provides it.
 
-[https://pause-play.github.io/pause-index/module.idx](https://pause-play.github.io/pause-index/module.idx)
+[https://raw.githubusercontent.com/pause-play/pause-index/p5/module.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/module.idx)
 
 For every module you can know:
 - the module version
@@ -51,7 +55,7 @@ For every module you can know:
 The `repositories.idx` file list the last available version of all CPAN distributions.
 Each CPAN distribution is available from a repository.
 
-[https://pause-play.github.io/pause-index/repositories.idx](https://pause-play.github.io/pause-index/repositories.idx)
+[https://raw.githubusercontent.com/pause-play/pause-index/p5/repositories.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/repositories.idx)
 
 For example `XML-Toolkit` distribution from [CPAN](https://metacpan.org/release/XML-Toolkit) is available on [pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit) repository:
 [https://github.com/pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit)
@@ -79,7 +83,7 @@ Sample extract:
 The `explicit_versions.idx` file list all versions published of a distribution.
 It's useful to get for example an older or TRIAL version.
 
-[https://pause-play.github.io/pause-index/explicit_versions.idx](https://pause-play.github.io/pause-index/explicit_versions.idx)
+[https://raw.githubusercontent.com/pause-play/pause-index/p5/explicit_versions.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/explicit_versions.idx)
 
 ```json
 {
