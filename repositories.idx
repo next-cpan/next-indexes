@@ -1,6 +1,6 @@
 {
  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200330215338,
+ "version": 20200331170424,
  "columns": ["repository", "version", "sha", "signature"],
  "data": [
     ["A1z-HTML5-Template", "0.22", "31f5f25a31d06ac3611d4d5fca9958f726703e71", "65e20bb0a05ef27009f785a2bd7b77c8"],
@@ -19,7 +19,7 @@
     ["ACL-Regex", "0.0002", "a0d4710d45b6289c0501f1a4b43f1930101df736", "69c470648633ea64154a93f153a86b28"],
     ["Aard", "0.001", "c15137e856295acd9e741e3f54ffec6fd3ec6f9e", "69a65d47c4a605c3b9928b87b92b8fc7"],
     ["Abilities", "0.2", "58278c54e626a9b72f8631aadf49e49f7908a2ef", "e796d053e35351773a4be325d3bab9f0"],
-    ["Abstract-Meta-Class", "0.11", "4183cc50ec630233be6663a6081f7897ebfdb6e5", "4fad8e47055ac8efc40f134a524b3e9b"],
+    ["Abstract-Meta-Class", "0.11", "ad1387276cec2305a2b99514d238c0035ed53f5d", "bceb8f20a2dc6f0109098c3381be14ca"],
     ["AcePerl", "1.92", "9fe40d96b962d1a7ad3252bb58a41aaa87195edf", "b89079f7abcba5d2cf60509931dde8dd"],
     ["Acme", "1.11111111111", "f02db70d86de8d394b22a623c23f8927daa3f827", "34589d703cc3dd11a3ee535d47e9505d"],
     ["Acme-123", "0.04", "1bc0ae2ccce1e121a48ff8991a91fed00183afaa", "de66c349e9f050f92d98fc3ae9d0d888"]
