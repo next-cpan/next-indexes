@@ -59,7 +59,7 @@ use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
-has 'repo'        => ( is => 'rw', isa => 'Str' );
+has 'repo'        => ( is => 'rw', isa => 'ArrayRef', default => sub { [] } );
 has 'limit'       => ( is => 'rw', isa => 'Int', default => 0 );
 has 'force'       => (
     is            => 'rw', isa => 'Bool', default => 0,
@@ -252,10 +252,12 @@ sub run ($self) {
         $self->load_idx_files;
     }
 
-    if ( $self->repo ) {
+    if ( $self->repo && scalar $self->repo->@* ) {
 
-        # refresh a single repo
-        $self->refresh_repository( $self->repo );
+        foreach my $repository ( $self->repo->@* ) {
+            INFO( "refresh a repository $repository" );
+            $self->refresh_repository( $repository );
+        }
     }
     else {
         # default
@@ -679,7 +681,7 @@ sub sleep_until_not_throttled ($self) {
         );
         DEBUG("Sleeping until we can send more API queries");
         sleep 10;
-        $gh->update_rate_limit();
+        $gh->update_rate_limit("...whatever..."); # bug in Net/GitHub/V3/Query.pm ' sub update_rate_limit'
     }
 
     DEBUG(
@@ -697,11 +699,12 @@ after 'print_usage_text' => sub {
 
 Sample usages:
 
-$0                          # refresh all modules
-$0 --repo A1z-Html          # only refresh a single repository
-$0 --repo A1z-Html --force  # only refresh a single repository
-$0 --full_update            # regenerate the index files
-$0 --limit 5                # stop after reading X repo
+$0                                    # refresh all modules
+$0 --repo A1z-Html                    # only refresh a single repository
+$0 --repo A1z-Html --force            # force refresh a repository
+$0 --repo A1z-Html --repo ACL-Regex   # refresh multiple repositories
+$0 --full_update                      # regenerate the index files
+$0 --limit 5                          # stop after reading X repo
 
 EOS
 };
