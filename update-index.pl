@@ -38,6 +38,9 @@ use Mojo::UserAgent    ();
 
 use List::MoreUtils qw{zip};
 
+use Git::Repository    ();
+use File::pushd;
+
 use File::Temp ();
 
 use MIME::Base64 ();
@@ -149,6 +152,10 @@ has 'template_url' =>
 has 'tmp_dir' => (
     isa     => 'Object', is => 'ro', lazy => 1,
     default => sub { File::Temp->newdir() }
+);
+
+has 'ix_git_repository' => ( isa => 'Object', is => 'ro', lazy => 1,
+    default => sub($self) { Git::Repository->new( work_tree => $self->base_dir ); }
 );
 
 my $GOT_SIG_SIGNAL;
@@ -270,6 +277,42 @@ sub run ($self) {
     return 0;
 }
 
+# checkout file if version is the only change
+sub check_ix_files_version($self) {
+
+    my $in_dir = pushd( $self->base_dir );
+
+    my $r = $self->ix_git_repository;
+
+    my @all_ix_files = qw{module.idx explicit_versions.idx repositories.idx};
+
+    my $ix_with_version_only = 0;
+
+    foreach my $ix ( @all_ix_files ) {
+        if ( !-f $ix ) {
+            ERROR("Index file $ix is missing");
+            next;
+        }
+        my @out = $r->run( 'diff', '-U0', $ix );
+        my @diff = grep { m{^[-+]\s} } @out;
+        if ( scalar @diff == 2 ) {
+            # check if we only have some version change
+            my @only_version = grep { m{^[-+]\s+"version"} } @diff;
+            if ( scalar @only_version == scalar @diff ) {
+                ++$ix_with_version_only;
+            }
+        }
+    }
+
+    # only checkout files if all files has only a version change
+    if ( $ix_with_version_only == scalar @all_ix_files ) {
+        my $cmd = $r->command( 'checkout', @all_ix_files, { quiet => 1 } );
+        ERROR( "Fail to checkout ix files" ) if $cmd->exit;
+    }
+
+    return;
+}
+
 sub load_idx_files($self) {
 
     $self->load_module_idx();
@@ -279,11 +322,19 @@ sub load_idx_files($self) {
     return;
 }
 
-sub write_idx_files($self) {
+sub write_idx_files($self, %opts) {
 
     $self->write_module_idx();
     $self->write_explicit_versions_idx();
     $self->write_repositories_idx();
+
+    my $check = delete $opts{check} // 1;
+
+    if ( scalar keys %opts ) {
+        die q[Unknown options to write_idx_files: ] . join( ', ', sort keys %opts );
+    }
+
+    $self->check_ix_files_version if $check;
 
     return;
 }
@@ -621,13 +672,14 @@ sub refresh_all_repositories($self) {
             INFO(
                 "SIGINT received - Stopping parsing modules. Writting indexes to disk."
             );
-            last;
+            $self->write_idx_files;
+            return;
         }
     }
     continue {
         if ( $c % 10 == 0 ) {    # flush from time to time idx on disk
             INFO("Updating indexes...");
-            $self->write_idx_files;
+            $self->write_idx_files( check => 0 );
         }
     }
 
