@@ -62,6 +62,9 @@ use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
+has 'push' => ( is => 'rw', isa => 'Bool', default => 0,
+    'documentation' => 'commit and push the index changes if needed'
+);
 has 'repo'        => ( is => 'rw', isa => 'ArrayRef', default => sub { [] } );
 has 'limit'       => ( is => 'rw', isa => 'Int', default => 0 );
 has 'force'       => (
@@ -273,18 +276,57 @@ sub run ($self) {
 
     # ... update files...
     $self->write_idx_files;
+    return 1 unless $self->commit_and_push;
 
     return 0;
 }
 
+sub all_ix_files {
+    return [ qw{module.idx explicit_versions.idx repositories.idx} ];
+}
+
+sub commit_and_push($self) {
+    return 1 unless $self->push;
+
+    my $r = $self->ix_git_repository;
+    my @all_ix_files = all_ix_files->@*;
+
+    # do we have any diff
+    my @out = $r->run( 'status', '-s', @all_ix_files );
+    if ( !scalar @out ) {
+        INFO( "No changes to commit" );
+        return 1;
+    }
+
+    my $cmd;
+
+    # commit
+    my $version = $self->idx_version;
+    my $commit_msg = qq[Update indexes to version $version];
+    $r->run( 'commit', '-m', $commit_msg, @all_ix_files, { quiet => 1 } );
+    if ( $? ) {
+        ERROR( "Fail to commit index files");
+        return;
+    }
+
+    # push
+    $r->run( 'push', { quiet => 1 } );
+    if ( $? ) {
+        ERROR( "Fail to push changes");
+        return;
+    }
+    INFO("Pushed changes: $commit_msg");
+
+    return 1;
+}
+
 # checkout file if version is the only change
 sub check_ix_files_version($self) {
-
     my $in_dir = pushd( $self->base_dir );
 
     my $r = $self->ix_git_repository;
 
-    my @all_ix_files = qw{module.idx explicit_versions.idx repositories.idx};
+    my @all_ix_files = all_ix_files->@*;
 
     my $ix_with_version_only = 0;
 
@@ -306,8 +348,8 @@ sub check_ix_files_version($self) {
 
     # only checkout files if all files has only a version change
     if ( $ix_with_version_only == scalar @all_ix_files ) {
-        my $cmd = $r->command( 'checkout', @all_ix_files, { quiet => 1 } );
-        ERROR( "Fail to checkout ix files" ) if $cmd->exit;
+        $r->run( 'checkout', @all_ix_files, { quiet => 1 } );
+        ERROR( "Fail to checkout ix files" ) if $?;
     }
 
     return;
@@ -749,14 +791,24 @@ sub sleep_until_not_throttled ($self) {
 after 'print_usage_text' => sub {
     print <<EOS;
 
+Options:
+
+    --repo NAME [--repo NAME]        refresh only one or multiple repositories
+    --push                           commit and push changes to index files
+    --force                          force to refresh repositories even if HEAD is the same
+    --full_update                    clear index before regenerating them
+    --limit N                        stop after processing N repositories
+
 Sample usages:
 
 $0                                    # refresh all modules
 $0 --repo A1z-Html                    # only refresh a single repository
+$0 --repo A1z-Html --push             # refresh a single repository and push
 $0 --repo A1z-Html --force            # force refresh a repository
 $0 --repo A1z-Html --repo ACL-Regex   # refresh multiple repositories
 $0 --full_update                      # regenerate the index files
 $0 --limit 5                          # stop after reading X repo
+
 
 EOS
 };
