@@ -1,6 +1,6 @@
 {
  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200401181502,
+ "version": 20200401181845,
  "columns": ["module", "version", "repository", "repository_version", "sha", "signature"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "25ace0b8116fe073dff95fad6db82d0df24b8a81", "9833ce892d271b2efce7e0ca7b9ce89b"],
