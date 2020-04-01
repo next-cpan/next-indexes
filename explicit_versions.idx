@@ -1,6 +1,6 @@
 {
  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200401182136,
+ "version": 20200401194638,
  "columns": ["module", "version", "repository", "repository_version", "sha", "signature"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "25ace0b8116fe073dff95fad6db82d0df24b8a81", "9833ce892d271b2efce7e0ca7b9ce89b"],
@@ -198,7 +198,7 @@
     ["Acme::AsciiEmoji", "0.11", "Acme-AsciiEmoji", "0.11", "18d419ea888e7c712ccae26a75183e391d7aa82e", "e525464fb76f72ac7b84ca6a46f7ca05"],
     ["Acme::AtIncPolice", "0.02", "Acme-AtIncPolice", "0.02", "9a51ac218e87b24bc328c9ddb96ad264251b3b20", "01fee1220dce2ccb22ce258e879758a4"],
     ["Acme::Auggy", "0", "Acme-Auggy", "0.004", "c9f238eaf78b095d7fb10b94f0f440dbf0dca81d", "822a44ed5cd9292ec24e746ccaec4d50"],
-    ["Acme::AutoColor", "0.03", "Acme-AutoColor", "0.03", "257046b0ce29b3339eff425e85fd4824b80c7c32", "fe11178700c478fbe8c61dc20da4a175"],
+    ["Acme::AutoColor", "0.03", "Acme-AutoColor", "0.03", "e68f71a724893812d64a35f36f4765c18008b635", "bbe287af03c9b14860c306b148a3a117"],
     ["Acme::AutoloadAll", "0.005", "Acme-AutoloadAll", "0.005", "b49587051ef0bcf894f88cb43b469341c390ab05", "be5fccd02b4d3913a7364ee0a84b6e42"],
     ["Acme::AwesomeQuotes", "0", "Acme-AwesomeQuotes", "0.02", "59dd4cdfe9ab52d44d988c5ec5b9f0a82daebed0", "4b3897e588b95a3261246be66f981ec4"],
     ["Acme::BABYMETAL::Base", "0.03", "Acme-BABYMETAL", "0.03", "2ff137c0f19d25bcfebf1adf6c36777c19efd071", "c14929371fc62bc65ab7250a9457169a"],
@@ -244,6 +244,5 @@
     ["Acme::Cake", "0.01", "Acme-Cake", "0.01", "9dfacaf5280e6859396effdb9a7e9d05b71dc1fe", "0ad73a21f2cc8cd33d8608cbe3c7f10d"],
     ["Acme::DWIM", "0", "Acme-Bleach", "1.150", "5a4892a79ba402eb53a86a11db5d2165da899149", "67eef6bcce826a850271387463980829"],
     ["Acme::Morse", "0", "Acme-Bleach", "1.150", "5a4892a79ba402eb53a86a11db5d2165da899149", "67eef6bcce826a850271387463980829"],
-    ["Acme", "1.11111111111", "Acme", "1.11111111111", "fbcab72e29bfba5828aadef2e74e6ea6c94d803c", "32f6677873bd83d5ac3d1f531bb545fa"],
-    ["main", "0", "Acme-AutoColor", "0.03", "257046b0ce29b3339eff425e85fd4824b80c7c32", "fe11178700c478fbe8c61dc20da4a175"]
+    ["Acme", "1.11111111111", "Acme", "1.11111111111", "fbcab72e29bfba5828aadef2e74e6ea6c94d803c", "32f6677873bd83d5ac3d1f531bb545fa"]
  ] }

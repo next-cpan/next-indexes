@@ -1,5 +1,5 @@
 {
- "version": 20200401182136,
+ "version": 20200401194638,
  "columns": ["module", "version", "repository", "repository_version"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
@@ -243,6 +243,5 @@
     ["Acme::ButFirst", "1.00", "Acme-ButFirst", "1.00"],
     ["Acme::Cake", "0.01", "Acme-Cake", "0.01"],
     ["Acme::DWIM", 0, "Acme-Bleach", "1.150"],
-    ["Acme::Morse", 0, "Acme-Bleach", "1.150"],
-    ["main", 0, "Acme-AutoColor", "0.03"]
+    ["Acme::Morse", 0, "Acme-Bleach", "1.150"]
  ] }
