@@ -685,7 +685,7 @@ sub add_to_playlist ( $self, $build ) {
     my $name   = $build->{name};
 
     # pick one letter
-    $letter = lc($1) if $name =~ m{^.([a-z])}i;    # FIXME pick the first one after
+    $letter = lc($1) if $name =~ m{^([a-z])}i;
 
     $self->{playlist_index} //= {};
 
