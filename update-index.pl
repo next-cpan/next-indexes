@@ -258,8 +258,6 @@ sub get_build_info ( $self, $repository ) {
     return $build;
 }
 
-use Test::More;
-
 sub setup ($self) {
     my @all_dirs = qw{base_dir};
     push @all_dirs, qw{playlist_html_dir playlist_json_dir} if $self->playlist;
@@ -704,9 +702,6 @@ sub update_playlist_files( $self ) {
 
     my $index = $self->{playlist_index} // {};
 
-    use Test::More;
-    note explain $index;
-
     foreach my $letter (@all_letters) {
         my $file = $self->playlist_json_file_for_letter($letter);
 
@@ -727,6 +722,8 @@ sub playlist_json_file_for_letter ( $self, $letter ) {
 sub load_playlist_for_letter ( $self, $letter ) {
     die unless defined $letter && length $letter == 1;
     my $file = $self->playlist_json_file_for_letter($letter);
+
+    return {} if $self->full_update;    # force refresh the json files
     return {} unless -f $file;
 
     return $self->read_json_file($file);

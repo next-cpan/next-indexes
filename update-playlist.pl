@@ -136,8 +136,6 @@ use constant BASE_URL => q[https://github.com/pause-play/];
 sub refresh_all_html_file($self) {
     my @all_letters = ( 'A' .. 'Z', '0' );
 
-    use Test::More;
-
     my $config = {
 
         #INCLUDE_PATH => '/search/path',  # or list ref
