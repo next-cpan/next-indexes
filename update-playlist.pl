@@ -23,14 +23,12 @@ with 'MooseX::Getopt';
 
 use experimental 'signatures';
 
-use Template           ();
-use Cwd                ();
-use DateTime           ();
-use LWP::UserAgent     ();
-use File::Basename     ();
-use CPAN::Meta::YAML   ();
-use CPAN::DistnameInfo ();
-use version            ();
+use Template       ();
+use Cwd            ();
+use DateTime       ();
+use LWP::UserAgent ();
+use File::Basename ();
+use version        ();
 use Net::GitHub::V3;
 
 use Crypt::Digest::MD5 ();
@@ -51,13 +49,6 @@ BEGIN {
     $Net::GitHub::V3::Orgs::VERSION == '2.0'
       or die("Need custom version of Net::GitHub::V3::Orgs to work!");
 }
-
-use YAML::Syck   ();
-use Git::Wrapper ();
-
-use Parallel::ForkManager  ();
-use IO::Uncompress::Gunzip ();
-use Data::Dumper;
 
 use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 

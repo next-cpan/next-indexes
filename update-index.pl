@@ -23,13 +23,11 @@ with 'MooseX::Getopt';
 
 use experimental 'signatures';
 
-use Cwd                ();
-use DateTime           ();
-use LWP::UserAgent     ();
-use File::Basename     ();
-use CPAN::Meta::YAML   ();
-use CPAN::DistnameInfo ();
-use version            ();
+use Cwd            ();
+use DateTime       ();
+use LWP::UserAgent ();
+use File::Basename ();
+use version        ();
 use Net::GitHub::V3;
 
 use Crypt::Digest::MD5 ();
