@@ -166,7 +166,7 @@ sub refresh_all_html_file($self) {
             $r->{url_cplay_badge}  = BASE_URL . $r->{name} . q[/workflows/play/badge.svg];
 
             # FIXME remove
-            $r->{url_cplay_badge} = q[https://github.com/pause-play/cplay/workflows/integration/badge.svg];
+            $r->{url_cplay_badge} = q[https://github.com/pause-play/A1z-Html/workflows/cplay/badge.svg];
         }
 
         my $vars = {
