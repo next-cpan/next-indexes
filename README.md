@@ -6,6 +6,8 @@ This repository provides alternate index files to use CPAN modules without depen
 
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
+[Browse the playlist of all repositories](https://pause-play.github.io/pause-index/playlist/playlist-A.html)
+
 This repo `pause-index` host some index files which can be consumed to download and install most Perl modules.
 
 `cplay` is the recommended CPAN client using these indexes and GitHub repositories.
