@@ -162,7 +162,7 @@ sub refresh_all_html_file($self) {
         # setup urls
         foreach my $r (@repos) {
             $r->{url}              = BASE_URL . $r->{name};
-            $r->{url_cplay_action} = BASE_URL . $r->{name} . q[/actions];
+            $r->{url_cplay_action} = BASE_URL . $r->{name} . q[/actions?query=workflow%3Acplay+branch%3Ap5];
             $r->{url_cplay_badge}  = BASE_URL . $r->{name} . q[/workflows/play/badge.svg];
 
             # FIXME remove
