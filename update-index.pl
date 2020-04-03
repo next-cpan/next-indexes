@@ -38,17 +38,18 @@ use Mojo::UserAgent    ();
 
 use List::MoreUtils qw{zip};
 
-use Git::Repository    ();
+use Git::Repository ();
 use File::pushd;
 
 use File::Temp ();
+use File::Path;
 
 use MIME::Base64 ();
 use JSON::XS     ();
 
 BEGIN {
     $Net::GitHub::V3::Orgs::VERSION == '2.0'
-        or die("Need custom version of Net::GitHub::V3::Orgs to work!");
+      or die("Need custom version of Net::GitHub::V3::Orgs to work!");
 }
 
 use YAML::Syck   ();
@@ -62,35 +63,51 @@ use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
-has 'push' => ( is => 'rw', isa => 'Bool', default => 0,
+has 'push'        => (
+    is              => 'rw', isa => 'Bool', default => 0,
     'documentation' => 'commit and push the index changes if needed'
 );
-has 'repo'        => ( is => 'rw', isa => 'ArrayRef', default => sub { [] } );
-has 'limit'       => ( is => 'rw', isa => 'Int', default => 0 );
-has 'force'       => (
+has 'repo'  => ( is => 'rw', isa => 'ArrayRef', default => sub { [] } );
+has 'limit' => ( is => 'rw', isa => 'Int',      default => 0 );
+has 'force' => (
     is            => 'rw', isa => 'Bool', default => 0,
     documentation => 'force refresh one or more modules'
 );
 
+has 'playlist' => ( is => 'rw', isa => 'Bool', default => 1, documentation => 'enable or disable playlist processing' );
+
 # settings.ini
 has 'base_dir' => (
     isa           => 'Str', is => 'rw',
-    default       => sub { Cwd::abs_path( $FindBin::Bin . "/.." ) },
+    default       => sub { Cwd::abs_path($FindBin::Bin) },
     documentation => 'The base directory where our idx files are stored.'
 );
+has 'root_dir' => (
+    isa           => 'Str', is => 'rw',
+    default       => sub { Cwd::abs_path($FindBin::Bin) },
+    documentation => 'The base directory where the program lives.'
+);
+has 'playlist_html_dir' => (
+    isa           => 'Str', is => 'rw', lazy => 1,
+    default       => sub($self) { $self->root_dir . '/playlist' },
+    documentation => 'The base directory where html files are stored for playlist'
+);
+has 'playlist_json_dir' => (
+    isa           => 'Str', is => 'rw', lazy => 1,
+    default       => sub($self) { $self->root_dir . '/playlist/json' },
+    documentation => 'The base directory where json files are stored for playlist'
+);
 has 'github_user' => (
-    isa => 'Str', is => 'ro', required => 1,
-    documentation =>
-        q{REQUIRED - The github username we'll use to create and update repos.}
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => q{REQUIRED - The github username we'll use to create and update repos.}
 );    # = pause-parser
 has 'github_token' => (
     isa           => 'Str', is => 'ro', required => 1,
     documentation => q{REQUIRED - The token we'll use to authenticate.}
 );
 has 'github_org' => (
-    isa => 'Str', is => 'ro', required => 1,
-    documentation =>
-        q{REQUIRED - The github organization we'll be creating/updating repos in.}
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => q{REQUIRED - The github organization we'll be creating/updating repos in.}
 );    # = pause-play
 has 'repo_user_name' => (
     isa           => 'Str', is => 'ro', required => 1,
@@ -136,28 +153,26 @@ has 'github_repos' => (
     is      => 'rw',
     lazy    => 1,
     default => sub ($self) {
-        return { map { $_->{'name'} => $_ }
-                $self->gh_org->list_repos( $self->github_org ) };
+        return { map { $_->{'name'} => $_ } $self->gh_org->list_repos( $self->github_org ) };
     },
 );
 
-has 'idx_version' =>
-    ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
+has 'idx_version' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
 
 has 'json' => (
     isa     => 'Object', is => 'ro', lazy => 1,
     default => sub { JSON::XS->new->utf8->pretty }
 );
 
-has 'template_url' =>
-    ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_template_url' );
+has 'template_url' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_template_url' );
 
 has 'tmp_dir' => (
     isa     => 'Object', is => 'ro', lazy => 1,
     default => sub { File::Temp->newdir() }
 );
 
-has 'ix_git_repository' => ( isa => 'Object', is => 'ro', lazy => 1,
+has 'ix_git_repository' => (
+    isa     => 'Object', is => 'ro', lazy => 1,
     default => sub($self) { Git::Repository->new( work_tree => $self->base_dir ); }
 );
 
@@ -168,9 +183,7 @@ local $SIG{'INT'} = sub {
         exit(1);
     }
 
-    INFO(
-        "SIGINT requested, stopping parsing at the end of next repo. Please Wait!"
-    );
+    INFO("SIGINT requested, stopping parsing at the end of next repo. Please Wait!");
     $GOT_SIG_SIGNAL = 1;
 
     return;
@@ -182,10 +195,7 @@ sub _build_idx_version($self) {
 }
 
 sub _build_template_url($self) {
-    return
-          q[https://github.com/]
-        . $self->github_org
-        . q[/:repository/archive/:sha.tar.gz];
+    return q[https://github.com/] . $self->github_org . q[/:repository/archive/:sha.tar.gz];
 }
 
 sub is_internal_repo ( $self, $repository ) {
@@ -222,7 +232,8 @@ sub get_build_info ( $self, $repository ) {
     my $build;
     eval {
         my $api_answer = $self->gh->repos->get_content(
-            {   owner => $self->github_org, repo => $repository,
+            {
+                owner => $self->github_org, repo => $repository,
                 path  => $build_file
             },
             { ref => $HEAD }    # make sure we use the same state as HEAD
@@ -230,7 +241,7 @@ sub get_build_info ( $self, $repository ) {
 
         die q[No API answer from get_content] unless ref $api_answer;
         die q[No content from get_content]
-            unless length $api_answer->{content};
+          unless length $api_answer->{content};
 
         my $decoded = MIME::Base64::decode_base64( $api_answer->{content} );
         $build = $self->json->decode($decoded);
@@ -247,14 +258,28 @@ sub get_build_info ( $self, $repository ) {
     return $build;
 }
 
-sub run ($self) {
+use Test::More;
 
-    my $base_dir = $self->base_dir;
-    if ( $base_dir =~ s{~}{$ENV{HOME}} ) {
-        $self->base_dir($base_dir);
+sub setup ($self) {
+    my @all_dirs = qw{base_dir};
+    push @all_dirs, qw{playlist_html_dir playlist_json_dir} if $self->playlist;
+
+    foreach my $dirtype (@all_dirs) {
+        my $dir = $self->can($dirtype)->($self);
+        if ( $dir =~ s{~}{$ENV{HOME}} ) {
+            $self->can($dirtype)->( $self, $dir );    # update it
+        }
+        next if -d $dir;
+        INFO("create missing directory for $dirtype");
+        File::Path::mkpath($dir) or die "Cannot create directory $dir";
     }
 
-    mkdir $base_dir unless -d $base_dir;
+    return;
+}
+
+sub run ($self) {
+
+    $self->setup;
 
     if ( !$self->full_update ) {
 
@@ -265,54 +290,56 @@ sub run ($self) {
     if ( $self->repo && scalar $self->repo->@* ) {
 
         foreach my $repository ( $self->repo->@* ) {
-            INFO( "refresh a repository $repository" );
-            $self->refresh_repository( $repository );
+            INFO("refresh a repository $repository");
+            $self->refresh_repository($repository);
         }
     }
-    else {
-        # default
+    else {    # default
         $self->refresh_all_repositories();
     }
 
     # ... update files...
     $self->write_idx_files;
+    $self->update_playlist_files;
+
+    # commit
     return 1 unless $self->commit_and_push;
 
     return 0;
 }
 
 sub all_ix_files {
-    return [ qw{module.idx explicit_versions.idx repositories.idx} ];
+    return [qw{module.idx explicit_versions.idx repositories.idx}];
 }
 
 sub commit_and_push($self) {
     return 1 unless $self->push;
 
-    my $r = $self->ix_git_repository;
+    my $r            = $self->ix_git_repository;
     my @all_ix_files = all_ix_files->@*;
 
     # do we have any diff
     my @out = $r->run( 'status', '-s', @all_ix_files );
     if ( !scalar @out ) {
-        INFO( "No changes to commit" );
+        INFO("No changes to commit");
         return 1;
     }
 
     my $cmd;
 
     # commit
-    my $version = $self->idx_version;
+    my $version    = $self->idx_version;
     my $commit_msg = qq[Update indexes to version $version];
     $r->run( 'commit', '-m', $commit_msg, @all_ix_files, { quiet => 1 } );
-    if ( $? ) {
-        ERROR( "Fail to commit index files");
+    if ($?) {
+        ERROR("Fail to commit index files");
         return;
     }
 
     # push
     $r->run( 'push', { quiet => 1 } );
-    if ( $? ) {
-        ERROR( "Fail to push changes");
+    if ($?) {
+        ERROR("Fail to push changes");
         return;
     }
     INFO("Pushed changes: $commit_msg");
@@ -330,14 +357,15 @@ sub check_ix_files_version($self) {
 
     my $ix_with_version_only = 0;
 
-    foreach my $ix ( @all_ix_files ) {
+    foreach my $ix (@all_ix_files) {
         if ( !-f $ix ) {
             ERROR("Index file $ix is missing");
             next;
         }
-        my @out = $r->run( 'diff', '-U0', $ix );
+        my @out  = $r->run( 'diff', '-U0', $ix );
         my @diff = grep { m{^[-+]\s} } @out;
         if ( scalar @diff == 2 ) {
+
             # check if we only have some version change
             my @only_version = grep { m{^[-+]\s+"version"} } @diff;
             if ( scalar @only_version == scalar @diff ) {
@@ -349,7 +377,7 @@ sub check_ix_files_version($self) {
     # only checkout files if all files has only a version change
     if ( $ix_with_version_only == scalar @all_ix_files ) {
         $r->run( 'checkout', @all_ix_files, { quiet => 1 } );
-        ERROR( "Fail to checkout ix files" ) if $?;
+        ERROR("Fail to checkout ix files") if $?;
     }
 
     return;
@@ -364,7 +392,7 @@ sub load_idx_files($self) {
     return;
 }
 
-sub write_idx_files($self, %opts) {
+sub write_idx_files ( $self, %opts ) {
 
     $self->write_module_idx();
     $self->write_explicit_versions_idx();
@@ -424,26 +452,27 @@ sub load_repositories_idx($self) {
 sub load_explicit_versions_idx($self) {
     my $rows = $self->_load_idx( $self->_explicit_versions_idx ) or return;
 
-    $self->{all_modules}
-        = { map { $_->{module} . "||" . $_->{version} => $_ } @$rows };
+    $self->{all_modules} =
+      { map { $_->{module} . "||" . $_->{version} => $_ } @$rows };
 
     return;
+}
+
+sub read_json_file ( $self, $file ) {
+    local $/;
+    open( my $fh, '<:utf8', $file ) or die;
+    my $content = <$fh>;
+
+    my $as_json = $self->json->decode($content) or die "fail to decode json content from $file";
+
+    return $as_json;
 }
 
 sub _load_idx ( $self, $file ) {
 
     return unless -e $file;
 
-    my $idx;
-
-    {
-        local $/;
-        open( my $fh, '<:utf8', $file ) or die;
-        my $content = <$fh>;
-
-        $idx = $self->json->decode($content)
-            or die "Fail to decode file $file";
-    }
+    my $idx = $self->read_json_file($file);
 
     my $columns = $idx->{columns} or die;
     my $data    = $idx->{data}    or die;
@@ -504,21 +533,14 @@ sub _write_idx ( $self, $file, $headers, $columns, $data ) {
     foreach my $k (@keys) {
         ++$c;
         my $end = $c == scalar @keys ? "\n" : ",\n";
-        print {$fh} "    "
-            . $json->encode( [ map { $data->{$k}->{$_} } @$columns ] )
-            . $end;
+        print {$fh} "    " . $json->encode( [ map { $data->{$k}->{$_} } @$columns ] ) . $end;
     }
 
     print {$fh} " ] }\n";
     close($fh);
 
-    {
-        local $/;
-        open( my $fh, '<:utf8', $file ) or die;
-        my $content = <$fh>;
-
-        $json->decode($content) or die "Fail to decode file $file";
-    }
+    # check if we can read the file
+    $self->read_json_file($file);
 
     return;
 }
@@ -542,7 +564,7 @@ sub _write_idx_txt ( $self, $file, $headers, $columns, $data ) {
 
     @L = map { $_ + 1 } @L;    # add an extra space
 
-    my $format = join( "\t", map {"%-${_}s"} @L );
+    my $format = join( "\t", map { "%-${_}s" } @L );
 
     open( my $fh, '>:utf8', $file ) or die;
     if ($headers) {
@@ -563,25 +585,25 @@ sub index_module (
     $repository_version, $sha,    $signature
 ) {
 
-# latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
-# module        version      repo
-# foo::bar::baz   1.000   foo-bar
-# foo::bar::biz   2.000   foo-bar
+    # latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
+    # module        version      repo
+    # foo::bar::baz   1.000   foo-bar
+    # foo::bar::biz   2.000   foo-bar
 
     $self->{latest_module} //= {};
 
     $self->{latest_module}->{$module} = {
-        module     => $module,        # easier to write the file content
-        version    => $version,
-        repository => $repository,    # or repo@1.0
+        module             => $module,               # easier to write the file content
+        version            => $version,
+        repository         => $repository,           # or repo@1.0
         repository_version => $repository_version,
     };
 
-# all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
-# module    version        repo  repo_version sha signature
-# foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
-# foo::bar::baz   0.04_01  foo-bar deadbaaf
-# foo::bar::biz    2.000  foo-bar deadbeef
+    # all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
+    # module    version        repo  repo_version sha signature
+    # foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
+    # foo::bar::baz   0.04_01  foo-bar deadbaaf
+    # foo::bar::biz    2.000  foo-bar deadbeef
 
     $self->{all_modules} //= {};
 
@@ -612,7 +634,7 @@ foo-bar  1.005     deadbeef   abcdef123435
 =cut
 
     if ( index( $repository_version, '_' ) >= 0 ) {
-        DEBUG("$repository do not index development version: ", $repository_version, "in repositories.idx" );
+        DEBUG( "$repository do not index development version: ", $repository_version, "in repositories.idx" );
         return;
     }
 
@@ -655,6 +677,61 @@ sub compute_build_signature ( $self, $build ) {
     return $signature;
 }
 
+sub add_to_playlist ( $self, $build ) {
+
+    return unless $self->playlist;
+
+    my $letter = '0';              # default
+    my $name   = $build->{name};
+
+    # pick one letter
+    $letter = lc($1) if $name =~ m{^.([a-z])}i;    # FIXME pick the first one after
+
+    $self->{playlist_index} //= {};
+
+    $self->{playlist_index}->{$letter} //= $self->load_playlist_for_letter($letter);
+    $self->{playlist_index}->{$letter}->{$name} = { map { $_ => $build->{$_} } qw{name primary version abstract} };
+
+    return;
+}
+
+sub update_playlist_files( $self ) {
+
+    return unless $self->playlist;
+
+    DEBUG("Updating index files");
+    my @all_letters = ( 'a' .. 'z', '0' );
+
+    my $index = $self->{playlist_index} // {};
+
+    use Test::More;
+    note explain $index;
+
+    foreach my $letter (@all_letters) {
+        my $file = $self->playlist_json_file_for_letter($letter);
+
+        my $data = $index->{$letter} // {};
+        next unless scalar keys $data->%*;
+
+        open( my $fh, '>:utf8', $file ) or die;
+        print {$fh} $self->json->pretty(1)->encode($data);
+    }
+
+    return;
+}
+
+sub playlist_json_file_for_letter ( $self, $letter ) {
+    return $self->playlist_json_dir . '/playlist-' . $letter . '.json';
+}
+
+sub load_playlist_for_letter ( $self, $letter ) {
+    die unless defined $letter && length $letter == 1;
+    my $file = $self->playlist_json_file_for_letter($letter);
+    return {} unless -f $file;
+
+    return $self->read_json_file($file);
+}
+
 sub refresh_repository ( $self, $repository ) {
 
     return if $self->is_internal_repo($repository);
@@ -665,7 +742,7 @@ sub refresh_repository ( $self, $repository ) {
     return unless $build;
 
     my $repository_version = $build->{version};
-    my $sha = $build->{sha} or die "missing sha for $repository";
+    my $sha                = $build->{sha} or die "missing sha for $repository";
 
     if (  !$self->force
         && $self->{repositories}->{$repository}
@@ -696,7 +773,7 @@ sub refresh_repository ( $self, $repository ) {
         );
     }
 
-    #note explain $build;
+    $self->add_to_playlist($build);
 
     return;
 }
@@ -711,9 +788,7 @@ sub refresh_all_repositories($self) {
         $self->refresh_repository($repository);
         last if ++$c > $limit && $limit;
         if ($GOT_SIG_SIGNAL) {
-            INFO(
-                "SIGINT received - Stopping parsing modules. Writting indexes to disk."
-            );
+            INFO("SIGINT received - Stopping parsing modules. Writting indexes to disk.");
             $self->write_idx_files;
             return;
         }
@@ -770,12 +845,10 @@ sub sleep_until_not_throttled ($self) {
         my $time_to_wait = time - $gh->rate_limit_reset() + 1;
         $time_to_wait > 0 or die("time_remaining == $time_to_wait");
         $time_to_wait = int( $time_to_wait / 2 );
-        DEBUG(
-            "Only $rate_remaining API queries are allowed for the next $time_to_wait seconds."
-        );
+        DEBUG("Only $rate_remaining API queries are allowed for the next $time_to_wait seconds.");
         DEBUG("Sleeping until we can send more API queries");
         sleep 10;
-        $gh->update_rate_limit("...whatever..."); # bug in Net/GitHub/V3/Query.pm ' sub update_rate_limit'
+        $gh->update_rate_limit("...whatever...");    # bug in Net/GitHub/V3/Query.pm ' sub update_rate_limit'
     }
 
     DEBUG(
@@ -798,6 +871,7 @@ Options:
     --force                          force to refresh repositories even if HEAD is the same
     --full_update                    clear index before regenerating them
     --limit N                        stop after processing N repositories
+    --noplaylist                     disable playlist json files updates
 
 Sample usages:
 
@@ -808,7 +882,7 @@ $0 --repo A1z-Html --force            # force refresh a repository
 $0 --repo A1z-Html --repo ACL-Regex   # refresh multiple repositories
 $0 --full_update                      # regenerate the index files
 $0 --limit 5                          # stop after reading X repo
-
+$0 --limit 5 --noplaylist             # do not update playlist json files
 
 EOS
 };

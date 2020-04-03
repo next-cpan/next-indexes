@@ -1,0 +1,8 @@
+{
+   "UR" : {
+      "abstract" : "rich declarative transactional objects",
+      "name" : "UR",
+      "primary" : "UR",
+      "version" : "0.47"
+   }
+}

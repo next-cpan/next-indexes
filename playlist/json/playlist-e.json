@@ -1,0 +1,8 @@
+{
+   "Test-Unit" : {
+      "abstract" : null,
+      "name" : "Test-Unit",
+      "primary" : "Test::Unit",
+      "version" : 0.13
+   }
+}

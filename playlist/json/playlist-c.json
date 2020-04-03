@@ -1,0 +1,500 @@
+{
+   "AC-DC" : {
+      "abstract" : "Asynchronous IO Framework. plus.",
+      "name" : "AC-DC",
+      "primary" : "AC::DC",
+      "version" : "1.1"
+   },
+   "AC-MrGamoo" : {
+      "abstract" : "Map/Reduce Framework",
+      "name" : "AC-MrGamoo",
+      "primary" : "AC::MrGamoo",
+      "version" : "1"
+   },
+   "AC-Yenta" : {
+      "abstract" : "eventually-consistent distributed key/value data store. et al.",
+      "name" : "AC-Yenta",
+      "primary" : "AC::Yenta",
+      "version" : "1.1"
+   },
+   "ACH" : {
+      "abstract" : "ACH perl object",
+      "name" : "ACH",
+      "primary" : "ACH",
+      "version" : "0.01"
+   },
+   "ACH-Generator" : {
+      "abstract" : "Generates an ACH formatted file from an ACH perl object",
+      "name" : "ACH-Generator",
+      "primary" : "ACH::Generator",
+      "version" : "0.01"
+   },
+   "ACH-Parser" : {
+      "abstract" : "Parse an ACH formatted file to ACH perl object",
+      "name" : "ACH-Parser",
+      "primary" : "ACH::Parser",
+      "version" : "0.01"
+   },
+   "ACL-Lite" : {
+      "abstract" : "Liteweight and flexible ACL checks",
+      "name" : "ACL-Lite",
+      "primary" : "ACL::Lite",
+      "version" : "0.0004"
+   },
+   "ACL-Regex" : {
+      "abstract" : "Class to generate access controls using PCRE",
+      "name" : "ACL-Regex",
+      "primary" : "ACL::Regex",
+      "version" : "0.0002"
+   },
+   "AcePerl" : {
+      "abstract" : null,
+      "name" : "AcePerl",
+      "primary" : "AcePerl",
+      "version" : "1.92"
+   },
+   "Acme" : {
+      "abstract" : "The Base of Perfection",
+      "name" : "Acme",
+      "primary" : "Acme",
+      "version" : "1.11111111111"
+   },
+   "Acme-123" : {
+      "abstract" : "Acme::123 - Prints numbers in different languages",
+      "name" : "Acme-123",
+      "primary" : "Acme::123",
+      "version" : "0.04"
+   },
+   "Acme-24" : {
+      "abstract" : "Your favourite TV-show Acme module",
+      "name" : "Acme-24",
+      "primary" : "Acme::24",
+      "version" : "0.04"
+   },
+   "Acme-2zicon" : {
+      "abstract" : "It's new $module",
+      "name" : "Acme-2zicon",
+      "primary" : "Acme::2zicon",
+      "version" : "0.7"
+   },
+   "Acme-6502" : {
+      "abstract" : "Pure Perl 65C02 simulator.",
+      "name" : "Acme-6502",
+      "primary" : "Acme::6502",
+      "version" : "0.77"
+   },
+   "Acme-ADEAS-Utils" : {
+      "abstract" : "The final module in Intermediate Perl!",
+      "name" : "Acme-ADEAS-Utils",
+      "primary" : "Acme::ADEAS::Utils",
+      "version" : "0.02"
+   },
+   "Acme-ALEXEY-Utils" : {
+      "abstract" : "The great new Acme::ALEXEY::Utils!",
+      "name" : "Acme-ALEXEY-Utils",
+      "primary" : "Acme::ALEXEY::Utils",
+      "version" : "0.01"
+   },
+   "Acme-APHILIPP-Utils" : {
+      "abstract" : "Test module that sums",
+      "name" : "Acme-APHILIPP-Utils",
+      "primary" : "Acme::APHILIPP::Utils",
+      "version" : "0.05"
+   },
+   "Acme-ARUHI-Utils" : {
+      "abstract" : "The great new Acme::ARUHI::Utils!",
+      "name" : "Acme-ARUHI-Utils",
+      "primary" : "Acme::ARUHI::Utils",
+      "version" : "0.05"
+   },
+   "Acme-AXP-Utils" : {
+      "abstract" : "Exercises for Intermediate Perl, 2nd Edition, Chapter 21",
+      "name" : "Acme-AXP-Utils",
+      "primary" : "Acme::AXP::Utils",
+      "version" : "0.06"
+   },
+   "Acme-AbhiIsNot" : {
+      "abstract" : "The great new Acme::AbhiIsNot!",
+      "name" : "Acme-AbhiIsNot",
+      "primary" : "Acme::AbhiIsNot",
+      "version" : "0.03"
+   },
+   "Acme-Acotie" : {
+      "abstract" : "Crash of Namespace",
+      "name" : "Acme-Acotie",
+      "primary" : "Acme::Acotie",
+      "version" : "0.02"
+   },
+   "Acme-Addslashes" : {
+      "abstract" : "Perl twist on the most useful PHP function ever - addslashes",
+      "name" : "Acme-Addslashes",
+      "primary" : "Acme::Addslashes",
+      "version" : "0.1.3"
+   },
+   "Acme-Affinity" : {
+      "abstract" : "Compute the affinity between two people",
+      "name" : "Acme-Affinity",
+      "primary" : "Acme::Affinity",
+      "version" : "0.0109"
+   },
+   "Acme-Aheui" : {
+      "abstract" : "an aheui interpreter",
+      "name" : "Acme-Aheui",
+      "primary" : "Acme::Aheui",
+      "version" : "0.05"
+   },
+   "Acme-AirRead" : {
+      "abstract" : "accessor for reading air.",
+      "name" : "Acme-AirRead",
+      "primary" : "Acme::AirRead",
+      "version" : "0.05"
+   },
+   "Acme-AjiFry" : {
+      "abstract" : "AjiFry Language (Ã£ÂÂ¢Ã£ÂÂ¸Ã£ÂÂÃ£ÂÂ©Ã£ÂÂ¤Ã¨ÂªÂ) Translator",
+      "name" : "Acme-AjiFry",
+      "primary" : "Acme::AjiFry",
+      "version" : "0.09"
+   },
+   "Acme-Akashic-Records" : {
+      "abstract" : "Access The Akashic Records",
+      "name" : "Acme-Akashic-Records",
+      "primary" : "Acme::Akashic::Records",
+      "version" : "0.01"
+   },
+   "Acme-Albed" : {
+      "abstract" : "Convert from/to Albedian.",
+      "name" : "Acme-Albed",
+      "primary" : "Acme::Albed",
+      "version" : "0.03"
+   },
+   "Acme-AlgebraicToRPN" : {
+      "abstract" : "convert algebraic notation to sane RPN",
+      "name" : "Acme-AlgebraicToRPN",
+      "primary" : "Acme::AlgebraicToRPN",
+      "version" : "0.02"
+   },
+   "Acme-AliG" : {
+      "abstract" : "Translates from English to Ali G",
+      "name" : "Acme-AliG",
+      "primary" : "Acme::AliG",
+      "version" : "0.0102"
+   },
+   "Acme-Alien-DontPanic" : {
+      "abstract" : "Test Module for Alien::Base::ModuleBuild",
+      "name" : "Acme-Alien-DontPanic",
+      "primary" : "Acme::Alien::DontPanic",
+      "version" : "2.1100"
+   },
+   "Acme-Alien-DontPanic2" : {
+      "abstract" : "Test Module for Alien::Base + Alien::Build",
+      "name" : "Acme-Alien-DontPanic2",
+      "primary" : "Acme::Alien::DontPanic2",
+      "version" : "2.1100"
+   },
+   "Acme-Alien-__cpu_model" : {
+      "abstract" : "Provides the __cpu_mode symbol",
+      "name" : "Acme-Alien-__cpu_model",
+      "primary" : "Acme::Alien::__cpu_model",
+      "version" : "0.001"
+   },
+   "Acme-AllThePerlIsAStage" : {
+      "abstract" : "Grok perl stages for scripts and modules under use and requireâuncompiled and compiled",
+      "name" : "Acme-AllThePerlIsAStage",
+      "primary" : "Acme::AllThePerlIsAStage",
+      "version" : "0.01"
+   },
+   "Acme-Alt-Dep-Test" : {
+      "abstract" : "Test Module for Depping on Alted Modules",
+      "name" : "Acme-Alt-Dep-Test",
+      "primary" : "Acme::Alt::Dep::Test",
+      "version" : "0.0.1"
+   },
+   "Acme-Ane" : {
+      "abstract" : "Ane means big sister.",
+      "name" : "Acme-Ane",
+      "primary" : "Acme::Ane",
+      "version" : "0.01"
+   },
+   "Acme-Anything" : {
+      "abstract" : "Anything, even imaginary modules are loadable",
+      "name" : "Acme-Anything",
+      "primary" : "Acme::Anything",
+      "version" : "0.04"
+   },
+   "Acme-Apache-Werewolf" : {
+      "abstract" : "Keep werewolves out of your website during the full moon",
+      "name" : "Acme-Apache-Werewolf",
+      "primary" : "Acme::Apache::Werewolf",
+      "version" : "1.05"
+   },
+   "Acme-Archive-Mbox" : {
+      "abstract" : null,
+      "name" : "Acme-Archive-Mbox",
+      "primary" : "Acme::Archive::Mbox",
+      "version" : "0.01"
+   },
+   "Acme-Array-MaxSize" : {
+      "abstract" : "Limit the maximal size your arrays can get.",
+      "name" : "Acme-Array-MaxSize",
+      "primary" : "Acme::Array::MaxSize",
+      "version" : "0.03"
+   },
+   "Acme-AsciiArt2HtmlTable" : {
+      "abstract" : null,
+      "name" : "Acme-AsciiArt2HtmlTable",
+      "primary" : "Acme::AsciiArt2HtmlTable",
+      "version" : "0.01"
+   },
+   "Acme-AsciiArtFarts" : {
+      "abstract" : "Simple Object Interface to AsciiArtFarts",
+      "name" : "Acme-AsciiArtFarts",
+      "primary" : "Acme::AsciiArtFarts",
+      "version" : "0.03"
+   },
+   "Acme-AsciiArtinator" : {
+      "abstract" : "Embed Perl code in ASCII artwork",
+      "name" : "Acme-AsciiArtinator",
+      "primary" : "Acme::AsciiArtinator",
+      "version" : "0.04"
+   },
+   "Acme-AsciiEmoji" : {
+      "abstract" : "Emoji",
+      "name" : "Acme-AsciiEmoji",
+      "primary" : "Acme::AsciiEmoji",
+      "version" : "0.11"
+   },
+   "Acme-AtIncPolice" : {
+      "abstract" : "The police that opponents to @INC contamination",
+      "name" : "Acme-AtIncPolice",
+      "primary" : "Acme::AtIncPolice",
+      "version" : "0.02"
+   },
+   "Acme-Auggy" : {
+      "abstract" : "Just a module for my talk",
+      "name" : "Acme-Auggy",
+      "primary" : "Acme::Auggy",
+      "version" : "0.004"
+   },
+   "Acme-AutoColor" : {
+      "abstract" : null,
+      "name" : "Acme-AutoColor",
+      "primary" : "Acme::AutoColor",
+      "version" : "0.03"
+   },
+   "Acme-AutoloadAll" : {
+      "abstract" : "Use every function everywhere.",
+      "name" : "Acme-AutoloadAll",
+      "primary" : "Acme::AutoloadAll",
+      "version" : "0.005"
+   },
+   "Acme-AwesomeQuotes" : {
+      "abstract" : "Make your text awesome!",
+      "name" : "Acme-AwesomeQuotes",
+      "primary" : "Acme::AwesomeQuotes",
+      "version" : "0.02"
+   },
+   "Acme-BABYMETAL" : {
+      "abstract" : "All about Japanese metal idol unit \"BABYMETAL\"",
+      "name" : "Acme-BABYMETAL",
+      "primary" : "Acme::BABYMETAL",
+      "version" : "0.03"
+   },
+   "Acme-BLACKJ-Utils" : {
+      "abstract" : "The great new Acme::BLACKJ::Utils!",
+      "name" : "Acme-BLACKJ-Utils",
+      "primary" : "Acme::BLACKJ::Utils",
+      "version" : "0.01"
+   },
+   "Acme-BOATES" : {
+      "abstract" : "The great new Acme::BOATES!",
+      "name" : "Acme-BOATES",
+      "primary" : "Acme::BOATES",
+      "version" : "0.03"
+   },
+   "Acme-BOPE" : {
+      "abstract" : null,
+      "name" : "Acme-BOPE",
+      "primary" : "Acme::BOPE",
+      "version" : "0.01"
+   },
+   "Acme-Backwards" : {
+      "abstract" : "One line fi, esle, fisle, sselnu",
+      "name" : "Acme-Backwards",
+      "primary" : "Acme::Backwards",
+      "version" : "0.02"
+   },
+   "Acme-BadFont" : {
+      "abstract" : "Cope with a bad font in your editor",
+      "name" : "Acme-BadFont",
+      "primary" : "Acme::BadFont",
+      "version" : "1.000000"
+   },
+   "Acme-Base64" : {
+      "abstract" : "Write Perl in Base64 encoding",
+      "name" : "Acme-Base64",
+      "primary" : "Acme::Base64",
+      "version" : "v0.0.2"
+   },
+   "Acme-BayaC" : {
+      "abstract" : "one line description",
+      "name" : "Acme-BayaC",
+      "primary" : "Acme::BayaC",
+      "version" : "0.05"
+   },
+   "Acme-Be-Modern" : {
+      "abstract" : "enables your script to \"be modern\"",
+      "name" : "Acme-Be-Modern",
+      "primary" : "Acme::Be::Modern",
+      "version" : "0.03"
+   },
+   "Acme-BeCool" : {
+      "abstract" : "Do what it takes to be a Cool Hacker at the moment.",
+      "name" : "Acme-BeCool",
+      "primary" : "Acme::BeCool",
+      "version" : "0.02"
+   },
+   "Acme-Beamerang-Logger" : {
+      "abstract" : "A Simple per-class clan warnlogger loader",
+      "name" : "Acme-Beamerang-Logger",
+      "primary" : "Acme::Beamerang::Logger",
+      "version" : "0.001000"
+   },
+   "Acme-Beatnik" : {
+      "abstract" : "Source Filter to implement the Beatnik language",
+      "name" : "Acme-Beatnik",
+      "primary" : "Acme::Beatnik",
+      "version" : "0.02"
+   },
+   "Acme-BeyondPerl-ToSQL" : {
+      "abstract" : null,
+      "name" : "Acme-BeyondPerl-ToSQL",
+      "primary" : "Acme::BeyondPerl::ToSQL",
+      "version" : "0.01"
+   },
+   "Acme-BlahBlahBlah" : {
+      "abstract" : null,
+      "name" : "Acme-BlahBlahBlah",
+      "primary" : "Acme::BlahBlahBlah",
+      "version" : "0.01"
+   },
+   "Acme-Blarghy-McBlarghBlargh" : {
+      "abstract" : null,
+      "name" : "Acme-Blarghy-McBlarghBlargh",
+      "primary" : "Acme::Blarghy::McBlarghBlargh",
+      "version" : "0.0022"
+   },
+   "Acme-Bleach" : {
+      "abstract" : "For I<really> clean programs",
+      "name" : "Acme-Bleach",
+      "primary" : "Acme::Bleach",
+      "version" : "1.150"
+   },
+   "Acme-Bleach-Numerically" : {
+      "abstract" : null,
+      "name" : "Acme-Bleach-Numerically",
+      "primary" : "Acme::Bleach::Numerically",
+      "version" : "0.04"
+   },
+   "Acme-BloodType" : {
+      "abstract" : null,
+      "name" : "Acme-BloodType",
+      "primary" : "Acme::BloodType",
+      "version" : "0.01"
+   },
+   "Acme-BooK-Is-My-Bitch" : {
+      "abstract" : "BooK is my Bitch",
+      "name" : "Acme-BooK-Is-My-Bitch",
+      "primary" : "Acme::BooK::Is::My::Bitch",
+      "version" : "0.05"
+   },
+   "Acme-Boolean" : {
+      "abstract" : "There is more then one way to be true.",
+      "name" : "Acme-Boolean",
+      "primary" : "Acme::Boolean",
+      "version" : "0.5"
+   },
+   "Acme-Boom" : {
+      "abstract" : null,
+      "name" : "Acme-Boom",
+      "primary" : "Acme::Boom",
+      "version" : "3735928560"
+   },
+   "Acme-BottomsUp" : {
+      "abstract" : "Write individual statements backwards",
+      "name" : "Acme-BottomsUp",
+      "primary" : "Acme::BottomsUp",
+      "version" : "0.02"
+   },
+   "Acme-Brainfuck" : {
+      "abstract" : "Embed Brainfuck in your perl code",
+      "name" : "Acme-Brainfuck",
+      "primary" : "Acme::Brainfuck",
+      "version" : "1.1.1"
+   },
+   "Acme-Buckaroo" : {
+      "abstract" : "Buckaroo Banzai Characters Infest Your Code!",
+      "name" : "Acme-Buckaroo",
+      "primary" : "Acme::Buckaroo",
+      "version" : "1.02"
+   },
+   "Acme-Buffalo-Buffalo" : {
+      "abstract" : "Perl extension to buffalo buffalo",
+      "name" : "Acme-Buffalo-Buffalo",
+      "primary" : "Acme::Buffalo::Buffalo",
+      "version" : "0.01"
+   },
+   "Acme-Buffy" : {
+      "abstract" : null,
+      "name" : "Acme-Buffy",
+      "primary" : "Acme::Buffy",
+      "version" : "1.6"
+   },
+   "Acme-Buga" : {
+      "abstract" : "Buga buga text encode",
+      "name" : "Acme-Buga",
+      "primary" : "Acme::Buga",
+      "version" : "1.002"
+   },
+   "Acme-ButFirst" : {
+      "abstract" : null,
+      "name" : "Acme-ButFirst",
+      "primary" : "Acme::ButFirst",
+      "version" : "1.00"
+   },
+   "Acme-Cake" : {
+      "abstract" : "A CPAN cake on CPAN. ",
+      "name" : "Acme-Cake",
+      "primary" : "Acme::Cake",
+      "version" : "0.01"
+   },
+   "Acme-Can-t" : {
+      "abstract" : "Determine whether your object can B<NOT> call a given method.",
+      "name" : "Acme-Can-t",
+      "primary" : "Acme::Can::t",
+      "version" : "0.01"
+   },
+   "Acme-Canadian" : {
+      "abstract" : null,
+      "name" : "Acme-Canadian",
+      "primary" : "Acme::Canadian",
+      "version" : "0.03"
+   },
+   "accessors" : {
+      "abstract" : "create accessor methods in caller's package.",
+      "name" : "accessors",
+      "primary" : "accessors",
+      "version" : "1.01"
+   },
+   "accessors-fast" : {
+      "abstract" : "Compiletime accessors using Class::Accessor::Fast",
+      "name" : "accessors-fast",
+      "primary" : "accessors::fast",
+      "version" : "0.03"
+   },
+   "accessors-rw-explicit" : {
+      "abstract" : "RW object attribute accessors, with explicit semantics",
+      "name" : "accessors-rw-explicit",
+      "primary" : "accessors::rw::explicit",
+      "version" : "0.02"
+   }
+}

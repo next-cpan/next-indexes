@@ -1,0 +1,26 @@
+{
+   "AAAA-Crypt-DH" : {
+      "abstract" : "making Crypt::DH installable",
+      "name" : "AAAA-Crypt-DH",
+      "primary" : "AAAA::Crypt::DH",
+      "version" : "0.06"
+   },
+   "AAAA-Mail-SpamAssassin" : {
+      "abstract" : "making Mail::SpamAssassin installable",
+      "name" : "AAAA-Mail-SpamAssassin",
+      "primary" : "AAAA::Mail::SpamAssassin",
+      "version" : "0.002"
+   },
+   "AAC-Pvoice" : {
+      "abstract" : "Create GUI software for disabled people",
+      "name" : "AAC-Pvoice",
+      "primary" : "AAC::Pvoice",
+      "version" : "0.91"
+   },
+   "Aard" : {
+      "abstract" : "Read aarddict dictionaries",
+      "name" : "Aard",
+      "primary" : "Aard",
+      "version" : "0.001"
+   }
+}
