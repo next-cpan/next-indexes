@@ -9,7 +9,7 @@
       "abstract" : "Web Utilities",
       "name" : "A1z-Html",
       "primary" : "A1z::Html",
-      "version" : "0.003"
+      "version" : "0.04"
    },
    "AAAA-Crypt-DH" : {
       "abstract" : "making Crypt::DH installable",
