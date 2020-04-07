@@ -1,9 +1,9 @@
 {
- "version": 20200403153744,
+ "version": 20200407165338,
  "columns": ["module", "version", "repository", "repository_version"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
-    ["A1z::Html", "0.003", "A1z-Html", "0.003"],
+    ["A1z::Html", "0.04", "A1z-Html", "0.04"],
     ["AAAA::Crypt::DH", 0, "AAAA-Crypt-DH", "0.06"],
     ["AAAA::Mail::SpamAssassin", 0, "AAAA-Mail-SpamAssassin", "0.002"],
     ["AAC::Pvoice", 0, "AAC-Pvoice", "0.91"],
