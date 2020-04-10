@@ -747,7 +747,7 @@ sub refresh_repository ( $self, $repository ) {
         return;
     }
 
-    INFO( "refresh_repository", $repository );
+    INFO( "refresh_repository: ", $repository, " builder: ", $build->{builder} );
 
     my $signature = $self->compute_build_signature($build);
 
