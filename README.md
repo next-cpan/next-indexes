@@ -34,23 +34,25 @@ The `module.idx` file lists the last available version of a module. For each mod
 [https://raw.githubusercontent.com/pause-play/pause-index/p5/module.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/module.idx)
 
 For every module you can know:
+
 - the module version
 - the repository(/CPAN distribution) providing this module
 - the repository version # FIXME maybe useless...
 
 ```json
- {
- "version": 20200320203836,
- "columns": ["module", "version", "repository", "repository_version"],
- "data": [
+{
+  "version": 20200320203836,
+  "columns": ["module", "version", "repository", "repository_version"],
+  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
     ["A1z::Html", "0.003", "A1z-Html", "0.003"],
     ["AC::MrGamoo", "1.0", "AC-MrGamoo", "1"],
     ["AC::MrGamoo::AC::FileList", 0, "AC-MrGamoo", "1"],
     ["AC::MrGamoo::AC::MySelf", 0, "AC-MrGamoo", "1"],
     ["AC::MrGamoo::AC::ReadInput", 0, "AC-MrGamoo", "1"]
- ] }
- ```
+  ]
+}
+```
 
 ## repositories.idx
 
@@ -63,21 +65,39 @@ For example `XML-Toolkit` distribution from [CPAN](https://metacpan.org/release/
 [https://github.com/pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit)
 
 For each distribution you can know:
+
 - last available version
 - sha used to download the tarball using the template url
 - signature of the tarball
 
 Sample extract:
+
 ```json
 {
- "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200320203836,
- "columns": ["repository", "version", "sha", "signature"],
- "data": [
-    ["A1z-HTML5-Template", "0.22", "01dc40b38e40f4f905bc7c902e2df08ccad22640", "f96dbc99fbb4dc833945c881c0f81925"],
-    ["A1z-Html", "0.003", "43484feee16a3ba360490890a203105525db91fb", "c54c2727eb29d7caab44d5e641491c4c"],
-    ["AC-MrGamoo", "1", "517730e24b94805eaf535b3ef4dbba9f776baaab", "7a598f9d71c1999063d91290f19523c5"]
- ] }
+  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
+  "version": 20200320203836,
+  "columns": ["repository", "version", "sha", "signature"],
+  "data": [
+    [
+      "A1z-HTML5-Template",
+      "0.22",
+      "01dc40b38e40f4f905bc7c902e2df08ccad22640",
+      "f96dbc99fbb4dc833945c881c0f81925"
+    ],
+    [
+      "A1z-Html",
+      "0.003",
+      "43484feee16a3ba360490890a203105525db91fb",
+      "c54c2727eb29d7caab44d5e641491c4c"
+    ],
+    [
+      "AC-MrGamoo",
+      "1",
+      "517730e24b94805eaf535b3ef4dbba9f776baaab",
+      "7a598f9d71c1999063d91290f19523c5"
+    ]
+  ]
+}
 ```
 
 ## explicit_versions.idx
@@ -89,13 +109,35 @@ It's useful to get for example an older or TRIAL version.
 
 ```json
 {
- "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200320203836,
- "columns": ["module", "version", "repository", "repository_version", "sha", "signature"],
- "data": [
-    ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22", "01dc40b38e40f4f905bc7c902e2df08ccad22640", "f96dbc99fbb4dc833945c881c0f81925"],
-    ["A1z::Html", "0.003", "A1z-Html", "0.003", "43484feee16a3ba360490890a203105525db91fb", "c54c2727eb29d7caab44d5e641491c4c"]
- ] }
+  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
+  "version": 20200320203836,
+  "columns": [
+    "module",
+    "version",
+    "repository",
+    "repository_version",
+    "sha",
+    "signature"
+  ],
+  "data": [
+    [
+      "A1z::HTML5::Template",
+      "0.22",
+      "A1z-HTML5-Template",
+      "0.22",
+      "01dc40b38e40f4f905bc7c902e2df08ccad22640",
+      "f96dbc99fbb4dc833945c881c0f81925"
+    ],
+    [
+      "A1z::Html",
+      "0.003",
+      "A1z-Html",
+      "0.003",
+      "43484feee16a3ba360490890a203105525db91fb",
+      "c54c2727eb29d7caab44d5e641491c4c"
+    ]
+  ]
+}
 ```
 
 # How to update the indexes:
@@ -148,6 +190,7 @@ The command `./update-index.pl` is going to parse all GitHub repositories for ne
 ```
 
 You can also limit the number of repositories to check:
+
 ```sh
 ./update-index.pl --limit 5
 ```
@@ -163,7 +206,6 @@ You can also limit the number of repositories to check:
 ```sh
 ./update-index.pl --full-update
 ```
-
 
 # See Also
 
