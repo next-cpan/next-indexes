@@ -42,6 +42,8 @@ use File::pushd;
 use File::Temp ();
 use File::Path qw(mkpath rmtree);
 
+use IPC::Run3 ();
+
 use File::Slurper qw{read_text write_text};
 
 use MIME::Base64 ();
@@ -147,6 +149,11 @@ has 'repo_email' => (
 has 'git_binary' => (
     isa           => 'Str', is => 'ro', lazy => 1, default => '/usr/bin/git',
     documentation => 'The location of the git binary that should be used.'
+);
+
+has 'cplay' => (
+    isa           => 'Str', is => 'rw', required => 1,
+    documentation => 'The location of the cplay fatpack script.'
 );
 
 has 'gh' => (
@@ -303,6 +310,13 @@ sub setup ($self) {
         File::Path::mkpath($dir) or die "Cannot create directory $dir";
     }
 
+    foreach my $name (qw{cplay}) {
+        my $path = $self->can($name)->($self);
+        if ( $path =~ s{~}{$ENV{HOME}} ) {
+            $self->can($name)->( $self, $path );      # update it
+        }
+    }
+
     return;
 }
 
@@ -324,154 +338,8 @@ sub run ($self) {
     return 0;
 }
 
-sub all_ix_files {
-    return [qw{module.idx explicit_versions.idx repositories.idx}];
-}
-
-sub commit_and_push($self) {
-    return 1 unless $self->push;
-
-    my $r            = $self->ix_git_repository;
-    my @all_ix_files = all_ix_files->@*;
-
-    # do we have any diff
-    my @out = $r->run( 'status', '-s', @all_ix_files );
-    if ( !scalar @out ) {
-        INFO("No changes to commit");
-        return 1;
-    }
-
-    my $cmd;
-
-    # commit
-    my $version    = $self->idx_version;
-    my $commit_msg = qq[Update indexes to version $version];
-    $r->run( 'commit', '-m', $commit_msg, @all_ix_files, { quiet => 1 } );
-    if ($?) {
-        ERROR("Fail to commit index files");
-        return;
-    }
-
-    # push
-    $r->run( 'push', { quiet => 1 } );
-    if ($?) {
-        ERROR("Fail to push changes");
-        return;
-    }
-    INFO("Pushed changes: $commit_msg");
-
-    return 1;
-}
-
-# checkout file if version is the only change
-sub check_ix_files_version($self) {
-    my $in_dir = pushd( $self->ix_base_dir );
-
-    my $r = $self->ix_git_repository;
-
-    my @all_ix_files = all_ix_files->@*;
-
-    my $ix_with_version_only = 0;
-
-    foreach my $ix (@all_ix_files) {
-        if ( !-f $ix ) {
-            ERROR("Index file $ix is missing");
-            next;
-        }
-        my @out  = $r->run( 'diff', '-U0', $ix );
-        my @diff = grep { m{^[-+]\s} } @out;
-        if ( scalar @diff == 2 ) {
-
-            # check if we only have some version change
-            my @only_version = grep { m{^[-+]\s+"version"} } @diff;
-            if ( scalar @only_version == scalar @diff ) {
-                ++$ix_with_version_only;
-            }
-        }
-    }
-
-    # only checkout files if all files has only a version change
-    if ( $ix_with_version_only == scalar @all_ix_files ) {
-        $r->run( 'checkout', @all_ix_files, { quiet => 1 } );
-        ERROR("Fail to checkout ix files") if $?;
-    }
-
-    return;
-}
-
-sub load_idx_files($self) {
-
-    $self->load_module_idx();
-    $self->load_explicit_versions_idx();
-    $self->load_repositories_idx();
-
-    return;
-}
-
-sub write_idx_files ( $self, %opts ) {
-
-    $self->write_module_idx();
-    $self->write_explicit_versions_idx();
-    $self->write_repositories_idx();
-
-    my $check = delete $opts{check} // 1;
-
-    if ( scalar keys %opts ) {
-        die q[Unknown options to write_idx_files: ] . join( ', ', sort keys %opts );
-    }
-
-    $self->check_ix_files_version if $check;
-
-    return;
-}
-
-sub _module_idx($self) {
-    return $self->ix_base_dir() . '/module.idx';
-}
-
-sub _explicit_versions_idx($self) {
-    return $self->ix_base_dir() . '/explicit_versions.idx';
-}
-
-sub _repositories_idx($self) {
-    return $self->ix_base_dir() . '/repositories.idx';
-}
-
 sub max ( $a, $b ) {
     return $a > $b ? $a : $b;
-}
-
-sub write_module_idx($self) {
-    return $self->_write_idx(
-        $self->_module_idx,
-        undef,
-        [qw{module version repository repository_version}],
-        $self->{latest_module}
-    );
-}
-
-sub load_module_idx($self) {
-    my $rows = $self->_load_idx( $self->_module_idx ) or return;
-    $self->{latest_module} = { map { $_->{module} => $_ } @$rows };
-
-    return;
-}
-
-sub load_repositories_idx($self) {
-    my $rows = $self->_load_idx( $self->_repositories_idx ) or return;
-
-    $self->{repositories} = { map { $_->{repository} => $_ } @$rows };
-
-    return;
-}
-
-sub load_explicit_versions_idx($self) {
-    my $rows = $self->_load_idx( $self->_explicit_versions_idx ) or return;
-
-    $self->{all_modules} =
-      { map { $_->{module} . "||" . $_->{version} => $_ } @$rows };
-
-    return;
 }
 
 sub read_json_file ( $self, $file ) {
@@ -484,267 +352,50 @@ sub read_json_file ( $self, $file ) {
     return $as_json;
 }
 
-sub _load_idx ( $self, $file ) {
-
-    return unless -e $file;
-
-    my $idx = $self->read_json_file($file);
-
-    my $columns = $idx->{columns} or die;
-    my $data    = $idx->{data}    or die;
-
-    my $rows = [];
-
-    foreach my $line (@$data) {
-        push @$rows, { zip( @$columns, @$line ) };
-    }
-
-    return $rows;
-}
-
-sub write_explicit_versions_idx($self) {
-    my $template_url = $self->template_url;
-    my $headers      = qq[ "template_url": "$template_url",];
-
-    return $self->_write_idx(
-        $self->_explicit_versions_idx,
-        $headers,
-        [qw{module version repository repository_version sha signature}],
-        $self->{all_modules}
-    );
-}
-
-sub write_repositories_idx($self) {
-    my $template_url = $self->template_url;
-    my $headers      = qq[ "template_url": "$template_url",];
-
-    return $self->_write_idx(
-        $self->_repositories_idx,
-        $headers,
-        [qw{repository version sha signature}],
-        $self->{repositories}
-    );
-}
-
-sub _write_idx ( $self, $file, $headers, $columns, $data ) {
-    return unless $data && ref $data;
-
-    die unless ref $columns eq 'ARRAY';
-
-    my $json = $self->json->pretty(0)->space_after->canonical;
-
-    open( my $fh, '>:utf8', $file ) or die;
-
-    print {$fh} "{\n";
-    if ($headers) {
-        chomp $headers;
-        print {$fh} $headers . "\n";
-    }
-    print {$fh} q[ "version": ] . $self->idx_version . ",\n";
-    print {$fh} q[ "columns": ] . $json->encode($columns) . ",\n";
-    print {$fh} q{ "data": [} . "\n";
-
-    my @keys = sort keys $data->%*;
-    my $c    = 0;
-    foreach my $k (@keys) {
-        ++$c;
-        my $end = $c == scalar @keys ? "\n" : ",\n";
-        print {$fh} "    " . $json->encode( [ map { $data->{$k}->{$_} } @$columns ] ) . $end;
-    }
-
-    print {$fh} " ] }\n";
-    close($fh);
-
-    # check if we can read the file
-    $self->read_json_file($file);
-
-    return;
-}
-
-sub _write_idx_txt ( $self, $file, $headers, $columns, $data ) {
-
-    return unless $data && ref $data;
-
-    die unless ref $columns eq 'ARRAY';
-
-    my @L = map { length $_ } @$columns;
-    $L[0] += 2;    # '# ' in front
-
-    foreach my $k ( sort keys $data->%* ) {
-        my @values = map { $data->{$k}->{$_} } @$columns;
-
-        for ( my $i = 0; $i < scalar @L; ++$i ) {
-            $L[$i] = max( $L[$i], length $values[$i] );
-        }
-    }
-
-    @L = map { $_ + 1 } @L;    # add an extra space
-
-    my $format = join( "\t", map { "%-${_}s" } @L );
-
-    open( my $fh, '>:utf8', $file ) or die;
-    if ($headers) {
-        chomp $headers;
-        print {$fh} $headers . "\n";
-    }
-    printf( $fh "# $format\n", @$columns );
-
-    foreach my $k ( sort keys $data->%* ) {
-        printf( $fh "$format\n", map { $data->{$k}->{$_} } @$columns );
-    }
-
-    return 1;
-}
-
-sub index_module (
-    $self,               $module, $version, $repository,
-    $repository_version, $sha,    $signature
-) {
-
-    # latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
-    # module        version      repo
-    # foo::bar::baz   1.000   foo-bar
-    # foo::bar::biz   2.000   foo-bar
-
-    $self->{latest_module} //= {};
-
-    $self->{latest_module}->{$module} = {
-        module             => $module,               # easier to write the file content
-        version            => $version,
-        repository         => $repository,           # or repo@1.0
-        repository_version => $repository_version,
-    };
-
-    # all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
-    # module    version        repo  repo_version sha signature
-    # foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
-    # foo::bar::baz   0.04_01  foo-bar deadbaaf
-    # foo::bar::biz    2.000  foo-bar deadbeef
-
-    $self->{all_modules} //= {};
-
-    my $key = "$module||$version";
-
-    $self->{all_modules}->{$key} = {
-        module             => $module,
-        version            => $version,
-        repository         => $repository,
-        repository_version => $repository_version,
-        sha                => $sha,
-        signature          => $signature,
-    };
-
-    return;
-}
-
-sub index_repository (
-    $self, $repository, $repository_version, $sha,
-    $signature
-) {
-
-=pod
-# latest distro index https://raw.githubusercontent.com/newpause/index_repo/p7/repositories.idx
-# http://github.com/newpause/${distro}/archive/${sha}.tar.gz
-distro     version   sha            signature
-foo-bar  1.005     deadbeef   abcdef123435
-=cut
-
-    if ( index( $repository_version, '_' ) >= 0 ) {
-        DEBUG( "$repository do not index development version: ", $repository_version, "in repositories.idx" );
-        return;
-    }
-
-    $self->{repositories} //= {};
-    $self->{repositories}->{$repository} = {
-        repository => $repository,           ## maybe rename
-        version    => $repository_version,
-        sha        => $sha,
-        signature  => $signature,
-    };
-
-    return;
-}
-
-sub compute_build_signature ( $self, $build ) {
+sub check_dependencies ( $self, $build ) {
     return unless ref $build;
 
-    my $url = $self->template_url;
+    note explain $build;
 
-    my $repository = $build->{name} or die;
-    my $sha        = $build->{sha}  or die;
+    my @requires_keys = qw{requires_build requires_develop requires_runtime};
 
-    $url =~ s{:repository}{$repository};
-    $url =~ s{:sha}{$sha};
+    note $self->cplay;
 
-    DEBUG( "... downloading:", $url );
+    my %all_modules = map { $build->{$_}->%* } @requires_keys;
 
-    my $tmp_file = $self->tmp_dir . '/dist.tar.gz';
+    note explain \%all_modules;
 
-    if ( -e $tmp_file ) {
-        unlink($tmp_file) or die "Fail to remove tmp_file: $tmp_file";
-    }
-
-    my $ua = Mojo::UserAgent->new;
-    $ua->max_redirects(5)->get($url)->result->save_to($tmp_file);
-
-    my $signature = Crypt::Digest::MD5::md5_file_hex($tmp_file);
-    unlink($tmp_file);
-
-    return $signature;
-}
-
-sub add_to_playlist ( $self, $build ) {
-
-    return unless $self->playlist;
-
-    my $letter = '0';              # default
-    my $name   = $build->{name};
-
-    # pick one letter
-    $letter = lc($1) if $name =~ m{^([a-z])}i;
-
-    $self->{playlist_index} //= {};
-
-    $self->{playlist_index}->{$letter} //= $self->load_playlist_for_letter($letter);
-    $self->{playlist_index}->{$letter}->{$name} = { map { $_ => $build->{$_} } qw{name primary version abstract} };
-
-    return;
-}
-
-sub update_playlist_files( $self ) {
-
-    return unless $self->playlist;
-
-    DEBUG("Updating index files");
-    my @all_letters = ( 'a' .. 'z', '0' );
-
-    my $index = $self->{playlist_index} // {};
-
-    foreach my $letter (@all_letters) {
-        my $file = $self->playlist_json_file_for_letter($letter);
-
-        my $data = $index->{$letter} // {};
-        next unless scalar keys $data->%*;
-
-        open( my $fh, '>:utf8', $file ) or die;
-        print {$fh} $self->json->pretty(1)->encode($data);
+    foreach my $module ( sort keys %all_modules ) {
+        my $distro = $self->get_distro_for($module);
+        DEBUG( "$module => " . ( $distro // 'undef' ) );
+        next if defined $distro && ( $distro eq 'CORE' || $distro =~ m{^CORE\s} );
+        ...;
     }
 
     return;
+
 }
 
-sub playlist_json_file_for_letter ( $self, $letter ) {
-    return $self->playlist_json_dir . '/playlist-' . $letter . '.json';
-}
+sub get_distro_for ( $self, $module ) {
+    $self->{_cache_module_distro} //= {};
+    my $cache = $self->{_cache_module_distro};
 
-sub load_playlist_for_letter ( $self, $letter ) {
-    die unless defined $letter && length $letter == 1;
-    my $file = $self->playlist_json_file_for_letter($letter);
+    return $cache->{$module} if defined $cache->{$module};
 
-    return {} if $self->full_update;    # force refresh the json files
-    return {} unless -f $file;
+    my ( $out, $err );
+    my $cmd = [ $self->cplay, 'get-repo', $module ];
+    IPC::Run3::run3( $cmd, undef, \$out, \$err );
 
-    return $self->read_json_file($file);
+    my $value = -1;    # used for errors
+    chomp $out if defined $out;
+
+    if ( $? == 0 ) {
+        $value = $out;
+    }
+
+    $cache->{$module} = $value;
+
+    return $cache->{$module};
 }
 
 sub refresh_repository ( $self, $repository ) {
@@ -756,10 +407,16 @@ sub refresh_repository ( $self, $repository ) {
     # read the build file without cloning the repo
     my $build = $self->get_build_info($repository);
     return unless $build;
-    note explain $build;
 
     #use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
     my $org = $self->github_org;
+
+    ### FIXME check the deps
+    ### their repo and see if they are provided / green
+    if ( !$self->check_dependencies($build) ) {
+        DEBUG("skipping $repository - dependencies not met");
+        return;
+    }
 
     my $url = GITHUB_REPO_SSH;
     $url =~ s{:org}{$org};
