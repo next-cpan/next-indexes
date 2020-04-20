@@ -75,7 +75,7 @@ has 'force' => (
 has 'playlist' => ( is => 'rw', isa => 'Bool', default => 1, documentation => 'enable or disable playlist processing' );
 
 # settings.ini
-has 'base_dir' => (
+has 'ix_base_dir' => (
     isa           => 'Str', is => 'rw',
     default       => sub { Cwd::abs_path($FindBin::Bin) },
     documentation => 'The base directory where our idx files are stored.'
@@ -127,7 +127,8 @@ has 'gh' => (
     lazy    => 1,
     default => sub {
         Net::GitHub::V3->new(
-            version      => 3, login => $_[0]->github_user,
+            version      => 3,
+            login        => $_[0]->github_user,
             access_token => $_[0]->github_token
         );
     }
@@ -171,7 +172,7 @@ has 'tmp_dir' => (
 
 has 'ix_git_repository' => (
     isa     => 'Object', is => 'ro', lazy => 1,
-    default => sub($self) { Git::Repository->new( work_tree => $self->base_dir ); }
+    default => sub($self) { Git::Repository->new( work_tree => $self->ix_base_dir ); }
 );
 
 my $GOT_SIG_SIGNAL;
@@ -257,7 +258,7 @@ sub get_build_info ( $self, $repository ) {
 }
 
 sub setup ($self) {
-    my @all_dirs = qw{base_dir};
+    my @all_dirs = qw{ix_base_dir};
     push @all_dirs, qw{playlist_html_dir playlist_json_dir} if $self->playlist;
 
     foreach my $dirtype (@all_dirs) {
@@ -345,7 +346,7 @@ sub commit_and_push($self) {
 
 # checkout file if version is the only change
 sub check_ix_files_version($self) {
-    my $in_dir = pushd( $self->base_dir );
+    my $in_dir = pushd( $self->ix_base_dir );
 
     my $r = $self->ix_git_repository;
 
@@ -406,15 +407,15 @@ sub write_idx_files ( $self, %opts ) {
 }
 
 sub _module_idx($self) {
-    return $self->base_dir() . '/module.idx';
+    return $self->ix_base_dir() . '/module.idx';
 }
 
 sub _explicit_versions_idx($self) {
-    return $self->base_dir() . '/explicit_versions.idx';
+    return $self->ix_base_dir() . '/explicit_versions.idx';
 }
 
 sub _repositories_idx($self) {
-    return $self->base_dir() . '/repositories.idx';
+    return $self->ix_base_dir() . '/repositories.idx';
 }
 
 sub max ( $a, $b ) {
