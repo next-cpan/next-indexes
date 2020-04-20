@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-package UpdateIndex;
+package CloneRepo;
 
 use autodie;
 use strict;
@@ -40,7 +40,9 @@ use Git::Repository ();
 use File::pushd;
 
 use File::Temp ();
-use File::Path;
+use File::Path qw(mkpath rmtree);
+
+use File::Slurper qw{read_text write_text};
 
 use MIME::Base64 ();
 use JSON::XS     ();
@@ -59,10 +61,13 @@ use Data::Dumper;
 
 use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 
+use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
+use constant GITHUB_REPO_SSH => q[git@github.com::org/:repository.git];
+
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
 has 'push'        => (
-    is              => 'rw', isa => 'Bool', default => 0,
+    is              => 'rw', isa => 'Bool', default => 1,
     'documentation' => 'commit and push the index changes if needed'
 );
 has 'repo'  => ( is => 'rw', isa => 'ArrayRef', default => sub { [] } );
@@ -80,6 +85,18 @@ has 'ix_base_dir' => (
     default       => sub { Cwd::abs_path($FindBin::Bin) },
     documentation => 'The base directory where our idx files are stored.'
 );
+
+has 'repo_base_dir' => (
+    isa           => 'Str', is => 'rw', required => 1,
+    documentation => 'The base directory where git repositories are stored.'
+);
+
+has 'ci_template_yml' => (
+    isa           => 'Str', is => 'rw', lazy => 1,
+    default       => sub($self) { read_text( $self->root_dir . '/templates/install-workflow.yml' ) },
+    documentation => 'The template use for CI'
+);
+
 has 'root_dir' => (
     isa           => 'Str', is => 'rw',
     default       => sub { Cwd::abs_path($FindBin::Bin) },
@@ -97,8 +114,19 @@ has 'playlist_json_dir' => (
 );
 has 'github_user' => (
     isa           => 'Str', is => 'ro', required => 1,
-    documentation => q{REQUIRED - The github username we'll use to create and update repos.}
+    documentation => q{REQUIRED - The github id.}
 );    # = pause-parser
+
+has 'github_author' => (
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => q{REQUIRED - The github author.}
+);    # = pause-parser
+
+has 'github_email' => (
+    isa           => 'Str', is => 'ro', required => 1,
+    documentation => q{REQUIRED - The github email.}
+);    # = pause-parser
+
 has 'github_token' => (
     isa           => 'Str', is => 'ro', required => 1,
     documentation => q{REQUIRED - The token we'll use to authenticate.}
@@ -168,6 +196,11 @@ has 'template_url' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_
 has 'tmp_dir' => (
     isa     => 'Object', is => 'ro', lazy => 1,
     default => sub { File::Temp->newdir() }
+);
+
+has 'ix_git_repository' => (
+    isa     => 'Object', is => 'ro', lazy => 1,
+    default => sub($self) { Git::Repository->new( work_tree => $self->ix_base_dir ); }
 );
 
 has 'ix_git_repository' => (
@@ -258,8 +291,7 @@ sub get_build_info ( $self, $repository ) {
 }
 
 sub setup ($self) {
-    my @all_dirs = qw{ix_base_dir};
-    push @all_dirs, qw{playlist_html_dir playlist_json_dir} if $self->playlist;
+    my @all_dirs = qw{repo_base_dir};
 
     foreach my $dirtype (@all_dirs) {
         my $dir = $self->can($dirtype)->($self);
@@ -278,12 +310,6 @@ sub run ($self) {
 
     $self->setup;
 
-    if ( !$self->full_update ) {
-
-        # read existing files
-        $self->load_idx_files;
-    }
-
     if ( $self->repo && scalar $self->repo->@* ) {
 
         foreach my $repository ( $self->repo->@* ) {
@@ -294,13 +320,6 @@ sub run ($self) {
     else {    # default
         $self->refresh_all_repositories();
     }
-
-    # ... update files...
-    $self->write_idx_files;
-    $self->update_playlist_files;
-
-    # commit
-    return 1 unless $self->commit_and_push;
 
     return 0;
 }
@@ -732,44 +751,120 @@ sub refresh_repository ( $self, $repository ) {
 
     return if $self->is_internal_repo($repository);
 
-    $self->sleep_until_not_throttled;    # check API rate limit
+    #$self->sleep_until_not_throttled;    # check API rate limit FIXME restore
 
+    # read the build file without cloning the repo
     my $build = $self->get_build_info($repository);
     return unless $build;
+    note explain $build;
 
-    my $repository_version = $build->{version};
-    my $sha                = $build->{sha} or die "missing sha for $repository";
+    #use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
+    my $org = $self->github_org;
 
-    if (  !$self->force
-        && $self->{repositories}->{$repository}
-        && defined $self->{repositories}->{$repository}->{sha}
-        && $sha eq $self->{repositories}->{$repository}->{sha} ) {
-        DEBUG( $repository, "no changes detected - skip" );
+    my $url = GITHUB_REPO_SSH;
+    $url =~ s{:org}{$org};
+    $url =~ s{:repository}{$repository};
+
+    my $in_dir = pushd( $self->repo_base_dir );
+
+    INFO("Repository '$repository' -> $url");
+
+    # FIXME --force option
+    my $dir = $repository;
+
+    if ( $self->force && -d $dir ) {
+        INFO("Removing directory: $dir");
+        rmtree($dir);
+    }
+
+    if ( -d $dir ) {
+        INFO("Repository already cloned.");
         return;
     }
 
-    INFO( "refresh_repository: ", $repository, " builder: ", $build->{builder} );
+    Git::Repository->run( clone => $url, $dir );
+    -d $dir && -d "$dir/.git" or die q[Fail to clone repository $repository];
 
-    my $signature = $self->compute_build_signature($build);
+    {
+        my $in_repo_dir = pushd($dir);
 
-    $self->index_repository(
-        $repository,
-        $repository_version,
-        $sha,
-        $signature,
-    );
+        # load the BUILD.json file
+        my $BUILD = $self->read_json_file('BUILD.json');
+        note explain $BUILD;
 
-    my $provides = $build->{provides} // {};
-    foreach my $module ( keys $provides->%* ) {
-        my $version = $provides->{$module}->{version} // $repository_version;
+        # main_branch
+        my $r              = Git::Repository->new( work_tree => '.' );
+        my $current_branch = $r->run( 'branch', '--show-current' );
 
-        $self->index_module(
-            $module,             $version, $repository,
-            $repository_version, $sha,     $signature
-        );
+        if ( $current_branch ne $self->main_branch ) {
+            die sprintf(
+                "Repository %s not using '%s' as main branch [%s].",
+                $repository, $self->main_branch, $current_branch
+            );
+        }
+
+        INFO( "Setting username and email: " . $self->github_author . " / " . $self->github_email );
+        $r->run( 'config', 'user.name',          $self->github_author );
+        $r->run( 'config', 'user.email',         $self->github_email );
+        $r->run( 'config', 'advice.ignoredHook', 'false' );
+
+        my $gh_workflow_dir = '.github/workflows';
+        File::Path::mkpath($gh_workflow_dir);
+        die "Cannot create directory $gh_workflow_dir for $repository" unless -d $gh_workflow_dir;
+
+        my $primary     = $BUILD->{primary} or die "missing Primary module";
+        my $main_branch = $self->main_branch;
+
+        my $ci_template = $self->ci_template_yml;
+        $ci_template =~ s{~MAIN_BRANCH~}{$main_branch}g;
+        $ci_template =~ s{~PRIMARY~}{$primary}g;
+
+        my $ci_file = $gh_workflow_dir . '/install-' . $main_branch . '.yml';
+        INFO("... write $ci_file");
+        write_text( $ci_file, $ci_template );
+
+        $r->run( 'add', $ci_file );
+        $r->run( 'commit', '-m', "Add p$main_branch CI workflow" );
+
+        INFO("git push: $repository");
+        $r->run('push');
     }
 
-    $self->add_to_playlist($build);
+    return;
+
+    # my $repository_version = $build->{version};
+    # my $sha                = $build->{sha} or die "missing sha for $repository";
+
+    # if (  !$self->force
+    #     && $self->{repositories}->{$repository}
+    #     && defined $self->{repositories}->{$repository}->{sha}
+    #     && $sha eq $self->{repositories}->{$repository}->{sha} ) {
+    #     DEBUG( $repository, "no changes detected - skip" );
+    #     return;
+    # }
+
+    # INFO( "refresh_repository: ", $repository, " builder: ", $build->{builder} );
+
+    # my $signature = $self->compute_build_signature($build);
+
+    # $self->index_repository(
+    #     $repository,
+    #     $repository_version,
+    #     $sha,
+    #     $signature,
+    # );
+
+    # my $provides = $build->{provides} // {};
+    # foreach my $module ( keys $provides->%* ) {
+    #     my $version = $provides->{$module}->{version} // $repository_version;
+
+    #     $self->index_module(
+    #         $module,             $version, $repository,
+    #         $repository_version, $sha,     $signature
+    #     );
+    # }
+
+    # $self->add_to_playlist($build);
 
     return;
 }
@@ -863,22 +958,12 @@ after 'print_usage_text' => sub {
 Options:
 
     --repo NAME [--repo NAME]        refresh only one or multiple repositories
-    --push                           commit and push changes to index files
-    --force                          force to refresh repositories even if HEAD is the same
-    --full_update                    clear index before regenerating them
-    --limit N                        stop after processing N repositories
-    --noplaylist                     disable playlist json files updates
 
 Sample usages:
 
-$0                                    # refresh all modules
+$0                                    # clone all repos
 $0 --repo A1z-Html                    # only refresh a single repository
-$0 --repo A1z-Html --push             # refresh a single repository and push
-$0 --repo A1z-Html --force            # force refresh a repository
-$0 --repo A1z-Html --repo ACL-Regex   # refresh multiple repositories
-$0 --full_update                      # regenerate the index files
-$0 --limit 5                          # stop after reading X repo
-$0 --limit 5 --noplaylist             # do not update playlist json files
+$0 --ci                               # add the CI workflow
 
 EOS
 };
@@ -910,7 +995,7 @@ repo_email      = FIXME
 
 EOS
 
-    my $update = UpdateIndex->new_with_options( configfile => $settings_ini );
+    my $update = CloneRepo->new_with_options( configfile => $settings_ini );
 
     exit( $update->run );
 }

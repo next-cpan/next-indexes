@@ -1,0 +1,49 @@
+name: "install with"
+
+on:
+  push:
+    branches: ["~MAIN_BRANCH~"]
+  pull_request:
+    branches: ["~MAIN_BRANCH~"]
+
+env:
+  PRIMARY: "~PRIMARY~"
+  #PERL_USE_UNSAFE_INC: 0
+  AUTHOR_TESTING: 0
+  AUTOMATED_TESTING: 1
+  RELEASE_TESTING: 0
+
+jobs:
+  # ---------------------------------------------------------
+  # testing module installation using cplay
+  # ---------------------------------------------------------
+  cplay:
+    runs-on: ubuntu-latest
+    steps:
+      - run: perl -V
+      - uses: perl-actions/install-with-cplay@cplay-ci
+      - run: perl -M${{ env.PRIMARY }} -e1
+
+  # ---------------------------------------------------------
+  # testing module installation using cpm
+  # ---------------------------------------------------------
+  cpm:
+    runs-on: ubuntu-latest
+    steps:
+      - run: perl -V
+      - uses: perl-actions/install-cpm@v1.2
+        with:
+          install: "${{ env.PRIMARY }}"
+      - run: perl -M${{ env.PRIMARY }} -e1
+
+  # ---------------------------------------------------------
+  # testing module installation using cpanm
+  # ---------------------------------------------------------
+  cpanm:
+    runs-on: ubuntu-latest
+    steps:
+      - run: perl -V
+      - uses: perl-actions/install-cpanm@v1.1
+        with:
+          install: ${{ env.PRIMARY }}
+      - run: perl -M${{ env.PRIMARY }} -e1
