@@ -456,7 +456,41 @@ sub is_repository_cplay_ready ( $self, $repository ) {
         return;
     }
 
+    #$repository = 'cplay'; #HACK
+
     # 3. check if the workflow last run is a success
+    my $workflows = $self->gh->actions->workflows( { owner => $self->github_org, repo => $repository } );
+    die unless ref $workflows;
+
+    #$workflows->{total_count} = 1; # HACK
+
+    if ( $workflows->{total_count} == 1 ) {
+        my $workflow    = $workflows->{workflows}->[0];
+        my $workflow_id = $workflow->{id} or die "no workflow id";
+
+        #note explain $workflow;
+
+        my $runs = $self->gh->actions->runs( { owner => $self->github_org, repo => $repository, workflow_id => $workflow_id } );
+
+        die explain($runs) unless ref $runs && ref $runs->{workflow_runs} && ref $runs->{workflow_runs}->[0];
+
+        #note 'run: ', explain $runs->{workflow_runs}->[0];
+        my $success;
+        eval { $success = ( ( $runs->{workflow_runs}->[0]->{conclusion} // '' ) eq 'success' ? 1 : 0 ) };
+
+        #note "success?? ", $success;
+        DEBUG( "Last workflow run was a success ? " . ( $success // 'undef' ) );
+        return 1 if $success;
+
+        die explain $runs->{workflow_runs}->[0];
+        return;
+
+    }
+    else {
+        note explain $workflows;
+        ...    # more than a single workflow ? need to get one with the name
+    }
+
     ...;
 
     return 1;
