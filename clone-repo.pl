@@ -215,6 +215,37 @@ has 'ix_git_repository' => (
     default => sub($self) { Git::Repository->new( work_tree => $self->ix_base_dir ); }
 );
 
+has 'gh_workflow_dir' => ( isa => 'Str', is => 'ro', default => '.github/workflows' );
+
+has 'gh_ci_workflow_file' => (
+    isa     => 'Str',
+    is      => 'ro',
+    lazy    => 1,
+    default => sub ($self) {
+        note $self->gh_workflow_dir . '/install-' . $self->main_branch . '.yml';
+        $self->gh_workflow_dir . '/install-' . $self->main_branch . '.yml';
+    }
+);
+
+has 'repositories_processed_file' => (
+    isa     => 'Str',
+    is      => 'ro',
+    lazy    => 1,
+    default => sub($self) {
+        $self->repo_base_dir . '/processed.json';
+    }
+);
+has 'repositories_processed' => ( isa => 'HashRef', is => 'ro', lazy => 1, builder => '_build_repositories_processed' );
+
+sub _build_repositories_processed($self) {
+
+    return {} unless -e $self->repositories_processed_file;
+
+    my $content = read_text( $self->repositories_processed_file );
+
+    return $self->json->decode($content);
+}
+
 # my $GOT_SIG_SIGNAL;
 # local $SIG{'INT'} = sub {
 #     if ($GOT_SIG_SIGNAL) {
@@ -368,7 +399,9 @@ sub read_json_file ( $self, $file ) {
     open( my $fh, '<:utf8', $file ) or die;
     my $content = <$fh>;
 
-    my $as_json = $self->json->decode($content) or die "fail to decode json content from $file";
+    my $as_json;
+    eval { $as_json = $self->json->decode($content) };
+    ref $as_json or die "Fail to decode json content from $file";
 
     return $as_json;
 }
@@ -395,30 +428,38 @@ sub check_dependencies_cplay_ready ( $self, $build ) {
             return;
         }
 
-        return unless $self->is_distro_cplay_ready($distro);
+        return unless $self->is_repository_cplay_ready($distro);
 
     }
 
     return 1;    # all dependencies satisfied
 }
 
-sub is_distro_cplay_ready ( $self, $distro ) {
+sub is_repository_cplay_ready ( $self, $repository ) {
 
-    return unless defined $distro;
+    return unless defined $repository;
 
     # 1. first if we got a BUILD.json file in the github repo
     my $build;
-    my $ok = eval { $build = $self->get_build_info($distro); 1 };
+    my $ok = eval { $build = $self->get_build_info($repository); 1 };
     if ( !$ok || !ref $build ) {
-        DEBUG("repository $distro has no BUILD.json file.");
+        DEBUG("repository $repository has no BUILD.json file.");
         return;
     }
 
     # 2. check if we got a .github/workflow/....yml file available
+    my $gh_ci_workflow_file = $self->gh_ci_workflow_file;
+    my $content;
+    eval { $content = $self->get_file_from_github( $repository, $gh_ci_workflow_file ); };
+    if ( !defined $content ) {
+        DEBUG("repository $repository has no $gh_ci_workflow_file set");
+        return;
+    }
 
     # 3. check if the workflow last run is a success
-
     ...;
+
+    return 1;
 }
 
 sub get_distro_for ( $self, $module ) {
@@ -444,8 +485,21 @@ sub get_distro_for ( $self, $module ) {
 }
 
 sub refresh_repository ( $self, $repository ) {
-
     return if $self->is_internal_repo($repository);
+
+    if ( !$self->force && $self->repositories_processed->{$repository} ) {
+        DEBUG("Skipping already processed $repository");
+        return;
+    }
+
+    my $ok = $self->_refresh_repository($repository);
+
+    $self->tag_repository($repository);
+
+    return $ok;
+}
+
+sub _refresh_repository ( $self, $repository, $attempt = 1 ) {
 
     $self->sleep_until_not_throttled;    # check API rate limit FIXME restore
 
@@ -488,28 +542,43 @@ sub refresh_repository ( $self, $repository ) {
     {
         my $in_repo_dir = pushd($dir);
 
-        # load the BUILD.json file
-        my $BUILD = $self->read_json_file('BUILD.json');
-
-        #note explain $BUILD;
-
         # main_branch
         my $r              = Git::Repository->new( work_tree => '.' );
         my $current_branch = $r->run( 'branch', '--show-current' );
 
         if ( $current_branch ne $self->main_branch ) {
-            die sprintf(
-                "Repository %s not using '%s' as main branch [%s].",
-                $repository, $self->main_branch, $current_branch
+            undef $in_repo_dir;
+            rmtree($dir);
+
+            ERROR(
+                sprintf(
+                    "Repository %s not using '%s' as main branch [%s].",
+                    $repository, $self->main_branch, $current_branch
+                )
             );
+
+            if ( $attempt == 1 ) {
+                DEBUG("Trying to update default_branch");
+                my $out = $self->gh->repos->update( $self->github_org, $repository, { default_branch => $self->main_branch } );
+
+                if ( ref $out && $out->{default_branch} eq $self->main_branch ) {
+                    INFO( "Altered $repository default_branch to " . $self->main_branch . " [retry]" );
+                    return $self->_refresh_repository( $repository, $attempt + 1 );
+                }
+            }
+
+            die "abort, abort...";
         }
+
+        # load the BUILD.json file
+        my $BUILD = $self->read_json_file('BUILD.json');
 
         INFO( "Setting username and email: " . $self->github_author . " / " . $self->github_email );
         $r->run( 'config', 'user.name',          $self->github_author );
         $r->run( 'config', 'user.email',         $self->github_email );
         $r->run( 'config', 'advice.ignoredHook', 'false' );
 
-        my $gh_workflow_dir = '.github/workflows';
+        my $gh_workflow_dir = $self->gh_workflow_dir;
         File::Path::mkpath($gh_workflow_dir);
         die "Cannot create directory $gh_workflow_dir for $repository" unless -d $gh_workflow_dir;
 
@@ -520,52 +589,26 @@ sub refresh_repository ( $self, $repository ) {
         $ci_template =~ s{~MAIN_BRANCH~}{$main_branch}g;
         $ci_template =~ s{~PRIMARY~}{$primary}g;
 
-        my $ci_file = $gh_workflow_dir . '/install-' . $main_branch . '.yml';
+        my $ci_file = $self->gh_ci_workflow_file;
         INFO("... write $ci_file");
         write_text( $ci_file, $ci_template );
 
         $r->run( 'add', $ci_file );
-        $r->run( 'commit', '-m', "Add p$main_branch CI workflow" );
+        $r->run( 'commit', '-m', "Add $main_branch CI workflow" );
 
         INFO("git push: $repository");
         my @out = $r->run('push');
     }
 
     return;
+}
 
-    # my $repository_version = $build->{version};
-    # my $sha                = $build->{sha} or die "missing sha for $repository";
+sub tag_repository ( $self, $repository ) {
 
-    # if (  !$self->force
-    #     && $self->{repositories}->{$repository}
-    #     && defined $self->{repositories}->{$repository}->{sha}
-    #     && $sha eq $self->{repositories}->{$repository}->{sha} ) {
-    #     DEBUG( $repository, "no changes detected - skip" );
-    #     return;
-    # }
+    $self->repositories_processed->{$repository} = 1;
 
-    # INFO( "refresh_repository: ", $repository, " builder: ", $build->{builder} );
-
-    # my $signature = $self->compute_build_signature($build);
-
-    # $self->index_repository(
-    #     $repository,
-    #     $repository_version,
-    #     $sha,
-    #     $signature,
-    # );
-
-    # my $provides = $build->{provides} // {};
-    # foreach my $module ( keys $provides->%* ) {
-    #     my $version = $provides->{$module}->{version} // $repository_version;
-
-    #     $self->index_module(
-    #         $module,             $version, $repository,
-    #         $repository_version, $sha,     $signature
-    #     );
-    # }
-
-    # $self->add_to_playlist($build);
+    my $as_json = $self->json->encode( $self->repositories_processed );
+    write_text( $self->repositories_processed_file, $as_json );
 
     return;
 }
@@ -598,27 +641,42 @@ sub _log(@args) {
     return $msg;
 }
 
-sub INFO (@what) {
-    _log( '[INFO]', @what );
+use constant COLOR_RED    => 31;
+use constant COLOR_GREEN  => 32;
+use constant COLOR_YELLOW => 33;
+use constant COLOR_BLUE   => 34;
+use constant COLOR_PURPLE => 35;
+use constant COLOR_CYAN   => 36;
+use constant COLOR_WHITE  => 7;
 
+sub _with_color ( $color, $txt ) {
+    return "\e[${color}m$txt\e[m";
+}
+
+sub TAG_with_color ( $tag, $color ) {
+    return '[' . _with_color( $color, $tag ) . ']';
+}
+
+sub INFO (@what) {
+    _log( TAG_with_color( INFO => COLOR_GREEN ), @what );
     return;
 }
 
 sub DEBUG (@what) {
-    _log( '[DEBUG]', @what );
-
+    _log( TAG_with_color( DEBUG => COLOR_WHITE ), @what );
     return;
 }
 
 sub ERROR (@what) {
-    _log( '[ERROR]', @what );
+    _log( TAG_with_color( ERROR => COLOR_RED ), @what );
     return;
 }
 
 sub sleep_until_not_throttled ($self) {
     my $rate_remaining;
 
-    state $loop = 0;
+    state $first = 1;
+    state $loop  = 0;
 
     my $gh = $self->gh;
 
@@ -628,7 +686,8 @@ sub sleep_until_not_throttled ($self) {
         $time_to_wait = int( $time_to_wait / 2 );
         DEBUG("Only $rate_remaining API queries are allowed for the next $time_to_wait seconds.");
         DEBUG("Sleeping until we can send more API queries");
-        sleep 10;
+        sleep 10 unless $first;
+        $first = 0;
         $gh->update_rate_limit("...whatever...");    # bug in Net/GitHub/V3/Query.pm ' sub update_rate_limit'
     }
 
