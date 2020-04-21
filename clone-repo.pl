@@ -215,18 +215,18 @@ has 'ix_git_repository' => (
     default => sub($self) { Git::Repository->new( work_tree => $self->ix_base_dir ); }
 );
 
-my $GOT_SIG_SIGNAL;
-local $SIG{'INT'} = sub {
-    if ($GOT_SIG_SIGNAL) {
-        INFO("SIGINT sent twice... going to abort the program!");
-        exit(1);
-    }
+# my $GOT_SIG_SIGNAL;
+# local $SIG{'INT'} = sub {
+#     if ($GOT_SIG_SIGNAL) {
+#         INFO("SIGINT sent twice... going to abort the program!");
+#         exit(1);
+#     }
 
-    INFO("SIGINT requested, stopping parsing at the end of next repo. Please Wait!");
-    $GOT_SIG_SIGNAL = 1;
+#     INFO("SIGINT requested, stopping parsing at the end of next repo. Please Wait!");
+#     $GOT_SIG_SIGNAL = 1;
 
-    return;
-};
+#     return;
+# };
 
 sub _build_idx_version($self) {
     my $dt = DateTime->now;
@@ -245,10 +245,34 @@ sub is_internal_repo ( $self, $repository ) {
 
 sub get_build_info ( $self, $repository ) {
 
-    my $build_file = 'BUILD.json';
+    # get the file content
+    my ( $raw_content, $HEAD ) = $self->get_file_from_github( $repository, 'BUILD.json' );
+    if ( !defined $raw_content ) {
+        ERROR( $repository, "Cannot find BUILD.json from repository" );
+        return;
+    }
+
+    # decode the json
+    my $build;
+    eval { $build = $self->json->decode($raw_content); 1 };
+    if ( $@ || !ref $build ) {
+        ERROR( $repository, "Cannot decode 'BUILD.json'", $@ );
+        return;
+    }
+
+    # add the sha to the build information
+    $build->{sha} = $HEAD;
+
+    return $build;
+}
+
+sub get_file_from_github ( $self, $repository, $file ) {    # FIXME could add an optional sha argument
+
+    die unless defined $repository && defined $file;
+
+    DEBUG("GET file '$file' from repository '$repository'");
 
     ## first get HEAD commit for the main_branch
-
     ## detect HEAD state
     my $HEAD;
     eval {
@@ -263,17 +287,17 @@ sub get_build_info ( $self, $repository ) {
     };
 
     if ( $@ || !defined $HEAD ) {
-        ERROR( $repository, "fail to detect HEAD commit" );
+        ERROR( $repository, "fail to detect HEAD commit for $repository" );
         return;
     }
 
     ## retrieve build status
-    my $build;
+    my $raw_content;
     eval {
         my $api_answer = $self->gh->repos->get_content(
             {
                 owner => $self->github_org, repo => $repository,
-                path  => $build_file
+                path  => $file
             },
             { ref => $HEAD }    # make sure we use the same state as HEAD
         );
@@ -282,19 +306,16 @@ sub get_build_info ( $self, $repository ) {
         die q[No content from get_content]
           unless length $api_answer->{content};
 
-        my $decoded = MIME::Base64::decode_base64( $api_answer->{content} );
-        $build = $self->json->decode($decoded);
+        $raw_content = MIME::Base64::decode_base64( $api_answer->{content} );
     };
 
-    if ( $@ || !ref $build ) {
-        ERROR( $repository, "Cannot find '$build_file'", $@ );
+    if ( $@ || !defined $raw_content ) {
+        ERROR( $repository, "Cannot find '$file' from repository '$repository'", $@ );
         return;
     }
 
-    # add the sha to the build information
-    $build->{sha} = $HEAD;
-
-    return $build;
+    return ( $raw_content, $HEAD ) if wantarray;
+    return $raw_content;
 }
 
 sub setup ($self) {
@@ -352,28 +373,52 @@ sub read_json_file ( $self, $file ) {
     return $as_json;
 }
 
-sub check_dependencies ( $self, $build ) {
+sub check_dependencies_cplay_ready ( $self, $build ) {
     return unless ref $build;
 
-    note explain $build;
+    #note explain $build;
 
     my @requires_keys = qw{requires_build requires_develop requires_runtime};
 
-    note $self->cplay;
+    #note $self->cplay;
 
     my %all_modules = map { $build->{$_}->%* } @requires_keys;
 
-    note explain \%all_modules;
+    #note explain \%all_modules;
 
     foreach my $module ( sort keys %all_modules ) {
         my $distro = $self->get_distro_for($module);
         DEBUG( "$module => " . ( $distro // 'undef' ) );
         next if defined $distro && ( $distro eq 'CORE' || $distro =~ m{^CORE\s} );
-        ...;
+        if ( !defined $distro || $distro eq '-1' ) {
+            DEBUG("no known distro for $module");
+            return;
+        }
+
+        return unless $self->is_distro_cplay_ready($distro);
+
     }
 
-    return;
+    return 1;    # all dependencies satisfied
+}
 
+sub is_distro_cplay_ready ( $self, $distro ) {
+
+    return unless defined $distro;
+
+    # 1. first if we got a BUILD.json file in the github repo
+    my $build;
+    my $ok = eval { $build = $self->get_build_info($distro); 1 };
+    if ( !$ok || !ref $build ) {
+        DEBUG("repository $distro has no BUILD.json file.");
+        return;
+    }
+
+    # 2. check if we got a .github/workflow/....yml file available
+
+    # 3. check if the workflow last run is a success
+
+    ...;
 }
 
 sub get_distro_for ( $self, $module ) {
@@ -402,7 +447,20 @@ sub refresh_repository ( $self, $repository ) {
 
     return if $self->is_internal_repo($repository);
 
-    #$self->sleep_until_not_throttled;    # check API rate limit FIXME restore
+    $self->sleep_until_not_throttled;    # check API rate limit FIXME restore
+
+    my $in_dir = pushd( $self->repo_base_dir );
+
+    my $dir = $repository;
+    if ( $self->force && -d $dir ) {
+        INFO("Removing directory: $dir [--force]");
+        rmtree($dir);
+    }
+
+    if ( -d $dir ) {
+        INFO("Repository already cloned.");
+        return;
+    }
 
     # read the build file without cloning the repo
     my $build = $self->get_build_info($repository);
@@ -413,7 +471,7 @@ sub refresh_repository ( $self, $repository ) {
 
     ### FIXME check the deps
     ### their repo and see if they are provided / green
-    if ( !$self->check_dependencies($build) ) {
+    if ( !$self->check_dependencies_cplay_ready($build) ) {
         DEBUG("skipping $repository - dependencies not met");
         return;
     }
@@ -422,22 +480,7 @@ sub refresh_repository ( $self, $repository ) {
     $url =~ s{:org}{$org};
     $url =~ s{:repository}{$repository};
 
-    my $in_dir = pushd( $self->repo_base_dir );
-
     INFO("Repository '$repository' -> $url");
-
-    # FIXME --force option
-    my $dir = $repository;
-
-    if ( $self->force && -d $dir ) {
-        INFO("Removing directory: $dir");
-        rmtree($dir);
-    }
-
-    if ( -d $dir ) {
-        INFO("Repository already cloned.");
-        return;
-    }
 
     Git::Repository->run( clone => $url, $dir );
     -d $dir && -d "$dir/.git" or die q[Fail to clone repository $repository];
@@ -447,7 +490,8 @@ sub refresh_repository ( $self, $repository ) {
 
         # load the BUILD.json file
         my $BUILD = $self->read_json_file('BUILD.json');
-        note explain $BUILD;
+
+        #note explain $BUILD;
 
         # main_branch
         my $r              = Git::Repository->new( work_tree => '.' );
@@ -484,7 +528,7 @@ sub refresh_repository ( $self, $repository ) {
         $r->run( 'commit', '-m', "Add p$main_branch CI workflow" );
 
         INFO("git push: $repository");
-        $r->run('push');
+        my @out = $r->run('push');
     }
 
     return;
@@ -535,17 +579,6 @@ sub refresh_all_repositories($self) {
     foreach my $repository ( sort keys %$all_repos ) {
         $self->refresh_repository($repository);
         last if ++$c > $limit && $limit;
-        if ($GOT_SIG_SIGNAL) {
-            INFO("SIGINT received - Stopping parsing modules. Writting indexes to disk.");
-            $self->write_idx_files;
-            return;
-        }
-    }
-    continue {
-        if ( $c % 10 == 0 ) {    # flush from time to time idx on disk
-            INFO("Updating indexes...");
-            $self->write_idx_files( check => 0 );
-        }
     }
 
     return;
