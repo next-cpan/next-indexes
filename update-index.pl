@@ -45,10 +45,10 @@ use File::Path;
 use MIME::Base64 ();
 use JSON::XS     ();
 
-BEGIN {
-    $Net::GitHub::V3::Orgs::VERSION == '2.0'
-      or die("Need custom version of Net::GitHub::V3::Orgs to work!");
-}
+# BEGIN {
+#     $Net::GitHub::V3::Orgs::VERSION == '2.0'
+#       or die("Need custom version of Net::GitHub::V3::Orgs to work!");
+# }
 
 use YAML::Syck   ();
 use Git::Wrapper ();
@@ -125,14 +125,17 @@ has 'gh' => (
     isa     => 'Object',
     is      => 'ro',
     lazy    => 1,
-    default => sub {
-        Net::GitHub::V3->new(
-            version      => 3,
-            login        => $_[0]->github_user,
-            access_token => $_[0]->github_token
-        );
-    }
+    builder => '_build_gh',
 );
+
+sub _build_gh($self) {
+    return Net::GitHub::V3->new(
+        version      => 3,
+        login        => $self->github_user,
+        access_token => $self->github_token
+    );
+}
+
 has 'gh_org' => (
     isa     => 'Object', is => 'ro', lazy => 1,
     default => sub { $_[0]->gh->org }
@@ -145,15 +148,6 @@ has 'gh_repo' => (
 has 'main_branch' => (
     isa           => 'Str', is => 'ro', default => 'p5',
     documentation => 'The main branch we are working on: p5, p7, ...'
-);
-
-has 'github_repos' => (
-    isa     => 'HashRef',
-    is      => 'rw',
-    lazy    => 1,
-    default => sub ($self) {
-        return { map { $_->{'name'} => $_ } $self->gh_org->list_repos( $self->github_org ) };
-    },
 );
 
 has 'idx_version' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
@@ -460,7 +454,9 @@ sub read_json_file ( $self, $file ) {
     open( my $fh, '<:utf8', $file ) or die;
     my $content = <$fh>;
 
-    my $as_json = $self->json->decode($content) or die "fail to decode json content from $file";
+    my $as_json;
+    eval { $as_json = $self->json->decode($content) };
+    ref $as_json or die "fail to decode json content from $file: $@";
 
     return $as_json;
 }
@@ -775,26 +771,36 @@ sub refresh_repository ( $self, $repository ) {
 }
 
 sub refresh_all_repositories($self) {
-    my $all_repos = $self->github_repos;
+
+    my $gh     = $self->_build_gh;    # get its own object for pagination
+    my $gh_org = $gh->org;
 
     my $c     = 0;
     my $limit = $self->limit;
 
-    foreach my $repository ( sort keys %$all_repos ) {
-        $self->refresh_repository($repository);
-        last if ++$c > $limit && $limit;
+    while ( my $repository = $gh->org->next_repos( $self->github_org ) ) {
+        ++$c;
+        my $name = $repository->{name};
+        INFO( sprintf( "%04d %s", $c, $name ) );
+
+        # next;
+
+        $self->refresh_repository($name);
+        last if $c > $limit && $limit;
         if ($GOT_SIG_SIGNAL) {
             INFO("SIGINT received - Stopping parsing modules. Writting indexes to disk.");
             $self->write_idx_files;
             return;
         }
-    }
-    continue {
+
         if ( $c % 10 == 0 ) {    # flush from time to time idx on disk
             INFO("Updating indexes...");
             $self->write_idx_files( check => 0 );
         }
     }
+    $gh->org->close_repos( $self->github_org );
+
+    $self->write_idx_files;
 
     return;
 }
@@ -813,20 +819,34 @@ sub _log(@args) {
     return $msg;
 }
 
-sub INFO (@what) {
-    _log( '[INFO]', @what );
+use constant COLOR_RED    => 31;
+use constant COLOR_GREEN  => 32;
+use constant COLOR_YELLOW => 33;
+use constant COLOR_BLUE   => 34;
+use constant COLOR_PURPLE => 35;
+use constant COLOR_CYAN   => 36;
+use constant COLOR_WHITE  => 7;
 
+sub _with_color ( $color, $txt ) {
+    return "\e[${color}m$txt\e[m";
+}
+
+sub TAG_with_color ( $tag, $color ) {
+    return '[' . _with_color( $color, $tag ) . ']';
+}
+
+sub INFO (@what) {
+    _log( TAG_with_color( INFO => COLOR_GREEN ), @what );
     return;
 }
 
 sub DEBUG (@what) {
-    _log( '[DEBUG]', @what );
-
+    _log( TAG_with_color( DEBUG => COLOR_WHITE ), @what );
     return;
 }
 
 sub ERROR (@what) {
-    _log( '[ERROR]', @what );
+    _log( TAG_with_color( ERROR => COLOR_RED ), @what );
     return;
 }
 
