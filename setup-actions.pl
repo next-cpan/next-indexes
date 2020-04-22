@@ -637,7 +637,7 @@ sub tag_repository ( $self, $repository ) {
 }
 
 sub refresh_all_repositories($self) {
-    my $all_repos = $self->github_repos;
+    my $gh = $self->_build_gh;    # get its own object for pagination [maybe not needed?]
 
     my $c     = 0;
     my $limit = $self->limit;
