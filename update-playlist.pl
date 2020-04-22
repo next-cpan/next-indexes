@@ -45,10 +45,10 @@ use File::Temp ();
 use MIME::Base64 ();
 use JSON::XS     ();
 
-BEGIN {
-    $Net::GitHub::V3::Orgs::VERSION == '2.0'
-      or die("Need custom version of Net::GitHub::V3::Orgs to work!");
-}
+# BEGIN {
+#     $Net::GitHub::V3::Orgs::VERSION == '2.0'
+#       or die("Need custom version of Net::GitHub::V3::Orgs to work!");
+# }
 
 use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
 
