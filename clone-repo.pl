@@ -49,11 +49,6 @@ use File::Slurper qw{read_text write_text};
 use MIME::Base64 ();
 use JSON::XS     ();
 
-BEGIN {
-    $Net::GitHub::V3::Orgs::VERSION == '2.0'
-      or die("Need custom version of Net::GitHub::V3::Orgs to work!");
-}
-
 use YAML::Syck   ();
 use Git::Wrapper ();
 
@@ -160,14 +155,17 @@ has 'gh' => (
     isa     => 'Object',
     is      => 'ro',
     lazy    => 1,
-    default => sub {
-        Net::GitHub::V3->new(
-            version      => 3,
-            login        => $_[0]->github_user,
-            access_token => $_[0]->github_token
-        );
-    }
+    builder => '_build_gh',
 );
+
+sub _build_gh($self) {
+    return Net::GitHub::V3->new(
+        version      => 3,
+        login        => $self->github_user,
+        access_token => $self->github_token
+    );
+}
+
 has 'gh_org' => (
     isa     => 'Object', is => 'ro', lazy => 1,
     default => sub { $_[0]->gh->org }
@@ -180,15 +178,6 @@ has 'gh_repo' => (
 has 'main_branch' => (
     isa           => 'Str', is => 'ro', default => 'p5',
     documentation => 'The main branch we are working on: p5, p7, ...'
-);
-
-has 'github_repos' => (
-    isa     => 'HashRef',
-    is      => 'rw',
-    lazy    => 1,
-    default => sub ($self) {
-        return { map { $_->{'name'} => $_ } $self->gh_org->list_repos( $self->github_org ) };
-    },
 );
 
 has 'idx_version' => ( isa => 'Str', is => 'ro', lazy => 1, builder => '_build_idx_version' );
@@ -653,9 +642,13 @@ sub refresh_all_repositories($self) {
     my $c     = 0;
     my $limit = $self->limit;
 
-    foreach my $repository ( sort keys %$all_repos ) {
-        $self->refresh_repository($repository);
-        last if ++$c > $limit && $limit;
+    while ( my $repository = $gh->org->next_repos( $self->github_org ) ) {
+        ++$c;
+        my $name = $repository->{name};
+        INFO( sprintf( "%04d %s", $c, $name ) );
+        $self->refresh_repository($name);
+
+        last if $limit && $c > $limit;
     }
 
     return;

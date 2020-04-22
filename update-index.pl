@@ -772,7 +772,7 @@ sub refresh_repository ( $self, $repository ) {
 
 sub refresh_all_repositories($self) {
 
-    my $gh     = $self->_build_gh;    # get its own object for pagination
+    my $gh     = $self->_build_gh;    # get its own object for pagination [maybe not needed?]
     my $gh_org = $gh->org;
 
     my $c     = 0;
@@ -786,7 +786,7 @@ sub refresh_all_repositories($self) {
         # next;
 
         $self->refresh_repository($name);
-        last if $c > $limit && $limit;
+        last if $limit && $c > $limit;
         if ($GOT_SIG_SIGNAL) {
             INFO("SIGINT received - Stopping parsing modules. Writting indexes to disk.");
             $self->write_idx_files;

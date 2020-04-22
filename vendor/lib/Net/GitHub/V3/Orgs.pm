@@ -2,7 +2,7 @@ package Net::GitHub::V3::Orgs;
 
 use Moo;
 
-our $VERSION   = '2.0';
+our $VERSION   = '0.60';
 our $AUTHORITY = 'cpan:FAYLAND';
 
 use URI::Escape;
@@ -30,8 +30,28 @@ sub close_org {
     return $self->close($u);
 }
 
+sub next_repos {
+    my ( $self, $org ) = @_;
+
+    die "missing org" unless defined $org;
+    my $u = sprintf( "/orgs/%s/repos", uri_escape($org) );
+    return $self->next($u);
+}
+
+sub close_repos {
+    my ( $self, $org ) = @_;
+
+    die "missing org" unless defined $org;
+    my $u = sprintf( "/orgs/%s/repos", uri_escape($org) );
+
+    return $self->close($u);
+}
+
 ## build methods on fly
 my %__methods = (
+    ### ------------------------------------------------
+    ### /orgs
+    ### ------------------------------------------------
     org        => { url => "/orgs/%s" },
     update_org => { url => "/orgs/%s", method => 'PATCH', args => 1 },
 
@@ -50,8 +70,16 @@ my %__methods = (
     update_membership     => { url => "/orgs/:org/memberships/:username",     method       => 'PUT', args => 1, v => 2 },
     delete_membership     => { url => "/orgs/:org/memberships/:username",     method       => 'DELETE', check_status => 204, v => 2 },
 
+    # List all repositories for an organisation
+    repos => { url => "/orgs/:org/repos", paginate => 1, v => 2 },
+
     # Org Teams API
-    teams              => { url => "/orgs/%s/teams", paginate => 1 },
+    teams => { url => "/orgs/%s/teams", paginate => 1 },
+
+    ### ------------------------------------------------
+    ### /teams
+    ### ------------------------------------------------
+
     team               => { url => "/teams/%s" },
     create_team        => { url => "/orgs/%s/teams", method => 'POST', args => 1 },
     update_team        => { url => "/teams/%s", method => 'PATCH', args => 1 },
@@ -65,9 +93,6 @@ my %__methods = (
     is_team_repos      => { url => "/teams/%s/repos/%s", check_status => 204 },
     add_team_repos     => { url => "/teams/%s/repos/%s", method => 'PUT', args => 1, check_status => 204 },
     delete_team_repos  => { url => "/teams/%s/repos/%s", method => 'DELETE', check_status => 204 },
-
-    # Org repos
-    list_repos => { url => "/orgs/%s/repos", paginate => 1, method => 'GET', paginate => 1 },
 );
 
 __build_methods( __PACKAGE__, %__methods );
@@ -162,11 +187,27 @@ L<http://developer.github.com/v3/orgs/members/>
 
 =item membership
 
+=item repos
+
+List all repositories for an organization. (can use pagination)
+
+    my $first_100_repos = $org->repos( $organization_name );
+
+Iterate over all repositories for an organization.
+
+    while (my $repo = $org->next_repos( 'Your-Org-Name' ) ) {
+        # do something with $repo
+        say $repo->{name};
+        ...
+    }
+    $org->close_repos( 'Your-Org-Name' );
+
+
 =item update_membership
 
 =item delete_membership
 
-    my $membership = $org->membership( org => 'perlchina', username => 'fayland');
+    my $membership = $org->membership( { org => 'perlchina', username => 'fayland' } );
     my $membership = $org->update_membership('perlchina', 'fayland', {
         role => 'admin',
     });
@@ -201,7 +242,7 @@ L<http://developer.github.com/v3/orgs/teams/>
         name => "new team name"
     });
     my $st = $org->delete_team($team_id);
-    
+
 =item team_members
 
 =item is_team_member
