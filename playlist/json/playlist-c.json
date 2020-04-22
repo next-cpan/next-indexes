@@ -1,0 +1,20 @@
+{
+   "CPAN-Unwind" : {
+      "abstract" : "Recursively determines dependencies of CPAN modules",
+      "name" : "CPAN-Unwind",
+      "primary" : "CPAN::Unwind",
+      "version" : "0.06"
+   },
+   "Class-DBI-Relationship-IsA" : {
+      "abstract" : null,
+      "name" : "Class-DBI-Relationship-IsA",
+      "primary" : "Class::DBI::Relationship::IsA",
+      "version" : "0.05"
+   },
+   "Crypt-XKCDCommon1949" : {
+      "abstract" : "xkcd password style wordlist provider",
+      "name" : "Crypt-XKCDCommon1949",
+      "primary" : "Crypt::XKCDCommon1949",
+      "version" : "1.00"
+   }
+}

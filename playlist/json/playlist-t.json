@@ -4,5 +4,17 @@
       "name" : "Test-Unit",
       "primary" : "Test::Unit",
       "version" : 0.13
+   },
+   "Test2-Tools-FFI" : {
+      "abstract" : "Tools for testing FFI",
+      "name" : "Test2-Tools-FFI",
+      "primary" : "Test2::Tools::FFI",
+      "version" : "0.05"
+   },
+   "Tie-RangeHash" : {
+      "abstract" : "Allows hashes to associate values with a range of keys",
+      "name" : "Tie-RangeHash",
+      "primary" : "Tie::RangeHash",
+      "version" : "1.05"
    }
 }

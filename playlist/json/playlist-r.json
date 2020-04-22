@@ -1,0 +1,8 @@
+{
+   "Reflex" : {
+      "abstract" : "A class library for flexible, reactive programming.",
+      "name" : "Reflex",
+      "primary" : "Reflex",
+      "version" : "0.100"
+   }
+}

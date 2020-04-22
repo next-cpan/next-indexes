@@ -1,0 +1,8 @@
+{
+   "XML-Toolkit" : {
+      "abstract" : "A suit of XML tools with Antlers.",
+      "name" : "XML-Toolkit",
+      "primary" : "XML::Toolkit",
+      "version" : "0.15"
+   }
+}

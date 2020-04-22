@@ -1,0 +1,20 @@
+{
+   "PApp" : {
+      "abstract" : null,
+      "name" : "PApp",
+      "primary" : "PApp",
+      "version" : 2.2
+   },
+   "Perl-Maker" : {
+      "abstract" : "Make a Custom Perl with Modules",
+      "name" : "Perl-Maker",
+      "primary" : "Perl::Maker",
+      "version" : "0.01"
+   },
+   "PostScript-MailLabels" : {
+      "abstract" : null,
+      "name" : "PostScript-MailLabels",
+      "primary" : "PostScript::MailLabels",
+      "version" : "2.32"
+   }
+}
