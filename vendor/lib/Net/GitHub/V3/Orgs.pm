@@ -2,7 +2,7 @@ package Net::GitHub::V3::Orgs;
 
 use Moo;
 
-our $VERSION = '2.0';
+our $VERSION   = '2.0';
 our $AUTHORITY = 'cpan:FAYLAND';
 
 use URI::Escape;
@@ -11,7 +11,7 @@ with 'Net::GitHub::V3::Query';
 
 sub orgs {
     my ( $self, $user ) = @_;
-    
+
     my $u = $user ? "/users/" . uri_escape($user) . '/orgs' : '/user/orgs';
     return $self->query($u);
 }
@@ -32,42 +32,45 @@ sub close_org {
 
 ## build methods on fly
 my %__methods = (
-    org => { url => "/orgs/%s" },
+    org        => { url => "/orgs/%s" },
     update_org => { url => "/orgs/%s", method => 'PATCH', args => 1 },
+
     # Members
-    members   => { url => "/orgs/%s/members", paginate => 1 },
-    owner_members => { url => "/orgs/%s/members?role=admin", paginate => 1 },
-    no_2fa_members => { url => "/orgs/%s/members?filter=2fa_disabled", paginate => 1 },
-    outside_collaborators => { url => "/orgs/%s/outside_collaborators", paginate => 1 },
-    is_member => { url => "/orgs/%s/members/%s", check_status => 204 },
-    delete_member => { url => "/orgs/%s/members/%s", method => 'DELETE', check_status => 204 },
-    public_members => { url => "/orgs/%s/public_members", paginate => 1 },
-    is_public_member => { url => "/orgs/%s/public_members/%s", check_status => 204 },
-    publicize_member => { url => "/orgs/%s/public_members/%s", method => 'PUT', check_status => 204 },
-    conceal_member => { url => "/orgs/%s/public_members/%s", method => 'DELETE', check_status => 204 },
-    membership => { url => "/orgs/:org/memberships/:username", method => 'GET', v => 2 },
-    update_membership => { url => "/orgs/:org/memberships/:username", method => 'PUT', args => 1, v => 2 },
-    delete_membership => { url => "/orgs/:org/memberships/:username", method => 'DELETE', check_status => 204, v => 2 },
+    members               => { url => "/orgs/%s/members",                     paginate     => 1 },
+    owner_members         => { url => "/orgs/%s/members?role=admin",          paginate     => 1 },
+    no_2fa_members        => { url => "/orgs/%s/members?filter=2fa_disabled", paginate     => 1 },
+    outside_collaborators => { url => "/orgs/%s/outside_collaborators",       paginate     => 1 },
+    is_member             => { url => "/orgs/%s/members/%s",                  check_status => 204 },
+    delete_member         => { url => "/orgs/%s/members/%s",                  method       => 'DELETE', check_status => 204 },
+    public_members        => { url => "/orgs/%s/public_members",              paginate     => 1 },
+    is_public_member      => { url => "/orgs/%s/public_members/%s",           check_status => 204 },
+    publicize_member      => { url => "/orgs/%s/public_members/%s",           method       => 'PUT', check_status => 204 },
+    conceal_member        => { url => "/orgs/%s/public_members/%s",           method       => 'DELETE', check_status => 204 },
+    membership            => { url => "/orgs/:org/memberships/:username",     method       => 'GET', v => 2 },
+    update_membership     => { url => "/orgs/:org/memberships/:username",     method       => 'PUT', args => 1, v => 2 },
+    delete_membership     => { url => "/orgs/:org/memberships/:username",     method       => 'DELETE', check_status => 204, v => 2 },
+
     # Org Teams API
-    teams => { url => "/orgs/%s/teams", paginate => 1 },
-    team  => { url => "/teams/%s" },
-    create_team => { url => "/orgs/%s/teams", method => 'POST', args => 1 },
-    update_team => { url => "/teams/%s", method => 'PATCH', args => 1 },
-    delete_team => { url => "/teams/%s", method => 'DELETE', check_status => 204 },
-    team_members => { url => "/teams/%s/members", paginate => 1 },
-    is_team_member  => { url => "/teams/%s/members/%s", check_status => 204 },
-    add_team_member => { url => "/teams/%s/members/%s", method => 'PUT', check_status => 204 },
+    teams              => { url => "/orgs/%s/teams", paginate => 1 },
+    team               => { url => "/teams/%s" },
+    create_team        => { url => "/orgs/%s/teams", method => 'POST', args => 1 },
+    update_team        => { url => "/teams/%s", method => 'PATCH', args => 1 },
+    delete_team        => { url => "/teams/%s", method => 'DELETE', check_status => 204 },
+    team_members       => { url => "/teams/%s/members", paginate => 1 },
+    is_team_member     => { url => "/teams/%s/members/%s", check_status => 204 },
+    add_team_member    => { url => "/teams/%s/members/%s", method => 'PUT', check_status => 204 },
     delete_team_member => { url => "/teams/%s/members/%s", method => 'DELETE', check_status => 204 },
-    team_maintainers => { url => "/teams/%s/members?role=maintainer", paginate => 1 },
-    team_repos => { url => "/teams/%s/repos", paginate => 1 },
-    is_team_repos  => { url => "/teams/%s/repos/%s", check_status => 204 },
-    add_team_repos => { url => "/teams/%s/repos/%s", method => 'PUT', args => 1, check_status => 204 },
-    delete_team_repos => { url => "/teams/%s/repos/%s", method => 'DELETE', check_status => 204 },
+    team_maintainers   => { url => "/teams/%s/members?role=maintainer", paginate => 1 },
+    team_repos         => { url => "/teams/%s/repos", paginate => 1 },
+    is_team_repos      => { url => "/teams/%s/repos/%s", check_status => 204 },
+    add_team_repos     => { url => "/teams/%s/repos/%s", method => 'PUT', args => 1, check_status => 204 },
+    delete_team_repos  => { url => "/teams/%s/repos/%s", method => 'DELETE', check_status => 204 },
+
     # Org repos
-    list_repos => { url => "/orgs/%s/repos", paginate => 1, method => 'GET' },
+    list_repos => { url => "/orgs/%s/repos", paginate => 1, method => 'GET', paginate => 1 },
 );
 
-__build_methods(__PACKAGE__, %__methods);
+__build_methods( __PACKAGE__, %__methods );
 
 no Moo;
 
