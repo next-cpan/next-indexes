@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 
-package CloneRepo;
+package SetupActions;
 
 use autodie;
 use strict;
@@ -771,7 +771,7 @@ repo_email      = FIXME
 
 EOS
 
-    my $update = CloneRepo->new_with_options( configfile => $settings_ini );
+    my $update = SetupActions->new_with_options( configfile => $settings_ini );
 
     exit( $update->run );
 }
