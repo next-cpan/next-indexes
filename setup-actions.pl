@@ -389,8 +389,17 @@ sub read_json_file ( $self, $file ) {
     my $content = <$fh>;
 
     my $as_json;
-    eval { $as_json = $self->json->decode($content) };
+
+    # try to fallback some BUILD.json are not valid utf8...
+    eval { $as_json = $self->json->utf8(1)->decode($content); 1 } or eval {
+        WARN("Fail to decode BUILD.json using utf8: $@");
+        $as_json = $self->json->utf8(0)->decode($content);
+        1;
+    };
+
     ref $as_json or die "Fail to decode json content from $file";
+
+    $self->json->utf8(1);    # reenable the utf8
 
     return $as_json;
 }
