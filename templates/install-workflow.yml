@@ -34,6 +34,7 @@ jobs:
       - uses: perl-actions/install-cpm@v1.2
         with:
           install: "${{ env.PRIMARY }}"
+          tests: true
       - run: perl -M${{ env.PRIMARY }} -e1
 
   # ---------------------------------------------------------
