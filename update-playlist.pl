@@ -122,7 +122,9 @@ sub playlist_html_file_for_letter ( $self, $letter ) {
     return $self->playlist_html_dir . '/playlist-' . uc($letter) . '.html';
 }
 
-use constant BASE_URL => q[https://github.com/pause-play/];
+use constant BASE_URL    => q[https://github.com/pause-play];
+use constant CPLAY_BADGE => BASE_URL . q[/:repo/workflows/install%20with/badge.svg?branch=p5];
+use constant CPLAY_URL   => BASE_URL . q[/:repo/actions?query=branch%3Ap5];
 
 sub refresh_all_html_file($self) {
     my @all_letters = ( 'A' .. 'Z', '0' );
@@ -161,12 +163,13 @@ sub refresh_all_html_file($self) {
 
         # setup urls
         foreach my $r (@repos) {
-            $r->{url}              = BASE_URL . $r->{name};
-            $r->{url_cplay_action} = BASE_URL . $r->{name} . q[/actions?query=workflow%3Acplay+branch%3Ap5];
-            $r->{url_cplay_badge}  = BASE_URL . $r->{name} . q[/workflows/play/badge.svg];
+            my $name = $r->{name};
+            $r->{url}              = BASE_URL . '/' . $name;
+            $r->{url_cplay_action} = CPLAY_URL;
+            $r->{url_cplay_badge}  = CPLAY_BADGE;
 
-            # FIXME remove
-            $r->{url_cplay_badge} = q[https://github.com/pause-play/A1z-Html/workflows/cplay/badge.svg];
+            $r->{url_cplay_action} =~ s{:repo}{$name}g;
+            $r->{url_cplay_badge}  =~ s{:repo}{$name}g;
         }
 
         my $vars = {
