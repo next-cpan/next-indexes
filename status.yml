@@ -1,16 +1,53 @@
 --- 
 "acknowledge": 
   "ABI": 'broken Build.PL'
-  "Acme-Bleach-Numerically": 'all broken - Math::BigInt: couldn''t load specified math lib'
-  "Acme-Boom": 'SEGV on purpose'
   "ACL-Regex": 'all broken - missing deps'
   "Acme-Beatnik": 'broken module'
+  "Acme-Bleach-Numerically": 'all broken - Math::BigInt: couldn''t load specified math lib'
+  "Acme-Boom": 'SEGV on purpose'
 "failures": 
+  "AFS": 'https://github.com/pause-play/AFS/actions'
+  "AI-NeuralNet-BackProp": 'https://github.com/pause-play/AI-NeuralNet-BackProp/actions'
+  "AI-NeuralNet-Mesh": 'https://github.com/pause-play/AI-NeuralNet-Mesh/actions'
+  "AI-NeuralNet-SOM": 'https://github.com/pause-play/AI-NeuralNet-SOM/actions'
   "Acme-DonMartin": 'https://github.com/pause-play/Acme-DonMartin/actions'
+  "Acme-Filter-Kenny": 'https://github.com/pause-play/Acme-Filter-Kenny/actions'
+  "Acme-Intraweb": 'https://github.com/pause-play/Acme-Intraweb/actions'
+  "Acme-Morse-Audible": 'https://github.com/pause-play/Acme-Morse-Audible/actions'
+  "Acme-NabeAtzz": 'https://github.com/pause-play/Acme-NabeAtzz/actions'
+  "Acme-Nooo": 'https://github.com/pause-play/Acme-Nooo/actions'
+  "Acme-OneBit": 'https://github.com/pause-play/Acme-OneBit/actions'
+  "Acme-Ook": 'https://github.com/pause-play/Acme-Ook/actions'
+  "Acme-Pano-Util": 'https://github.com/pause-play/Acme-Pano-Util/actions'
+  "Acme-RTB": 'https://github.com/pause-play/Acme-RTB/actions'
+  "Acme-RequireModule": 'https://github.com/pause-play/Acme-RequireModule/actions'
+  "Acme-SGABRIEL-Utils": 'https://github.com/pause-play/Acme-SGABRIEL-Utils/actions'
+  "Acme-Stegano": 'https://github.com/pause-play/Acme-Stegano/actions'
+  "Acme-Takahashi-Method": 'https://github.com/pause-play/Acme-Takahashi-Method/actions'
+  "Acme-Test": 'https://github.com/pause-play/Acme-Test/actions'
+  "Acme-Test-42": 'https://github.com/pause-play/Acme-Test-42/actions'
+  "Acme-Thoroughly-Modern-Perl": 'https://github.com/pause-play/Acme-Thoroughly-Modern-Perl/actions'
+  "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
 "ok": 
   "A1z-HTML5-Template": 1
   "A1z-Html": 1
   "ACL-Lite": 1
+  "ACME-Error": 1
+  "ACME-MBHall": 1
+  "ACME-MyFirstModule-SETHS": 1
+  "ACME-PM-Voronezh": 1
+  "AES128": 1
+  "AI-CBR": 1
+  "AI-Calibrate": 1
+  "AI-Fuzzy": 1
+  "AI-FuzzyInference": 1
+  "AI-Gene-Sequence": 1
+  "AI-General": 1
+  "AI-Genetic": 1
+  "AI-Logic-AnswerSet": 1
+  "AI-MegaHAL": 1
+  "AI-NeuralNet-FastSOM": 1
+  "AI-NeuralNet-Kohonen": 1
   "Acme-123": 1
   "Acme-ADEAS-Utils": 1
   "Acme-ALEXEY-Utils": 1
@@ -61,4 +98,137 @@
   "Acme-Drunk": 1
   "Acme-Eatemup": 1
   "Acme-EdError": 1
+  "Acme-Emoticarp": 1
+  "Acme-EnclosedChar": 1
+  "Acme-EyeDrops": 1
+  "Acme-FIREXFLY-Utils": 1
+  "Acme-Flip": 1
+  "Acme-Frog": 1
+  "Acme-GILLIGAN-Utils": 1
+  "Acme-GRYLLIDA-Utils": 1
+  "Acme-Github-Test": 1
+  "Acme-Glue": 1
+  "Acme-Goatse": 1
+  "Acme-Goedelize": 1
+  "Acme-HOIGAN": 1
+  "Acme-HaltingProblem": 1
+  "Acme-HashKeyOrderBrokenAgain": 1
+  "Acme-Hodor": 1
+  "Acme-Holy-Shit-Here-Come-s-An-S": 1
+  "Acme-Homer": 1
+  "Acme-Hospital-Bed": 1
+  "Acme-Hyperindex": 1
+  "Acme-IRC-Art": 1
+  "Acme-Include-Data": 1
+  "Acme-InputRecordSeparatorIsRegexp": 1
+  "Acme-Iota": 1
+  "Acme-JANEZHANG": 1
+  "Acme-JAPH": 1
+  "Acme-JJCARMAN": 1
+  "Acme-JMOLLY-Utils": 1
+  "Acme-JavaTrace": 1
+  "Acme-KJAM": 1
+  "Acme-Kiyoshi-Array": 1
+  "Acme-Lambda": 1
+  "Acme-Laugh": 1
+  "Acme-LeetSpeak": 1
+  "Acme-Letter": 1
+  "Acme-LifeUniverseEverything": 1
+  "Acme-Lingua-NIGERIAN": 1
+  "Acme-Lingua-Strine-Perl": 1
+  "Acme-MJD-FR": 1
+  "Acme-Madness": 1
+  "Acme-Magic-Pony": 1
+  "Acme-Magic8Ball": 1
+  "Acme-Mahjong-Rule-CC": 1
+  "Acme-Mandolion-Utils": 1
+  "Acme-ManekiNeko": 1
+  "Acme-Math-Josan": 1
+  "Acme-Math-XS-LeanDist": 1
+  "Acme-Meow": 1
+  "Acme-Meta": 1
+  "Acme-Method-CaseInsensitive": 1
+  "Acme-Metification": 1
+  "Acme-MirrorTracer": 1
+  "Acme-Monme": 1
+  "Acme-Monta": 1
+  "Acme-MyFirstModule-ASTPL": 1
+  "Acme-MyFirstModule-AUSTIN": 1
+  "Acme-MyFirstModule-BWAGNER": 1
+  "Acme-MyFirstModule-CARNIL": 1
+  "Acme-MyFirstModule-DRPENGUIN": 1
+  "Acme-MyFirstModule-DRZIGMAN": 1
+  "Acme-MyFirstModule-NANDO": 1
+  "Acme-MyFirstModule-RAYMONDJM": 1
+  "Acme-MyFirstModule-SADAMS": 1
+  "Acme-MyFirstModule-WWILLIS": 1
+  "Acme-MyFirstModule-ddeimeke": 1
+  "Acme-NAHCNUJ-Utils": 1
+  "Acme-NameGen": 1
+  "Acme-NamespaceRoulette": 1
+  "Acme-No": 1
+  "Acme-Note": 1
+  "Acme-Nothing": 1
+  "Acme-Ognon": 1
+  "Acme-Opish": 1
+  "Acme-Oppai": 1
+  "Acme-PIA-Export": 1
+  "Acme-Partitioner": 1
+  "Acme-Perl-Consensual": 1
+  "Acme-Phlegethoth": 1
+  "Acme-Pi-Abrahamic": 1
+  "Acme-Playwright": 1
+  "Acme-Pod-MathJax": 1
+  "Acme-Prereq-BigDistro": 1
+  "Acme-Prereq-None": 1
+  "Acme-Python": 1
+  "Acme-Pythonic-Functions": 1
+  "Acme-RJWETMORE-Utils": 1
+  "Acme-Rant": 1
+  "Acme-Ref": 1
+  "Acme-RemoteINC": 1
+  "Acme-Robd-Boring": 1
+  "Acme-SOAP-Dodger": 1
+  "Acme-Scurvy-Whoreson-BilgeRat": 1
+  "Acme-Scurvy-Whoreson-BilgeRat-Backend-insultserver": 1
+  "Acme-Shining": 1
+  "Acme-Signum": 1
+  "Acme-Siteswap": 1
+  "Acme-Snark": 1
+  "Acme-Spinner": 1
+  "Acme-Stardate": 1
+  "Acme-String-Trim": 1
+  "Acme-Study-OS-DateLocales": 1
+  "Acme-Study-SREZIC": 1
+  "Acme-SuperCollider-Programming": 1
+  "Acme-SvGROW": 1
+  "Acme-Syntax-Python": 1
+  "Acme-TAINT": 1
+  "Acme-Tanasinn": 1
+  "Acme-Tao": 1
+  "Acme-Teddy": 1
+  "Acme-Terror-AU": 1
+  "Acme-Test-Buffy": 1
+  "Acme-Text-Rhombus": 1
+  "Acme-Tie-Formatted": 1
+  "Acme-Time-Asparagus": 1
+  "Acme-Time-Baby": 1
+  "Acme-Travigator": 1
+  "Acme-Turing": 1
+  "Acme-URM": 1
+  "Acme-USIG": 1
+  "Acme-Umlautify": 1
+  "Acme-Urinal": 1
+  "Acme-WTF": 1
+  "Acme-Wabby": 1
+  "Acme-WallisdsFirstModule": 1
+  "Acme-XKCD-DebianRandom": 1
+  "Acme-Zalgo": 1
   "Acme-dwcarder": 1
+  "Acme-kevinz": 1
+  "Acme-landmine": 1
+  "Acme-please": 1
+  "Acme-rafl-Everywhere": 1
+  "ActionExporter": 1
+  "Advent-Bundles": 1
+  "Affix-Infix2Postfix": 1
