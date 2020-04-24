@@ -92,7 +92,7 @@
                 <ul>
                   [% FOREACH repo IN repos %]
                   <li>
-                    <a href="[%= repo.url_cplay_action -%]"><img src="[%= repo.url_cplay_badge -%]" /></a>&nbsp;<a href="[%= repo.url -%]">[%= repo.name -%]</a>
+                    <a href="[%= repo.url_cplay_action -%]"><img src="[%= repo.url_cplay_badge -%]" alt="none" /></a>&nbsp;<a href="[%= repo.url -%]">[%= repo.name -%]</a>
                   </li>
                   - [%= repo.primary | html %]:&nbsp;[%= repo.abstract | html %]
                   [% END %]
