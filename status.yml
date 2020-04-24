@@ -1,10 +1,10 @@
---- 
-"acknowledge": 
-  "ABI": 'broken Build.PL'
+---
+"acknowledge":
+  "ABI": 'cplay ok only - broken Build.PL'
   "ACL-Regex": 'all broken - missing deps'
-  "Acme-Beatnik": 'broken module'
+  "Acme-Beatnik": 'all broken - broken module'
   "Acme-Bleach-Numerically": 'all broken - Math::BigInt: couldn''t load specified math lib'
-  "Acme-Boom": 'SEGV on purpose'
+  "Acme-Boom": 'all broken - SEGV on purpose'
   "Acme-Code-FreedomFighter": "all broken - Eval-group not allowed at runtime"
   "Acme-DonMartin": 'all broken - broken module'
   "AFS": 'all broken - Fail to run perl Makefile.PL'
@@ -12,14 +12,14 @@
   "AI-NeuralNet-Mesh": 'cplay ok only - The distribution doesn t have a proper Makefile.PL/Build.PL'
   "AI-NeuralNet-SOM": 'cplay ok only - AI-NeuralNet-SOM-0.02.tar.gz bad archive?'
   "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
-"failures":           
-  "Acme-Intraweb": 'https://github.com/pause-play/Acme-Intraweb/actions'
-  "Acme-Morse-Audible": 'https://github.com/pause-play/Acme-Morse-Audible/actions'
-  "Acme-NabeAtzz": 'https://github.com/pause-play/Acme-NabeAtzz/actions'
-  "Acme-Nooo": 'https://github.com/pause-play/Acme-Nooo/actions'
-  "Acme-OneBit": 'https://github.com/pause-play/Acme-OneBit/actions'
-  "Acme-Ook": 'https://github.com/pause-play/Acme-Ook/actions'
-  "Acme-Pano-Util": 'https://github.com/pause-play/Acme-Pano-Util/actions'
+  "Acme-Intraweb": 'cplay deps - Cannot locate CPANPLUS.pm'
+  "Acme-Morse-Audible": 'all broken - broken by design'
+  "Acme-NabeAtzz": 'cplay - Cannot locate inc/Module/Install.pm'
+  "Acme-Ook": 'cplay - missing files for tests'
+  "Acme-Nooo": 'all broken - broken by design'
+  "Acme-OneBit": 'cplay ok only'
+  "Acme-Pano-Util": 'all broken - The encoding pragma is no longer supported'
+"failures":
   "Acme-RTB": 'https://github.com/pause-play/Acme-RTB/actions'
   "Acme-RequireModule": 'https://github.com/pause-play/Acme-RequireModule/actions'
   "Acme-SGABRIEL-Utils": 'https://github.com/pause-play/Acme-SGABRIEL-Utils/actions'
@@ -31,7 +31,10 @@
   "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
 "todo":
   "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
-"ok": 
+  "Acme-Intraweb": 'Cannot locate CPANPLUS.pm'
+  "Acme-NabeAtzz": 'cplay - Cannot locate inc/Module/Install.pm'
+  "Acme-Ook": 'cplay - missing files for tests'
+"ok":
   "A1z-HTML5-Template": 1
   "A1z-Html": 1
   "ACL-Lite": 1
