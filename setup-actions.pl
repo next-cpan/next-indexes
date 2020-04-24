@@ -342,6 +342,14 @@ sub get_file_from_github ( $self, $repository, $file ) {    # FIXME could add an
 }
 
 sub check_ci_for_repository ( $self, $repository ) {
+    local $YAML::Syck::SortKeys    = 1;
+    local $YAML::Syck::SingleQuote = 1;
+
+    my $status_yml = $self->root_dir . '/status.yml';
+
+    if ( !defined $self->{status_ci} ) {
+        $self->{status_ci} //= YAML::Syck::LoadFile($status_yml);
+    }
     $self->{status_ci} //= {};
 
     my $cplay_ready;
@@ -352,32 +360,38 @@ sub check_ci_for_repository ( $self, $repository ) {
 
     return unless defined $cplay_ready;
 
-    state $known_reasons = YAML::Syck::LoadFile( $self->root_dir . '/status/acknowledge.yml' );
-
-    note explain $known_reasons;
-    die;
-
     if ( $cplay_ready == 1 ) {
         OK("$repository");
-        $self->{status_ci}->{$repository} = q[OK];
+        $self->{status_ci}->{ok} //= {};
+        $self->{status_ci}->{ok}->{$repository} = 1;    # avoid using a list
+        delete $self->{status_ci}->{'failures'}->{$repository};
     }
     elsif ( $cplay_ready == -1 ) {
         ERROR("$repository failure: https://github.com/pause-play/${repository}/actions");
-        $self->{status_ci}->{$repository} = qq[failure: https://github.com/pause-play/${repository}/actions];
+        if ( defined $self->{status_ci}->{'acknowledge'}->{$repository} ) {
+            delete $self->{status_ci}->{'failures'}->{$repository};
+        }
+        else {
+            $self->{status_ci}->{'failures'}->{$repository} = qq[https://github.com/pause-play/${repository}/actions];
+            delete $self->{status_ci}->{'ok'}->{$repository};
+        }
     }
 
-    $self->_write_status;
+    $self->_write_status($status_yml);
 
     return;
 }
 
-sub _write_status ( $self, $force = 0 ) {
+sub _write_status ( $self, $file, $force = 0 ) {
     state $count = 0;
     ++$count;
 
     return if !$self->force && $count % 10 != 0;
 
-    write_text( $self->root_dir . '/status/status.json', $self->json->encode( $self->{status_ci} ) );
+    DEBUG("Updating status.yml");
+    YAML::Syck::DumpFile( $file, $self->{status_ci} );
+
+    #write_text( $self->root_dir . '/status/status.json', $self->json->encode( $self->{status_ci} ) );
 
     return;
 }

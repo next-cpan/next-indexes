@@ -1,0 +1,64 @@
+--- 
+"acknowledge": 
+  "ABI": 'broken Build.PL'
+  "Acme-Bleach-Numerically": 'all broken - Math::BigInt: couldn''t load specified math lib'
+  "Acme-Boom": 'SEGV on purpose'
+  "ACL-Regex": 'all broken - missing deps'
+  "Acme-Beatnik": 'broken module'
+"failures": 
+  "Acme-DonMartin": 'https://github.com/pause-play/Acme-DonMartin/actions'
+"ok": 
+  "A1z-HTML5-Template": 1
+  "A1z-Html": 1
+  "ACL-Lite": 1
+  "Acme-123": 1
+  "Acme-ADEAS-Utils": 1
+  "Acme-ALEXEY-Utils": 1
+  "Acme-APHILIPP-Utils": 1
+  "Acme-ARUHI-Utils": 1
+  "Acme-AbhiIsNot": 1
+  "Acme-Akashic-Records": 1
+  "Acme-AliG": 1
+  "Acme-AllThePerlIsAStage": 1
+  "Acme-Array-MaxSize": 1
+  "Acme-AsciiArt2HtmlTable": 1
+  "Acme-AsciiArtinator": 1
+  "Acme-Auggy": 1
+  "Acme-AutoloadAll": 1
+  "Acme-AwesomeQuotes": 1
+  "Acme-BLACKJ-Utils": 1
+  "Acme-BOATES": 1
+  "Acme-BadFont": 1
+  "Acme-BayaC": 1
+  "Acme-BlahBlahBlah": 1
+  "Acme-Bleach": 1
+  "Acme-BloodType": 1
+  "Acme-Buffalo-Buffalo": 1
+  "Acme-Buffy": 1
+  "Acme-ButFirst": 1
+  "Acme-CPAN-Testers-PASS": 1
+  "Acme-Canadian": 1
+  "Acme-Cat-Schroedinger": 1
+  "Acme-Chef": 1
+  "Acme-ChuckNorris": 1
+  "Acme-Code-Police": 1
+  "Acme-Collector64": 1
+  "Acme-Comment": 1
+  "Acme-CramCode": 1
+  "Acme-Crap": 1
+  "Acme-Current-Forever": 1
+  "Acme-Curse": 1
+  "Acme-DRM": 1
+  "Acme-Dahut": 1
+  "Acme-Data-Dumper-Extensions": 1
+  "Acme-Debug": 1
+  "Acme-Dice": 1
+  "Acme-DoOrDie": 1
+  "Acme-Don-t": 1
+  "Acme-Dot": 1
+  "Acme-DotDotGone": 1
+  "Acme-DoubleHelix": 1
+  "Acme-Drunk": 1
+  "Acme-Eatemup": 1
+  "Acme-EdError": 1
+  "Acme-dwcarder": 1
