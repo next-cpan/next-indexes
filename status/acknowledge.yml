@@ -1,0 +1,12 @@
+name: acknowledge
+
+# reason why a distro is failing
+distro:
+   "ABI" : "broken Build.PL",
+   "Acme-Boom" : "SEGV on purpose"
+
+# need to investigate
+waitlist:
+   "ACL-Regex" : "failure: https://github.com/pause-play/ACL-Regex/actions",
+   "Acme-Beatnik" : "failure: https://github.com/pause-play/Acme-Beatnik/actions",
+   "Acme-Bleach-Numerically" : "failure: https://github.com/pause-play/Acme-Bleach-Numerically/actions",  

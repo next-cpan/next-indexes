@@ -342,6 +342,8 @@ sub get_file_from_github ( $self, $repository, $file ) {    # FIXME could add an
 }
 
 sub check_ci_for_repository ( $self, $repository ) {
+    $self->{status_ci} //= {};
+
     my $cplay_ready;
     {
         local $Play::Logger::QUIET = 1;
@@ -350,12 +352,32 @@ sub check_ci_for_repository ( $self, $repository ) {
 
     return unless defined $cplay_ready;
 
+    state $known_reasons = YAML::Syck::LoadFile( $self->root_dir . '/status/acknowledge.yml' );
+
+    note explain $known_reasons;
+    die;
+
     if ( $cplay_ready == 1 ) {
         OK("$repository");
+        $self->{status_ci}->{$repository} = q[OK];
     }
     elsif ( $cplay_ready == -1 ) {
         ERROR("$repository failure: https://github.com/pause-play/${repository}/actions");
+        $self->{status_ci}->{$repository} = qq[failure: https://github.com/pause-play/${repository}/actions];
     }
+
+    $self->_write_status;
+
+    return;
+}
+
+sub _write_status ( $self, $force = 0 ) {
+    state $count = 0;
+    ++$count;
+
+    return if !$self->force && $count % 10 != 0;
+
+    write_text( $self->root_dir . '/status/status.json', $self->json->encode( $self->{status_ci} ) );
 
     return;
 }
@@ -415,6 +437,8 @@ sub action_check_ci($self) {
         }
     }
 
+    $self->_write_status(1);
+
     return 0;
 }
 
@@ -440,19 +464,26 @@ sub max ( $a, $b ) {
 sub read_json_file ( $self, $file ) {
     my $as_json;
 
-    eval      { $as_json = $self->_read_json_file( $file, 1 ) }
-      or eval { $as_json = $self->_read_json_file( $file, 0 ) }
+    eval { $as_json = $self->_read_json_file( $file, 1, 0 ) }
+
+      #eval      { $as_json = $self->_read_json_file( $file, 1 ) }
+      #  or eval { $as_json = $self->_read_json_file( $file, 0 ) }
       or die "Fail to read file '$file': $@";
 
     return $as_json;
 }
 
-sub _read_json_file ( $self, $file, $as_utf8 = 1 ) {
+## FIXME cplay need to use the same rule
+sub _read_json_file ( $self, $file, $as_utf8 = 1, $json_utf8 = -1 ) {
     local $/;
+
+    $json_utf8 = $as_utf8 if $json_utf8 == -1;
 
     open( my $fh, '<' . ( $as_utf8 ? ':utf8' : '' ), $file ) or die;
     my $content = <$fh>;
-    return $self->json->utf8($as_utf8)->decode($content);
+
+    # we should always use utf8 = 0 when decoding
+    return $self->json->utf8($json_utf8)->decode($content);
 }
 
 sub check_dependencies_cplay_ready ( $self, $build ) {
