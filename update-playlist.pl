@@ -45,6 +45,8 @@ use File::Temp ();
 use MIME::Base64 ();
 use JSON::XS     ();
 
+use YAML::Syck;
+
 # BEGIN {
 #     $Net::GitHub::V3::Orgs::VERSION == '2.0'
 #       or die("Need custom version of Net::GitHub::V3::Orgs to work!");
@@ -146,6 +148,13 @@ sub refresh_all_html_file($self) {
     my $tt_file = $self->playlist_template;
     my $tt      = Template->new($config);
 
+    my $status_yml = $self->root_dir . '/status.yml';
+    my $status     = {};
+    if ( -e $status_yml ) {
+        $status = YAML::Syck::LoadFile($status_yml);
+    }
+    $status->{acknowledge} //= {};
+
     foreach my $letter (@all_letters) {
         my $json_file = $self->playlist_json_file_for_letter($letter);
         my $html_file = $self->playlist_html_file_for_letter($letter);
@@ -170,6 +179,8 @@ sub refresh_all_html_file($self) {
 
             $r->{url_cplay_action} =~ s{:repo}{$name}g;
             $r->{url_cplay_badge}  =~ s{:repo}{$name}g;
+
+            $r->{reason} = $status->{acknowledge}->{$name} // '';
         }
 
         my $vars = {

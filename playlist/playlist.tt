@@ -94,6 +94,9 @@
                   <li>
                     <a href="[%= repo.url_cplay_action -%]"><img src="[%= repo.url_cplay_badge -%]" alt="none" /></a>&nbsp;<a href="[%= repo.url -%]">[%= repo.name -%]</a>
                   </li>
+[% IF repo.reason %]
+                  - <div style="color:red">Reason: [%= repo.reason | html %]</div> 
+[% END %]                  
                   - [%= repo.primary | html %]:&nbsp;[%= repo.abstract | html %]
                   [% END %]
                 </ul>
