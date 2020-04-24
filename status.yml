@@ -5,13 +5,14 @@
   "Acme-Beatnik": 'broken module'
   "Acme-Bleach-Numerically": 'all broken - Math::BigInt: couldn''t load specified math lib'
   "Acme-Boom": 'SEGV on purpose'
-"failures": 
-  "AFS": 'https://github.com/pause-play/AFS/actions'
-  "AI-NeuralNet-BackProp": 'https://github.com/pause-play/AI-NeuralNet-BackProp/actions'
-  "AI-NeuralNet-Mesh": 'https://github.com/pause-play/AI-NeuralNet-Mesh/actions'
-  "AI-NeuralNet-SOM": 'https://github.com/pause-play/AI-NeuralNet-SOM/actions'
-  "Acme-DonMartin": 'https://github.com/pause-play/Acme-DonMartin/actions'
-  "Acme-Filter-Kenny": 'https://github.com/pause-play/Acme-Filter-Kenny/actions'
+  "Acme-Code-FreedomFighter": "all broken - Eval-group not allowed at runtime"
+  "Acme-DonMartin": 'all broken - broken module'
+  "AFS": 'all broken - Fail to run perl Makefile.PL'
+  "AI-NeuralNet-BackProp": 'cplay ok only - The distribution doesn t have a proper Makefile.PL/Build.PL'
+  "AI-NeuralNet-Mesh": 'cplay ok only - The distribution doesn t have a proper Makefile.PL/Build.PL'
+  "AI-NeuralNet-SOM": 'cplay ok only - AI-NeuralNet-SOM-0.02.tar.gz bad archive?'
+  "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
+"failures":           
   "Acme-Intraweb": 'https://github.com/pause-play/Acme-Intraweb/actions'
   "Acme-Morse-Audible": 'https://github.com/pause-play/Acme-Morse-Audible/actions'
   "Acme-NabeAtzz": 'https://github.com/pause-play/Acme-NabeAtzz/actions'
@@ -28,6 +29,8 @@
   "Acme-Test-42": 'https://github.com/pause-play/Acme-Test-42/actions'
   "Acme-Thoroughly-Modern-Perl": 'https://github.com/pause-play/Acme-Thoroughly-Modern-Perl/actions'
   "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
+"todo":
+  "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
 "ok": 
   "A1z-HTML5-Template": 1
   "A1z-Html": 1
