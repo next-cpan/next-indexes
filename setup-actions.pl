@@ -384,24 +384,21 @@ sub max ( $a, $b ) {
 }
 
 sub read_json_file ( $self, $file ) {
-    local $/;
-    open( my $fh, '<:utf8', $file ) or die;
-    my $content = <$fh>;
-
     my $as_json;
 
-    # try to fallback some BUILD.json are not valid utf8...
-    eval { $as_json = $self->json->utf8(1)->decode($content); 1 } or eval {
-        WARN("Fail to decode BUILD.json using utf8: $@");
-        $as_json = $self->json->utf8(0)->decode($content);
-        1;
-    };
-
-    ref $as_json or die "Fail to decode json content from $file";
-
-    $self->json->utf8(1);    # reenable the utf8
+    eval      { $as_json = $self->_read_json_file( $file, 1 ) }
+      or eval { $as_json = $self->_read_json_file( $file, 0 ) }
+      or die "Fail to read file '$file': $@";
 
     return $as_json;
+}
+
+sub _read_json_file ( $self, $file, $as_utf8 = 1 ) {
+    local $/;
+
+    open( my $fh, '<' . ( $as_utf8 ? ':utf8' : '' ), $file ) or die;
+    my $content = <$fh>;
+    return $self->json->utf8($as_utf8)->decode($content);
 }
 
 sub check_dependencies_cplay_ready ( $self, $build ) {
