@@ -3,11 +3,6 @@
 package SetupActions;
 
 use autodie;
-use strict;
-use warnings;
-use utf8;
-
-use v5.28;
 
 use Test::More;    # for debugging
 use FindBin;
@@ -16,6 +11,9 @@ BEGIN {
     unshift @INC, $FindBin::Bin . "/lib";
     unshift @INC, $FindBin::Bin . "/vendor/lib";
 }
+
+use Play::std;     # strict / warnings / signatures...
+use Play::Logger;
 
 use Moose;
 with 'MooseX::SimpleConfig';
@@ -62,8 +60,12 @@ use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
 use constant GITHUB_REPO_SSH => q[git@github.com::org/:repository.git];
 
 # main arguments
+has 'check' => ( is => 'ro', isa => 'Bool', default => 0 );
+has 'setup' => ( is => 'ro', isa => 'Bool', default => 0 );
+
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
-has 'push'        => (
+
+has 'push' => (
     is              => 'rw', isa => 'Bool', default => 1,
     'documentation' => 'commit and push the index changes if needed'
 );
@@ -211,7 +213,8 @@ has 'gh_ci_workflow_file' => (
     is      => 'ro',
     lazy    => 1,
     default => sub ($self) {
-        note $self->gh_workflow_dir . '/install-' . $self->main_branch . '.yml';
+
+        #note $self->gh_workflow_dir . '/install-' . $self->main_branch . '.yml';
         $self->gh_workflow_dir . '/install-' . $self->main_branch . '.yml';
     }
 );
@@ -338,7 +341,26 @@ sub get_file_from_github ( $self, $repository, $file ) {    # FIXME could add an
     return $raw_content;
 }
 
-sub setup ($self) {
+sub check_ci_for_repository ( $self, $repository ) {
+    my $cplay_ready;
+    {
+        local $Play::Logger::QUIET = 1;
+        $cplay_ready = $self->check_github_action_status_for_repository($repository);
+    }
+
+    return unless defined $cplay_ready;
+
+    if ( $cplay_ready == 1 ) {
+        OK("$repository");
+    }
+    elsif ( $cplay_ready == -1 ) {
+        ERROR("$repository failure: https://github.com/pause-play/${repository}/actions");
+    }
+
+    return;
+}
+
+sub init ($self) {
     my @all_dirs = qw{repo_base_dir};
 
     foreach my $dirtype (@all_dirs) {
@@ -363,17 +385,49 @@ sub setup ($self) {
 
 sub run ($self) {
 
-    $self->setup;
+    $self->init;
+
+    return $self->action_check_ci() if $self->check;
+    return $self->action_setup_ci() if $self->setup;
+
+    warn "No actions set: use --help, --setup or --check";
+    warn $self->_print_usage_txt;
+    return;
+}
+
+sub action_check_ci($self) {
+
+    $Play::Logger::LOG_WITH_TIMESTAMP = 0;
 
     if ( $self->repo && scalar $self->repo->@* ) {
-
-        foreach my $repository ( $self->repo->@* ) {
-            INFO("refresh a repository $repository");
-            $self->refresh_repository($repository);
+        foreach my $name ( $self->repo->@* ) {
+            $self->check_ci_for_repository($name);
         }
     }
     else {    # default
-        $self->refresh_all_repositories();
+        my $limit = $self->limit;
+        my $c     = 0;
+        while ( my $repository = $self->gh->org->next_repos( $self->github_org ) ) {
+            ++$c;
+            my $name = $repository->{name};
+            $self->check_ci_for_repository($name);
+            last if $limit && $c > $limit;
+        }
+    }
+
+    return 0;
+}
+
+sub action_setup_ci($self) {
+
+    if ( $self->repo && scalar $self->repo->@* ) {
+        foreach my $repository ( $self->repo->@* ) {
+            INFO("Setup CI for repository $repository");
+            $self->setup_ci_for_repository($repository);
+        }
+    }
+    else {    # default
+        $self->setup_ci_for_all_repositories();
     }
 
     return 0;
@@ -451,11 +505,18 @@ sub is_repository_cplay_ready ( $self, $repository ) {
         return;
     }
 
-    #$repository = 'cplay'; #HACK
+    my $gh_action_status = $self->check_github_action_status_for_repository($repository);
+    return 1 if $gh_action_status && $gh_action_status == 1;
+    return;
+}
+
+#$repository = 'cplay'; #HACK
+
+sub check_github_action_status_for_repository ( $self, $repository ) {
 
     # 3. check if the workflow last run is a success
     my $workflows = $self->gh->actions->workflows( { owner => $self->github_org, repo => $repository } );
-    die unless ref $workflows;
+    return unless ref $workflows;
 
     #$workflows->{total_count} = 1; # HACK
 
@@ -477,18 +538,19 @@ sub is_repository_cplay_ready ( $self, $repository ) {
         DEBUG( "Last workflow run was a success ? " . ( $success // 'undef' ) );
         return 1 if $success;
 
-        die explain $runs->{workflow_runs}->[0];
-        return;
-
+        #die explain $runs->{workflow_runs}->[0];
+        ERROR("$repository GitHub action failure");
+        return -1;
     }
     else {
-        note explain $workflows;
-        ...    # more than a single workflow ? need to get one with the name
+        ERROR("$repository has more than a single workflow.");
+
+        #note explain $workflows;
+        # more than a single workflow ? need to get one with the name
+        return;
     }
 
-    ...;
-
-    return 1;
+    return;
 }
 
 sub get_distro_for ( $self, $module ) {
@@ -513,7 +575,7 @@ sub get_distro_for ( $self, $module ) {
     return $cache->{$module};
 }
 
-sub refresh_repository ( $self, $repository ) {
+sub setup_ci_for_repository ( $self, $repository ) {
     return if $self->is_internal_repo($repository);
 
     if ( !$self->force && $self->repositories_processed->{$repository} ) {
@@ -521,14 +583,14 @@ sub refresh_repository ( $self, $repository ) {
         return;
     }
 
-    my $ok = $self->_refresh_repository($repository);
+    my $ok = $self->_setup_ci_for_repository($repository);
 
     $self->tag_repository($repository);
 
     return $ok;
 }
 
-sub _refresh_repository ( $self, $repository, $attempt = 1 ) {
+sub _setup_ci_for_repository ( $self, $repository, $attempt = 1 ) {
 
     $self->sleep_until_not_throttled;    # check API rate limit FIXME restore
 
@@ -592,7 +654,7 @@ sub _refresh_repository ( $self, $repository, $attempt = 1 ) {
 
                 if ( ref $out && $out->{default_branch} eq $self->main_branch ) {
                     INFO( "Altered $repository default_branch to " . $self->main_branch . " [retry]" );
-                    return $self->_refresh_repository( $repository, $attempt + 1 );
+                    return $self->_setup_ci_for_repository( $repository, $attempt + 1 );
                 }
             }
 
@@ -642,7 +704,7 @@ sub tag_repository ( $self, $repository ) {
     return;
 }
 
-sub refresh_all_repositories($self) {
+sub setup_ci_for_all_repositories($self) {
     my $gh = $self->_build_gh;    # get its own object for pagination [maybe not needed?]
 
     my $c     = 0;
@@ -652,7 +714,7 @@ sub refresh_all_repositories($self) {
         ++$c;
         my $name = $repository->{name};
         INFO( sprintf( "%04d %s", $c, $name ) );
-        $self->refresh_repository($name);
+        $self->setup_ci_for_repository($name);
 
         last if $limit && $c > $limit;
     }
@@ -660,50 +722,7 @@ sub refresh_all_repositories($self) {
     return;
 }
 
-sub _log(@args) {
-    my $dt = DateTime->now;
-    my $ts = $dt->ymd . ' ' . $dt->hms;
-
-    my $msg = join( ' ', "[${ts}]", grep { defined $_ } @args );
-    chomp $msg;
-    $msg .= "\n";
-
-    print STDERR $msg;
-    ### .. log to an error file
-
-    return $msg;
-}
-
-use constant COLOR_RED    => 31;
-use constant COLOR_GREEN  => 32;
-use constant COLOR_YELLOW => 33;
-use constant COLOR_BLUE   => 34;
-use constant COLOR_PURPLE => 35;
-use constant COLOR_CYAN   => 36;
-use constant COLOR_WHITE  => 7;
-
-sub _with_color ( $color, $txt ) {
-    return "\e[${color}m$txt\e[m";
-}
-
-sub TAG_with_color ( $tag, $color ) {
-    return '[' . _with_color( $color, $tag ) . ']';
-}
-
-sub INFO (@what) {
-    _log( TAG_with_color( INFO => COLOR_GREEN ), @what );
-    return;
-}
-
-sub DEBUG (@what) {
-    _log( TAG_with_color( DEBUG => COLOR_WHITE ), @what );
-    return;
-}
-
-sub ERROR (@what) {
-    _log( TAG_with_color( ERROR => COLOR_RED ), @what );
-    return;
-}
+# ....
 
 sub sleep_until_not_throttled ($self) {
     my $rate_remaining;
@@ -734,7 +753,9 @@ sub sleep_until_not_throttled ($self) {
     return;
 }
 
-after 'print_usage_text' => sub {
+after 'print_usage_text' => \&_print_usage_txt;
+
+sub _print_usage_txt {
     print <<EOS;
 
 Options:
@@ -743,12 +764,15 @@ Options:
 
 Sample usages:
 
-$0                                    # clone all repos
-$0 --repo A1z-Html                    # only refresh a single repository
-$0 --ci                               # add the CI workflow
+$0                                    # add github actions to repositories
+$0 --repo A1z-Html                    # only add the actions to a single repository
+$0 --check                            # check the status of the repositories
+
+./setup-actions.pl --setup
+./setup-actions.pl --check --limit 10
 
 EOS
-};
+}
 
 package main;
 
@@ -779,7 +803,7 @@ EOS
 
     my $update = SetupActions->new_with_options( configfile => $settings_ini );
 
-    exit( $update->run );
+    exit( $update->run // 0 );
 }
 
 1;
