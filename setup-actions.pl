@@ -365,13 +365,22 @@ sub check_ci_for_repository ( $self, $repository ) {
         $self->{status_ci}->{ok} //= {};
         $self->{status_ci}->{ok}->{$repository} = 1;    # avoid using a list
         delete $self->{status_ci}->{'failures'}->{$repository};
+
+        # maybe also delete the acknowledge
     }
     elsif ( $cplay_ready == -1 ) {
+
         ERROR("$repository failure: https://github.com/pause-play/${repository}/actions");
-        if ( defined $self->{status_ci}->{'acknowledge'}->{$repository} ) {
-            delete $self->{status_ci}->{'failures'}->{$repository};
+        my $is_known;
+        foreach my $reason ( sort keys $self->{status_ci}->{'acknowledge'}->%* ) {
+            my $tagged = $self->{status_ci}->{'acknowledge'}->{$reason};
+            if ( defined $self->{status_ci}->{'acknowledge'}->{$reason}->{$repository} ) {
+                $is_known = 1;
+                delete $self->{status_ci}->{'failures'}->{$repository};
+                last;
+            }
         }
-        else {
+        if ($is_known) {
             $self->{status_ci}->{'failures'}->{$repository} = qq[https://github.com/pause-play/${repository}/actions];
             delete $self->{status_ci}->{'ok'}->{$repository};
         }

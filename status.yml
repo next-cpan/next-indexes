@@ -1,48 +1,42 @@
----
-"acknowledge":
-  "ABI": 'cplay ok only - broken Build.PL'
-  "ACL-Regex": 'all broken - missing deps'
-  "Acme-Beatnik": 'all broken - broken module'
-  "Acme-Bleach-Numerically": 'all broken - Math::BigInt: couldn''t load specified math lib'
-  "Acme-Boom": 'all broken - SEGV on purpose'
-  "Acme-Code-FreedomFighter": "all broken - Eval-group not allowed at runtime"
-  "Acme-DonMartin": 'all broken - broken module'
-  "AFS": 'all broken - Fail to run perl Makefile.PL'
-  "AI-NeuralNet-BackProp": 'cplay ok only - The distribution doesn t have a proper Makefile.PL/Build.PL'
-  "AI-NeuralNet-Mesh": 'cplay ok only - The distribution doesn t have a proper Makefile.PL/Build.PL'
-  "AI-NeuralNet-SOM": 'cplay ok only - AI-NeuralNet-SOM-0.02.tar.gz bad archive?'
-  "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
-  "Acme-Intraweb": 'cplay deps - Cannot locate CPANPLUS.pm'
-  "Acme-Morse-Audible": 'all broken - broken by design'
-  "Acme-NabeAtzz": 'cplay - Cannot locate inc/Module/Install.pm'
-  "Acme-Ook": 'cplay - missing files for tests'
-  "Acme-Nooo": 'all broken - broken by design'
-  "Acme-OneBit": 'cplay ok only'
-  "Acme-Pano-Util": 'all broken - The encoding pragma is no longer supported'
-  "Acme-RTB": 'cplay ok only'
-  "Acme-RequireModule": 'Can t locate inc/Module/Install.pm'
-  "Acme-SGABRIEL-Utils": 'unit tests failures'
-  "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
-  "Alien-libtermkey": 'Cant locate Module/Build.pm'
-  "Alt-Acme-Math-XS-ModuleInstall": 'Cant locate loadable object for module'
-  "ALPM": 'all broken - pacman/libalpm must be installed to compile ALP'
-"failures":      
+--- 
+"acknowledge": 
+  "all broken": 
+    "ACL-Regex": 'missing deps'
+    "AFS": ' Fail to run perl Makefile.PL'
+    "ALPM": 'all broken - pacman/libalpm must be installed to compile ALP'
+    "Acme-Beatnik": 'broken module'
+    "Acme-Bleach-Numerically": 'Math::BigInt: couldnt load specified math lib'
+    "Acme-Boom": 'SEGV on purpose'
+    "Acme-Code-FreedomFighter": 'Eval-group not allowed at runtime'
+    "Acme-DonMartin": 'broken module'
+    "Acme-Morse-Audible": 'broken by design'
+    "Acme-Nooo": 'broken by design'
+    "Acme-Pano-Util": 'The encoding pragma is no longer supported'
+  "cplay error": 
+    "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
+    "Acme-Intraweb": 'cplay deps - Cannot locate CPANPLUS.pm'
+    "Acme-NabeAtzz": 'Cannot locate inc/Module/Install.pm'
+    "Acme-Ook": 'missing files for tests'
+    "Acme-RequireModule": 'Can t locate inc/Module/Install.pm'
+    "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
+    "Alien-libtermkey": 'Cant locate Module/Build.pm'
+    "Alt-Acme-Math-XS-ModuleInstall": 'Cant locate loadable object for module'
+  "cplay ok only": 
+    "ABI": 'broken Build.PL'
+    "AI-NeuralNet-BackProp": 'The distribution doesn t have a proper Makefile.PL/Build.PL'
+    "AI-NeuralNet-Mesh": 'The distribution doesn t have a proper Makefile.PL/Build.PL'
+    "AI-NeuralNet-SOM": 'AI-NeuralNet-SOM-0.02.tar.gz bad archive?'
+    "Acme-OneBit": ''
+    "Acme-RTB": ''
+    "Acme-SGABRIEL-Utils": 'unit tests failures'
+"failures": 
   "Acme-Stegano": 'https://github.com/pause-play/Acme-Stegano/actions'
   "Acme-Takahashi-Method": 'https://github.com/pause-play/Acme-Takahashi-Method/actions'
   "Acme-Test": 'https://github.com/pause-play/Acme-Test/actions'
   "Acme-Test-42": 'https://github.com/pause-play/Acme-Test-42/actions'
   "Acme-Thoroughly-Modern-Perl": 'https://github.com/pause-play/Acme-Thoroughly-Modern-Perl/actions'
   "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
-"todo":
-  "Acme-Filter-Kenny": 'todd | cplay error - Cannot find blib'
-  "Acme-Intraweb": 'todd | Cannot locate CPANPLUS.pm'
-  "Acme-NabeAtzz": 'todd | cplay - Cannot locate inc/Module/Install.pm'
-  "Acme-RequireModule": 'todd | Can t locate inc/Module/Install.pm'
-  "Acme-Ook": 'todd | cplay - missing files for tests'
-  "Alien-Debian-Apt-PM": 'nico | Cant locate Module/Build.pm'
-  "Alien-libtermkey": 'nico | Cant locate Module/Build.pm'
-  "Alt-Acme-Math-XS-ModuleInstall": 'todd | Cant locate loadable object for module'
-"ok":
+"ok": 
   "A1z-HTML5-Template": 1
   "A1z-Html": 1
   "ACL-Lite": 1
@@ -246,3 +240,12 @@
   "ActionExporter": 1
   "Advent-Bundles": 1
   "Affix-Infix2Postfix": 1
+"todo": 
+  "Acme-Filter-Kenny": 'todd | cplay error - Cannot find blib'
+  "Acme-Intraweb": 'todd | Cannot locate CPANPLUS.pm'
+  "Acme-NabeAtzz": 'todd | cplay - Cannot locate inc/Module/Install.pm'
+  "Acme-Ook": 'todd | cplay - missing files for tests'
+  "Acme-RequireModule": 'todd | Can t locate inc/Module/Install.pm'
+  "Alien-Debian-Apt-PM": 'nico | Cant locate Module/Build.pm'
+  "Alien-libtermkey": 'nico | Cant locate Module/Build.pm'
+  "Alt-Acme-Math-XS-ModuleInstall": 'todd | Cant locate loadable object for module'

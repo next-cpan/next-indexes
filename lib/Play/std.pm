@@ -22,8 +22,9 @@ sub import {
     strict->import();
 
     require feature;
-    feature->import(':5.20');
+    feature->import(':5.28');
     feature->import('signatures');
+    feature->import('postderef');
 
     utf8->import();
 
