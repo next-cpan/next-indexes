@@ -2,7 +2,7 @@
 "acknowledge": 
   "---------------- all broken -------------------------------------------------": 
     "ACL-Regex": 'missing deps'
-    "AFS": ' Fail to run perl Makefile.PL'
+    "AFS": ' Fail to run perl Makefile.PL: need AFS library'
     "ALPM": 'all broken - pacman/libalpm must be installed to compile ALP'
     "Acme-Beatnik": 'broken module'
     "Acme-Bleach-Numerically": 'Math::BigInt: couldnt load specified math lib'
