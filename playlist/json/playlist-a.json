@@ -24,7 +24,7 @@
       "version" : "0.002"
    },
    "AAC-Pvoice" : {
-      "abstract" : "Create GUI software for disabled people",
+      "abstract" : null,
       "name" : "AAC-Pvoice",
       "primary" : "AAC::Pvoice",
       "version" : "0.91"
@@ -297,7 +297,7 @@
       "abstract" : null,
       "name" : "AI-Fuzzy",
       "primary" : "AI::Fuzzy",
-      "version" : "0.05"
+      "version" : "0.01"
    },
    "AI-FuzzyEngine" : {
       "abstract" : "A Fuzzy Engine, PDL aware",
@@ -580,6 +580,12 @@
       "name" : "AIX-LVM",
       "primary" : "AIX::LVM",
       "version" : "1.1"
+   },
+   "ALBD" : {
+      "abstract" : "a perl implementation of Literature Based Discovery",
+      "name" : "ALBD",
+      "primary" : "ALBD",
+      "version" : 0.05
    },
    "ALPM" : {
       "abstract" : "readonly access to pacman's libalpm.",
@@ -1601,6 +1607,12 @@
       "primary" : "Acme::CPANModules::FooThis",
       "version" : "0.001"
    },
+   "Acme-CPANModules-GetoptModules" : {
+      "abstract" : "Modules that parse command-line options",
+      "name" : "Acme-CPANModules-GetoptModules",
+      "primary" : "Acme::CPANModules::GetoptModules",
+      "version" : "0.001"
+   },
    "Acme-CPANModules-GettingTempDir" : {
       "abstract" : "Getting system-wide temporary directory in a portable way",
       "name" : "Acme-CPANModules-GettingTempDir",
@@ -1647,6 +1659,12 @@
       "abstract" : "Modules which employ magic variable technique to do stuffs",
       "name" : "Acme-CPANModules-MagicVariableTechnique",
       "primary" : "Acme::CPANModules::MagicVariableTechnique",
+      "version" : "0.001"
+   },
+   "Acme-CPANModules-MockModules" : {
+      "abstract" : "Modules that mock other modules",
+      "name" : "Acme-CPANModules-MockModules",
+      "primary" : "Acme::CPANModules::MockModules",
       "version" : "0.001"
    },
    "Acme-CPANModules-ModernPreambles" : {
@@ -3803,6 +3821,12 @@
       "primary" : "Acme::PERLANCAR::Prime",
       "version" : "0.001"
    },
+   "Acme-PERLANCAR-Test-Images" : {
+      "abstract" : "Distribution that contains images",
+      "name" : "Acme-PERLANCAR-Test-Images",
+      "primary" : "Acme::PERLANCAR::Test::Images",
+      "version" : "0.001"
+   },
    "Acme-PERLANCAR-Test-MetaCPAN-HTML" : {
       "abstract" : "Test HTML rendering on MetaCPAN",
       "name" : "Acme-PERLANCAR-Test-MetaCPAN-HTML",
@@ -5514,7 +5538,7 @@
       "version" : "3.43"
    },
    "Algorithm-Dependency" : {
-      "abstract" : "Base class for implementing various dependency trees\r",
+      "abstract" : "Base class for implementing various dependency trees",
       "name" : "Algorithm-Dependency",
       "primary" : "Algorithm::Dependency",
       "version" : "1.111"
@@ -5927,6 +5951,12 @@
       "primary" : "Algorithm::Munkres",
       "version" : "0.08"
    },
+   "Algorithm-NCS" : {
+      "abstract" : "Fast Perl extension for sequence alignment.",
+      "name" : "Algorithm-NCS",
+      "primary" : "Algorithm::NCS",
+      "version" : "0.04"
+   },
    "Algorithm-NGram" : {
       "abstract" : null,
       "name" : "Algorithm-NGram",
@@ -6280,6 +6310,12 @@
       "name" : "Alien-BWIPP",
       "primary" : "Alien::BWIPP",
       "version" : "0.007"
+   },
+   "Alien-Base-ModuleBuild" : {
+      "abstract" : "A Module::Build subclass for building Alien:: modules and their libraries",
+      "name" : "Alien-Base-ModuleBuild",
+      "primary" : "Alien::Base::ModuleBuild",
+      "version" : "1.14"
    },
    "Alien-Box2D" : {
       "abstract" : "Build and make available Box2D library - L<http://box2d.org/>",
