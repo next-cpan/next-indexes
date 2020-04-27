@@ -47,4 +47,5 @@ jobs:
       - uses: perl-actions/install-cpanm@v1.1
         with:
           install: ${{ env.PRIMARY }}
+          tests: true
       - run: perl -M${{ env.PRIMARY }} -e1
