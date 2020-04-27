@@ -34,7 +34,6 @@ jobs:
       - uses: perl-actions/install-cpm@cplay-ci
         with:
           install: "${{ env.PRIMARY }}"
-          tests: true
       - run: perl -M${{ env.PRIMARY }} -e1
 
   # ---------------------------------------------------------
@@ -47,5 +46,4 @@ jobs:
       - uses: perl-actions/install-cpanm@cplay-ci
         with:
           install: ${{ env.PRIMARY }}
-          tests: true
       - run: perl -M${{ env.PRIMARY }} -e1
