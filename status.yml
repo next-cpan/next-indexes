@@ -12,15 +12,9 @@
     "Acme-Morse-Audible": 'broken by design'
     "Acme-Nooo": 'broken by design'
     "Acme-Pano-Util": 'The encoding pragma is no longer supported'
-  "---------------- cplay error -----------------------------------------------": 
-    "Acme-Filter-Kenny": 'cplay error - Cannot find blib'    
-    "Acme-NabeAtzz": 'Cannot locate inc/Module/Install.pm'
-    "Acme-Ook": 'missing files for tests'
-    "Acme-RequireModule": 'Can t locate inc/Module/Install.pm'
-    "Alt-Acme-Math-XS-ModuleInstall": 'Cant locate loadable object for module'
     "Alien-MeCab": "Cant locate inc/Devel/CheckLib.pm"
-    "Algorithm-RabinKarp": "Cannot find module or distribution perl"
-    "Algorithm-LBFGS": "Cant locate inc/Module/Install.pm"
+  "---------------- cplay error -----------------------------------------------":  
+    "xxxxxxx": "Cant locate inc/Devel/CheckLib.pm"
   "---------------- cplay error Module/Build.pm -------------------------------": 
     "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
     "Alien-libtermkey": 'Cant locate Module/Build.pm'    
@@ -32,8 +26,6 @@
     "Alien-InteractiveBrokers": "Archive::Extract"
     "Algorithm-Odometer-Tiny": "Test::More >= 1.302096"
     "Algorithm-MinPerfHashTwoLevel": "Test::More >= 1.302164"
-  "---------------- cplay error BUILD.json deps ------------------------------":   
-    "AIX-LPP-lpp_name": "5.005_62"
   "---------------- cplay error cannot use Test::Harness ---------------------":       
     "Algorithm-Hamming-Perl": ""
   "---------------- cplay ok only --------------------------------------------": 
@@ -257,11 +249,6 @@
   "Advent-Bundles": 1
   "Affix-Infix2Postfix": 1
 "todo": 
-  "Acme-Filter-Kenny": 'todd | cplay error - Cannot find blib'
   "Acme-Intraweb": 'todd | Cannot locate CPANPLUS.pm'
-  "Acme-NabeAtzz": 'todd | cplay - Cannot locate inc/Module/Install.pm'
-  "Acme-Ook": 'todd | cplay - missing files for tests'
-  "Acme-RequireModule": 'todd | Can t locate inc/Module/Install.pm'
   "Alien-Debian-Apt-PM": 'nico | Cant locate Module/Build.pm'
   "Alien-libtermkey": 'nico | Cant locate Module/Build.pm'
-  "Alt-Acme-Math-XS-ModuleInstall": 'todd | Cant locate loadable object for module'

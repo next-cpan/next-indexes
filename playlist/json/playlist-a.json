@@ -1725,7 +1725,7 @@
       "abstract" : "Modules to make your life easier when writing perl one-liners",
       "name" : "Acme-CPANModules-OneLinerTools",
       "primary" : "Acme::CPANModules::OneLinerTools",
-      "version" : "0.002"
+      "version" : "0.003"
    },
    "Acme-CPANModules-Org" : {
       "abstract" : "Modules related to Org format",
@@ -6513,7 +6513,7 @@
       "abstract" : "Alien package for the GNU Multiple Precision library.",
       "name" : "Alien-GMP",
       "primary" : "Alien::GMP",
-      "version" : "1.14"
+      "version" : "1.16"
    },
    "Alien-GPG-Error" : {
       "abstract" : "Install and make available libgpg-error",
@@ -6801,7 +6801,7 @@
       "abstract" : "Install the C libxml2 library on your system",
       "name" : "Alien-Libxml2",
       "primary" : "Alien::Libxml2",
-      "version" : "0.15"
+      "version" : "0.16"
    },
    "Alien-Lightbox" : {
       "abstract" : "installing and finding Lightbox JS",
@@ -6909,7 +6909,7 @@
       "abstract" : "Get, Build and Use PNG libraries",
       "name" : "Alien-PNG",
       "primary" : "Alien::PNG",
-      "version" : "0.2"
+      "version" : "0.4"
    },
    "Alien-Packages" : {
       "abstract" : "Find information of installed packages",
@@ -7491,7 +7491,7 @@
       "abstract" : "Find or download wasmtime for use by other Perl modules",
       "name" : "Alien-wasmtime",
       "primary" : "Alien::wasmtime",
-      "version" : "0.07"
+      "version" : "0.08"
    },
    "Alien-wxWidgets" : {
       "abstract" : "building, finding and using wxWidgets binaries",
@@ -7941,7 +7941,7 @@
       "abstract" : "lightweight web application framework",
       "name" : "Amon2",
       "primary" : "Amon2",
-      "version" : "6.13"
+      "version" : "6.14"
    },
    "Amon2-Auth" : {
       "abstract" : "Authentication module for Amon2",
@@ -8079,7 +8079,7 @@
       "abstract" : "multi-language source code analysis toolkit",
       "name" : "Analizo",
       "primary" : "Analizo",
-      "version" : "1.23.0"
+      "version" : "1.24.0"
    },
    "Ananke-SqlLink" : {
       "abstract" : "Front-end module to MySQL",
@@ -8937,7 +8937,7 @@
       "abstract" : "Simple asynchronous ident client and server",
       "name" : "AnyEvent-Ident",
       "primary" : "AnyEvent::Ident",
-      "version" : "0.07"
+      "version" : "0.08"
    },
    "AnyEvent-ImageShack" : {
       "abstract" : "simple non-blocking client for image hosting ImageShack.us",
@@ -9203,11 +9203,887 @@
       "primary" : "AnyEvent::Promises",
       "version" : "0.06"
    },
+   "AnyEvent-RFXCOM" : {
+      "abstract" : "Perl modules for RFXCOM RF receivers/transmitters with AnyEvent",
+      "name" : "AnyEvent-RFXCOM",
+      "primary" : "AnyEvent::RFXCOM::TX",
+      "version" : "1.142240"
+   },
+   "AnyEvent-RPC" : {
+      "abstract" : "Abstract framework for Asyncronous RPC clients",
+      "name" : "AnyEvent-RPC",
+      "primary" : "AnyEvent::RPC",
+      "version" : "0.05"
+   },
+   "AnyEvent-RTPG" : {
+      "abstract" : "A RTPG interface for AE",
+      "name" : "AnyEvent-RTPG",
+      "primary" : "AnyEvent::RTPG",
+      "version" : "0.01"
+   },
+   "AnyEvent-RabbitMQ" : {
+      "abstract" : "An asynchronous and multi channel Perl AMQP client.",
+      "name" : "AnyEvent-RabbitMQ",
+      "primary" : "AnyEvent::RabbitMQ",
+      "version" : "1.19"
+   },
+   "AnyEvent-RabbitMQ-Fork" : {
+      "abstract" : "Run AnyEvent::RabbitMQ inside AnyEvent::Fork(::RPC)",
+      "name" : "AnyEvent-RabbitMQ-Fork",
+      "primary" : "AnyEvent::RabbitMQ::Fork",
+      "version" : "0.5"
+   },
+   "AnyEvent-RabbitMQ-PubSub" : {
+      "abstract" : "Publish and consume RabbitMQ messages.",
+      "name" : "AnyEvent-RabbitMQ-PubSub",
+      "primary" : "AnyEvent::RabbitMQ::PubSub",
+      "version" : "3.2.1"
+   },
+   "AnyEvent-RabbitMQ-Simple" : {
+      "abstract" : "Easy to use asynchronous AMQP client",
+      "name" : "AnyEvent-RabbitMQ-Simple",
+      "primary" : "AnyEvent::RabbitMQ::Simple",
+      "version" : "0.02"
+   },
+   "AnyEvent-Radius" : {
+      "abstract" : null,
+      "name" : "AnyEvent-Radius",
+      "primary" : "AnyEvent::Radius",
+      "version" : "v1.1.1"
+   },
+   "AnyEvent-ReadLine-Gnu" : {
+      "abstract" : null,
+      "name" : "AnyEvent-ReadLine-Gnu",
+      "primary" : "AnyEvent::ReadLine::Gnu",
+      "version" : "1.1"
+   },
+   "AnyEvent-Redis" : {
+      "abstract" : "Non-blocking Redis client",
+      "name" : "AnyEvent-Redis",
+      "primary" : "AnyEvent::Redis",
+      "version" : "0.24"
+   },
+   "AnyEvent-Redis-RipeRedis" : {
+      "abstract" : "DEPRECATED. Use AnyEvent::RipeRedis instead",
+      "name" : "AnyEvent-Redis-RipeRedis",
+      "primary" : "AnyEvent::Redis::RipeRedis",
+      "version" : "1.62"
+   },
+   "AnyEvent-Retry" : {
+      "abstract" : "try something until it works",
+      "name" : "AnyEvent-Retry",
+      "primary" : "AnyEvent::Retry",
+      "version" : "0.03"
+   },
+   "AnyEvent-RetryTimer" : {
+      "abstract" : "Retry timers for AnyEvent",
+      "name" : "AnyEvent-RetryTimer",
+      "primary" : "AnyEvent::RetryTimer",
+      "version" : "0.1"
+   },
+   "AnyEvent-ReverseHTTP" : {
+      "abstract" : "reversehttp for AnyEvent",
+      "name" : "AnyEvent-ReverseHTTP",
+      "primary" : "AnyEvent::ReverseHTTP",
+      "version" : "0.05"
+   },
+   "AnyEvent-RipeRedis" : {
+      "abstract" : "Flexible non-blocking Redis client",
+      "name" : "AnyEvent-RipeRedis",
+      "primary" : "AnyEvent::RipeRedis",
+      "version" : "0.46"
+   },
+   "AnyEvent-RipeRedis-Cluster" : {
+      "abstract" : "Non-blocking Redis Cluster client",
+      "name" : "AnyEvent-RipeRedis-Cluster",
+      "primary" : "AnyEvent::RipeRedis::Cluster",
+      "version" : "0.32"
+   },
+   "AnyEvent-Run" : {
+      "abstract" : "Run a process or coderef asynchronously",
+      "name" : "AnyEvent-Run",
+      "primary" : "AnyEvent::Run",
+      "version" : "0.01"
+   },
+   "AnyEvent-SCGI" : {
+      "abstract" : "Event based SCGI server",
+      "name" : "AnyEvent-SCGI",
+      "primary" : "AnyEvent::SCGI",
+      "version" : "1.1"
+   },
+   "AnyEvent-SKKServ" : {
+      "abstract" : "Lightweight skkserv implementation for AnyEvent",
+      "name" : "AnyEvent-SKKServ",
+      "primary" : "AnyEvent::SKKServ",
+      "version" : "0.01"
+   },
+   "AnyEvent-SMTP" : {
+      "abstract" : "SMTP client and server",
+      "name" : "AnyEvent-SMTP",
+      "primary" : "AnyEvent::SMTP",
+      "version" : "0.10"
+   },
+   "AnyEvent-SNMP" : {
+      "abstract" : null,
+      "name" : "AnyEvent-SNMP",
+      "primary" : "AnyEvent::SNMP",
+      "version" : "6.02"
+   },
+   "AnyEvent-SSH2" : {
+      "abstract" : null,
+      "name" : "AnyEvent-SSH2",
+      "primary" : "AnyEvent::SSH2",
+      "version" : "0.04"
+   },
+   "AnyEvent-STOMP" : {
+      "abstract" : "A lightweight event-driven STOMP client",
+      "name" : "AnyEvent-STOMP",
+      "primary" : "AnyEvent::STOMP",
+      "version" : "0.7"
+   },
+   "AnyEvent-Semaphore" : {
+      "abstract" : "Semaphore implementation for AnyEvent",
+      "name" : "AnyEvent-Semaphore",
+      "primary" : "AnyEvent::Semaphore",
+      "version" : "0.01"
+   },
+   "AnyEvent-Sereal" : {
+      "abstract" : "Sereal stream serializer/deserializer for AnyEvent",
+      "name" : "AnyEvent-Sereal",
+      "primary" : "AnyEvent::Sereal",
+      "version" : "0.004"
+   },
+   "AnyEvent-SerialPort" : {
+      "abstract" : "AnyEvent::Handle subclass for serial ports",
+      "name" : "AnyEvent-SerialPort",
+      "primary" : "AnyEvent::SerialPort",
+      "version" : "1.130171"
+   },
+   "AnyEvent-Serialize" : {
+      "abstract" : "async serialize/deserialize function",
+      "name" : "AnyEvent-Serialize",
+      "primary" : "AnyEvent::Serialize",
+      "version" : "0.05"
+   },
+   "AnyEvent-SlackBot" : {
+      "abstract" : "AnyEvent Driven Slack Bot Interface",
+      "name" : "AnyEvent-SlackBot",
+      "primary" : "AnyEvent::SlackBot",
+      "version" : "1.0005"
+   },
+   "AnyEvent-SlackRTM" : {
+      "abstract" : "AnyEvent module for interacting with the Slack RTM API",
+      "name" : "AnyEvent-SlackRTM",
+      "primary" : "AnyEvent::SlackRTM",
+      "version" : "1.1"
+   },
+   "AnyEvent-SparkBot" : {
+      "abstract" : "Cisco Spark WebSocket Client for the AnyEvent Loop",
+      "name" : "AnyEvent-SparkBot",
+      "primary" : "AnyEvent::SparkBot",
+      "version" : "1.010"
+   },
+   "AnyEvent-Stomper" : {
+      "abstract" : "Flexible non-blocking STOMP client",
+      "name" : "AnyEvent-Stomper",
+      "primary" : "AnyEvent::Stomper",
+      "version" : "0.36"
+   },
+   "AnyEvent-Sub-Retry" : {
+      "abstract" : "retry $n times in AnyEvent",
+      "name" : "AnyEvent-Sub-Retry",
+      "primary" : "AnyEvent::Sub::Retry",
+      "version" : "0.04"
+   },
+   "AnyEvent-Subprocess" : {
+      "abstract" : "flexible, OO, asynchronous process spawning and management",
+      "name" : "AnyEvent-Subprocess",
+      "primary" : "AnyEvent::Subprocess",
+      "version" : "1.102912"
+   },
+   "AnyEvent-Superfeedr" : {
+      "abstract" : "XMPP interface to Superfeedr service.",
+      "name" : "AnyEvent-Superfeedr",
+      "primary" : "AnyEvent::Superfeedr",
+      "version" : "0.04"
+   },
+   "AnyEvent-TLS-SNI" : {
+      "abstract" : "Adds Server Name Indication (SNI) support to AnyEvent::TLS client.",
+      "name" : "AnyEvent-TLS-SNI",
+      "primary" : "AnyEvent::TLS::SNI",
+      "version" : "0.04"
+   },
+   "AnyEvent-Task" : {
+      "abstract" : null,
+      "name" : "AnyEvent-Task",
+      "primary" : "AnyEvent::Task",
+      "version" : "0.805"
+   },
+   "AnyEvent-TermKey" : {
+      "abstract" : "terminal key input using C<libtermkey> with C<AnyEvent>",
+      "name" : "AnyEvent-TermKey",
+      "primary" : "AnyEvent::TermKey",
+      "version" : "0.02"
+   },
+   "AnyEvent-Timer-Cron" : {
+      "abstract" : "cron based timers for AnyEvent",
+      "name" : "AnyEvent-Timer-Cron",
+      "primary" : "AnyEvent::Timer::Cron",
+      "version" : "0.002000"
+   },
+   "AnyEvent-Tools" : {
+      "abstract" : "instrument collection for L<AnyEvent>.",
+      "name" : "AnyEvent-Tools",
+      "primary" : "AnyEvent::Tools",
+      "version" : "0.12"
+   },
+   "AnyEvent-Twitter" : {
+      "abstract" : "A thin wrapper for Twitter API using OAuth",
+      "name" : "AnyEvent-Twitter",
+      "primary" : "AnyEvent::Twitter",
+      "version" : "0.64"
+   },
+   "AnyEvent-Twitter-Stream" : {
+      "abstract" : "Receive Twitter streaming API in an event loop",
+      "name" : "AnyEvent-Twitter-Stream",
+      "primary" : "AnyEvent::Twitter::Stream",
+      "version" : "0.28"
+   },
+   "AnyEvent-UWSGI" : {
+      "abstract" : "non-blocking UWSGI client (based on L<AnyEvent::HTTP>)",
+      "name" : "AnyEvent-UWSGI",
+      "primary" : "AnyEvent::UWSGI",
+      "version" : "0.04"
+   },
+   "AnyEvent-UserAgent" : {
+      "abstract" : "AnyEvent::HTTP OO-wrapper",
+      "name" : "AnyEvent-UserAgent",
+      "primary" : "AnyEvent::UserAgent",
+      "version" : "0.07"
+   },
+   "AnyEvent-WebArchive" : {
+      "abstract" : "simple non-blocking WebArchive client",
+      "name" : "AnyEvent-WebArchive",
+      "primary" : "AnyEvent::WebArchive",
+      "version" : "0.02"
+   },
+   "AnyEvent-WebDriver" : {
+      "abstract" : null,
+      "name" : "AnyEvent-WebDriver",
+      "primary" : "AnyEvent::WebDriver",
+      "version" : "1.2"
+   },
+   "AnyEvent-WebService-ImKayac" : {
+      "abstract" : "connection wrapper for im.kayac.com",
+      "name" : "AnyEvent-WebService-ImKayac",
+      "primary" : "AnyEvent::WebService::ImKayac",
+      "version" : "0.01"
+   },
+   "AnyEvent-WebService-Notifo" : {
+      "abstract" : "AnyEvent-powered client for the notifo.com API",
+      "name" : "AnyEvent-WebService-Notifo",
+      "primary" : "AnyEvent::WebService::Notifo",
+      "version" : "0.001"
+   },
+   "AnyEvent-WebService-Tracks" : {
+      "abstract" : "Access Tracks' API from AnyEvent",
+      "name" : "AnyEvent-WebService-Tracks",
+      "primary" : "AnyEvent::WebService::Tracks",
+      "version" : "0.02"
+   },
+   "AnyEvent-WebSocket-Client" : {
+      "abstract" : "WebSocket client for AnyEvent",
+      "name" : "AnyEvent-WebSocket-Client",
+      "primary" : "AnyEvent::WebSocket::Client",
+      "version" : "0.53"
+   },
+   "AnyEvent-WebSocket-Server" : {
+      "abstract" : "WebSocket server for AnyEvent",
+      "name" : "AnyEvent-WebSocket-Server",
+      "primary" : "AnyEvent::WebSocket::Server",
+      "version" : "0.09"
+   },
+   "AnyEvent-Whois-Raw" : {
+      "abstract" : "Non-blocking wrapper for Net::Whois::Raw",
+      "name" : "AnyEvent-Whois-Raw",
+      "primary" : "AnyEvent::Whois::Raw",
+      "version" : "0.08"
+   },
+   "AnyEvent-Worker" : {
+      "abstract" : "Manage blocking task in external process",
+      "name" : "AnyEvent-Worker",
+      "primary" : "AnyEvent::Worker",
+      "version" : "0.06"
+   },
+   "AnyEvent-XMLRPC" : {
+      "abstract" : "Non-Blocking XMLRPC Server. Originally a AnyEvent implementation of Frontier.",
+      "name" : "AnyEvent-XMLRPC",
+      "primary" : "AnyEvent::XMLRPC",
+      "version" : "0.05"
+   },
+   "AnyEvent-XMPP" : {
+      "abstract" : "An implementation of the XMPP Protocol",
+      "name" : "AnyEvent-XMPP",
+      "primary" : "AnyEvent::XMPP",
+      "version" : "0.55"
+   },
+   "AnyEvent-XMPP-Ext-HTML" : {
+      "abstract" : "XEP-0071: XHTML-IM (Version 1.5) for AnyEvent::XMPP",
+      "name" : "AnyEvent-XMPP-Ext-HTML",
+      "primary" : "AnyEvent::XMPP::Ext::HTML",
+      "version" : "0.02"
+   },
+   "AnyEvent-XSPromises" : {
+      "abstract" : "Another Promises library, this time implemented in XS for performance",
+      "name" : "AnyEvent-XSPromises",
+      "primary" : "AnyEvent::XSPromises",
+      "version" : "0.005"
+   },
+   "AnyEvent-YACurl" : {
+      "abstract" : "Yet Another cURL binding for AnyEvent",
+      "name" : "AnyEvent-YACurl",
+      "primary" : "AnyEvent::YACurl",
+      "version" : "0.14"
+   },
+   "AnyEvent-ZabbixSender" : {
+      "abstract" : null,
+      "name" : "AnyEvent-ZabbixSender",
+      "primary" : "AnyEvent::ZabbixSender",
+      "version" : "1.1"
+   },
+   "AnyEvent-ZeroMQ" : {
+      "abstract" : "non-blocking interface to ZeroMQ sockets",
+      "name" : "AnyEvent-ZeroMQ",
+      "primary" : "AnyEvent::ZeroMQ",
+      "version" : "0.01"
+   },
    "AnyEvent-eris" : {
       "abstract" : "Implementation of eris pub/sub client and server",
       "name" : "AnyEvent-eris",
       "primary" : "AnyEvent::eris",
       "version" : "0.000002"
+   },
+   "AnyEvent-mDNS" : {
+      "abstract" : "Multicast DNS in AnyEvent style",
+      "name" : "AnyEvent-mDNS",
+      "primary" : "AnyEvent::mDNS",
+      "version" : "0.06"
+   },
+   "AnyLoader" : {
+      "abstract" : null,
+      "name" : "AnyLoader",
+      "primary" : "AnyLoader",
+      "version" : "0.04"
+   },
+   "AnyMQ" : {
+      "abstract" : "Non-blocking message queue system based on AnyEvent",
+      "name" : "AnyMQ",
+      "primary" : "AnyMQ",
+      "version" : "0.35"
+   },
+   "AnyMQ-AMQP" : {
+      "abstract" : "AMQP binding for AnyMQ",
+      "name" : "AnyMQ-AMQP",
+      "primary" : "AnyMQ::AMQP",
+      "version" : "0.30"
+   },
+   "AnyMQ-Pg" : {
+      "abstract" : "Use built-in PostgreSQL 'LISTEN' and 'NOTIFY' commands for message-passing.",
+      "name" : "AnyMQ-Pg",
+      "primary" : "AnyMQ::Pg",
+      "version" : "0.01"
+   },
+   "AnyMQ-RawSocket" : {
+      "abstract" : null,
+      "name" : "AnyMQ-RawSocket",
+      "primary" : "AnyMQ::RawSocket",
+      "version" : "0.02"
+   },
+   "AnyMQ-ZeroMQ" : {
+      "abstract" : "AnyMQ adaptor for ZeroMQ",
+      "name" : "AnyMQ-ZeroMQ",
+      "primary" : "AnyMQ::ZeroMQ",
+      "version" : "0.06"
+   },
+   "AnySan" : {
+      "abstract" : "ANY mesSaging protocol hANdler",
+      "name" : "AnySan",
+      "primary" : "AnySan",
+      "version" : "0.10"
+   },
+   "AnySan-Provider-Slack" : {
+      "abstract" : "AnySan provider for Slack",
+      "name" : "AnySan-Provider-Slack",
+      "primary" : "AnySan::Provider::Slack",
+      "version" : "0.06"
+   },
+   "AozoraBunko-Checkerkun" : {
+      "abstract" : "éç©ºæåº«ã®å·¥ä½å¡ã®ããã®æå­ãã§ãã«ã¼ï¼ä½ï¼çµåæµ©ï¼ãã©ã¤ãã©ãªåãããã®",
+      "name" : "AozoraBunko-Checkerkun",
+      "primary" : "AozoraBunko::Checkerkun",
+      "version" : "0.12"
+   },
+   "Apache-ACEProxy" : {
+      "abstract" : null,
+      "name" : "Apache-ACEProxy",
+      "primary" : "Apache::ACEProxy",
+      "version" : 0.04
+   },
+   "Apache-ASP" : {
+      "abstract" : null,
+      "name" : "Apache-ASP",
+      "primary" : "Apache::ASP",
+      "version" : 2.63
+   },
+   "Apache-Access-Headers" : {
+      "abstract" : null,
+      "name" : "Apache-Access-Headers",
+      "primary" : "Apache::Access::Headers",
+      "version" : "0.01"
+   },
+   "Apache-Action" : {
+      "abstract" : "A method dispatch mechanism for Apache",
+      "name" : "Apache-Action",
+      "primary" : "Apache::Action",
+      "version" : 0.02
+   },
+   "Apache-AddReqHeader" : {
+      "abstract" : null,
+      "name" : "Apache-AddReqHeader",
+      "primary" : "Apache::AddReqHeader",
+      "version" : "0.01"
+   },
+   "Apache-Admin-Config" : {
+      "abstract" : null,
+      "name" : "Apache-Admin-Config",
+      "primary" : "Apache::Admin::Config",
+      "version" : "0.95"
+   },
+   "Apache-Album" : {
+      "abstract" : null,
+      "name" : "Apache-Album",
+      "primary" : "Apache::Album",
+      "version" : "1.00"
+   },
+   "Apache-AliasList" : {
+      "abstract" : "Apache translation handler to process lists of aliases",
+      "name" : "Apache-AliasList",
+      "primary" : "Apache::AliasList",
+      "version" : "0.08"
+   },
+   "Apache-AntiSpam" : {
+      "abstract" : null,
+      "name" : "Apache-AntiSpam",
+      "primary" : "Apache::AntiSpam",
+      "version" : 0.05
+   },
+   "Apache-AntiSpam-JavaScript" : {
+      "abstract" : "Encodes mailto: E-mail addresses with JavaScript",
+      "name" : "Apache-AntiSpam-JavaScript",
+      "primary" : "Apache::AntiSpam::JavaScript",
+      "version" : "0.03"
+   },
+   "Apache-AntiSpam-SpamTrap" : {
+      "abstract" : "Add SpamTrap suffix to local-part in Email",
+      "name" : "Apache-AntiSpam-SpamTrap",
+      "primary" : "Apache::AntiSpam::SpamTrap",
+      "version" : "0.01"
+   },
+   "Apache-AppCluster" : {
+      "abstract" : null,
+      "name" : "Apache-AppCluster",
+      "primary" : "Apache::AppCluster",
+      "version" : "0.02"
+   },
+   "Apache-AppSamurai" : {
+      "abstract" : "Web application/reverse proxy authenticating front end",
+      "name" : "Apache-AppSamurai",
+      "primary" : "Apache::AppSamurai",
+      "version" : "1.01"
+   },
+   "Apache-Archive" : {
+      "abstract" : null,
+      "name" : "Apache-Archive",
+      "primary" : "Apache::Archive",
+      "version" : "0.1"
+   },
+   "Apache-Auth-AuthMemCookie" : {
+      "abstract" : "mod_perl replacement for Apache2 authmemcookie authentication module",
+      "name" : "Apache-Auth-AuthMemCookie",
+      "primary" : "Apache::Auth::AuthMemCookie",
+      "version" : "0.04"
+   },
+   "Apache-Auth-UserDB" : {
+      "abstract" : "Manipulation of Apache user authentication databases",
+      "name" : "Apache-Auth-UserDB",
+      "primary" : "Apache::Auth::UserDB",
+      "version" : "v0.120"
+   },
+   "Apache-AuthCookie" : {
+      "abstract" : "Perl Authentication and Authorization via cookies",
+      "name" : "Apache-AuthCookie",
+      "primary" : "Apache::AuthCookie",
+      "version" : "3.30"
+   },
+   "Apache-AuthCookieDBI" : {
+      "abstract" : null,
+      "name" : "Apache-AuthCookieDBI",
+      "primary" : "Apache::AuthCookieDBI",
+      "version" : "2.1"
+   },
+   "Apache-AuthCookieLDAP" : {
+      "abstract" : null,
+      "name" : "Apache-AuthCookieLDAP",
+      "primary" : "Apache::AuthCookieLDAP",
+      "version" : "0.03"
+   },
+   "Apache-AuthCookieNTLM" : {
+      "abstract" : null,
+      "name" : "Apache-AuthCookieNTLM",
+      "primary" : "Apache::AuthCookieNTLM",
+      "version" : "0.07"
+   },
+   "Apache-AuthCookieURL" : {
+      "abstract" : null,
+      "name" : "Apache-AuthCookieURL",
+      "primary" : "Apache::AuthCookieURL",
+      "version" : "1.003"
+   },
+   "Apache-AuthLDAPBind" : {
+      "abstract" : null,
+      "name" : "Apache-AuthLDAPBind",
+      "primary" : "Apache::AuthLDAPBind",
+      "version" : "0.02"
+   },
+   "Apache-AuthPAM" : {
+      "abstract" : "Authenticate apache request using PAM services",
+      "name" : "Apache-AuthPAM",
+      "primary" : "Apache::AuthPAM",
+      "version" : "0.01"
+   },
+   "Apache-AuthPOP3" : {
+      "abstract" : null,
+      "name" : "Apache-AuthPOP3",
+      "primary" : "Apache::AuthPOP3",
+      "version" : "0.02"
+   },
+   "Apache-AuthTicket" : {
+      "abstract" : "Cookie Based Access and Authorization Module",
+      "name" : "Apache-AuthTicket",
+      "primary" : "Apache::AuthTicket",
+      "version" : "0.94"
+   },
+   "Apache-AuthTkt" : {
+      "abstract" : "module to generate authentication tickets for  mod_auth_tkt apache module.",
+      "name" : "Apache-AuthTkt",
+      "primary" : "Apache::AuthTkt",
+      "version" : 2.1
+   },
+   "Apache-AuthTypeKey" : {
+      "abstract" : "Apache authorization handler using TypeKey",
+      "name" : "Apache-AuthTypeKey",
+      "primary" : "Apache::AuthTypeKey",
+      "version" : "0.03"
+   },
+   "Apache-Authen-Generic" : {
+      "abstract" : "Apache Authentication Module",
+      "name" : "Apache-Authen-Generic",
+      "primary" : "Apache::Authen::Generic",
+      "version" : "0.01"
+   },
+   "Apache-Authen-Program" : {
+      "abstract" : "mod_perl external program authentication module",
+      "name" : "Apache-Authen-Program",
+      "primary" : "Apache::Authen::Program",
+      "version" : "0.93"
+   },
+   "Apache-AuthenCache" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenCache",
+      "primary" : "Apache::AuthenCache",
+      "version" : "0.05"
+   },
+   "Apache-AuthenLDAP" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenLDAP",
+      "primary" : "Apache::AuthenLDAP",
+      "version" : "1.00"
+   },
+   "Apache-AuthenMT" : {
+      "abstract" : "Authenticate using Movable Type's database",
+      "name" : "Apache-AuthenMT",
+      "primary" : "Apache::AuthenMT",
+      "version" : "1.00"
+   },
+   "Apache-AuthenN2" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenN2",
+      "primary" : "Apache::AuthenN2",
+      "version" : "0.06"
+   },
+   "Apache-AuthenNISPlus" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenNISPlus",
+      "primary" : "Apache::AuthenNISPlus",
+      "version" : "0.06"
+   },
+   "Apache-AuthenNTLM" : {
+      "abstract" : "Perform Microsoft NTLM and Basic User Authentication",
+      "name" : "Apache-AuthenNTLM",
+      "primary" : "Apache::AuthenNTLM",
+      "version" : 2.1
+   },
+   "Apache-AuthenSecurID" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenSecurID",
+      "primary" : "Apache::AuthenSecurID",
+      "version" : "0.4"
+   },
+   "Apache-AuthzCache" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzCache",
+      "primary" : "Apache::AuthzCache",
+      "version" : "1.01"
+   },
+   "Apache-AuthzLDAP" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzLDAP",
+      "primary" : "Apache::AuthzLDAP",
+      "version" : "1.11"
+   },
+   "Apache-AutoLogin" : {
+      "abstract" : "Automatic login module based on encrypted cookies for sites using basic authentication.",
+      "name" : "Apache-AutoLogin",
+      "primary" : "Apache::AutoLogin",
+      "version" : "0.1"
+   },
+   "Apache-AxKit-Language-LibXSLTEnhanced" : {
+      "abstract" : "AxKit extension to load perl callbacks for XSL",
+      "name" : "Apache-AxKit-Language-LibXSLTEnhanced",
+      "primary" : "Apache::AxKit::Language::LibXSLTEnhanced",
+      "version" : "0.02"
+   },
+   "Apache-AxKit-Language-SpellCheck" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Language-SpellCheck",
+      "primary" : "Apache::AxKit::Language::SpellCheck",
+      "version" : "0.03"
+   },
+   "Apache-AxKit-Language-Svg2AnyFormat" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Language-Svg2AnyFormat",
+      "primary" : "Apache::AxKit::Language::Svg2AnyFormat",
+      "version" : 0.06
+   },
+   "Apache-AxKit-Language-XSP-ObjectTaglib" : {
+      "abstract" : "Helper for OO Taglibs",
+      "name" : "Apache-AxKit-Language-XSP-ObjectTaglib",
+      "primary" : "Apache::AxKit::Language::XSP::ObjectTaglib",
+      "version" : "0.09000"
+   },
+   "Apache-AxKit-Plugin-NotFoundIfPathInfo" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Plugin-NotFoundIfPathInfo",
+      "primary" : "Apache::AxKit::Plugin::NotFoundIfPathInfo",
+      "version" : "1.01"
+   },
+   "Apache-AxKit-Plugin-Param-Expr" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Plugin-Param-Expr",
+      "primary" : "Apache::AxKit::Plugin::Param::Expr",
+      "version" : "0.2"
+   },
+   "Apache-AxKit-Plugin-QueryStringCacheRegexp" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Plugin-QueryStringCacheRegexp",
+      "primary" : "Apache::AxKit::Plugin::QueryStringCacheRegexp",
+      "version" : "0.04"
+   },
+   "Apache-AxKit-Plugin-Upload" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Plugin-Upload",
+      "primary" : "Apache::AxKit::Plugin::Upload",
+      "version" : "0.2"
+   },
+   "Apache-AxKit-Provider-DOM" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Provider-DOM",
+      "primary" : "Apache::AxKit::Provider::DOM",
+      "version" : 0.01
+   },
+   "Apache-AxKit-Provider-File-Formatter" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Provider-File-Formatter",
+      "primary" : "Apache::AxKit::Provider::File::Formatter",
+      "version" : "0.96"
+   },
+   "Apache-AxKit-Provider-OpenOffice" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Provider-OpenOffice",
+      "primary" : "Apache::AxKit::Provider::OpenOffice",
+      "version" : "1.02"
+   },
+   "Apache-AxKit-Provider-RDBMS" : {
+      "abstract" : "Perl extension AxKit ",
+      "name" : "Apache-AxKit-Provider-RDBMS",
+      "primary" : "Apache::AxKit::Provider::RDBMS",
+      "version" : "0.01"
+   },
+   "Apache-AxKit-Provider-XMLDOMProvider" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Provider-XMLDOMProvider",
+      "primary" : "Apache::AxKit::Provider::XMLDOMProvider",
+      "version" : "0.03"
+   },
+   "Apache-AxKit-StyleChooser-Hostname" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-StyleChooser-Hostname",
+      "primary" : "Apache::AxKit::StyleChooser::Hostname",
+      "version" : 0.01
+   },
+   "Apache-Backend-POE" : {
+      "abstract" : "Communicate with a POE server using persistent connections",
+      "name" : "Apache-Backend-POE",
+      "primary" : "Apache::Backend::POE",
+      "version" : "0.02"
+   },
+   "Apache-BalancerManager" : {
+      "abstract" : "Interact with the Apache BalancerManager",
+      "name" : "Apache-BalancerManager",
+      "primary" : "Apache::BalancerManager",
+      "version" : "0.001002"
+   },
+   "Apache-Blog" : {
+      "abstract" : null,
+      "name" : "Apache-Blog",
+      "primary" : "Apache::Blog",
+      "version" : "0.03"
+   },
+   "Apache-Bootstrap" : {
+      "abstract" : "Bootstraps dual life mod_perl and mod_perl2 Apache modules",
+      "name" : "Apache-Bootstrap",
+      "primary" : "Apache::Bootstrap",
+      "version" : "0.07"
+   },
+   "Apache-BruteWatch" : {
+      "abstract" : "Watch the Apache logs and notify of bruteforce password attacks",
+      "name" : "Apache-BruteWatch",
+      "primary" : "Apache::BruteWatch",
+      "version" : "1.13"
+   },
+   "Apache-BumpyLife" : {
+      "abstract" : "mod_perl 1.x module for setting random value to MaxRequestsPerChild.",
+      "name" : "Apache-BumpyLife",
+      "primary" : "Apache::BumpyLife",
+      "version" : "0.01"
+   },
+   "Apache-CGI-Builder" : {
+      "abstract" : null,
+      "name" : "Apache-CGI-Builder",
+      "primary" : "Apache::CGI::Builder",
+      "version" : "1.3"
+   },
+   "Apache-CVS" : {
+      "abstract" : "Apache method handler that displays Cvs repositories.",
+      "name" : "Apache-CVS",
+      "primary" : "Apache::CVS",
+      "version" : "0.10"
+   },
+   "Apache-Cache" : {
+      "abstract" : "Cache data accessible between Apache childrens",
+      "name" : "Apache-Cache",
+      "primary" : "Apache::Cache",
+      "version" : "0.05"
+   },
+   "Apache-Centipaid" : {
+      "abstract" : "Micropayment module with interface to centipaid.com payment gateway",
+      "name" : "Apache-Centipaid",
+      "primary" : "Apache::Centipaid",
+      "version" : "v1.3.1"
+   },
+   "Apache-ChooseLanguage" : {
+      "abstract" : "Apache mod_perl handler to manage sites available in many languages",
+      "name" : "Apache-ChooseLanguage",
+      "primary" : "Apache::ChooseLanguage",
+      "version" : "1.02"
+   },
+   "Apache-Clickable" : {
+      "abstract" : null,
+      "name" : "Apache-Clickable",
+      "primary" : "Apache::Clickable",
+      "version" : 0.02
+   },
+   "Apache-CodeRed" : {
+      "abstract" : "Responds to CodeRed worm attacks with e-mail warnings",
+      "name" : "Apache-CodeRed",
+      "primary" : "Apache::CodeRed",
+      "version" : 1.07
+   },
+   "Apache-CompressClientFixup" : {
+      "abstract" : "Perl extension for Apache-1.3.X to avoid C<gzip> compression for some buggy browsers.",
+      "name" : "Apache-CompressClientFixup",
+      "primary" : "Apache::CompressClientFixup",
+      "version" : "0.07"
+   },
+   "Apache-Config-Preproc" : {
+      "abstract" : "Preprocess Apache configuration files",
+      "name" : "Apache-Config-Preproc",
+      "primary" : "Apache::Config::Preproc",
+      "version" : "1.06"
+   },
+   "Apache-ConfigParser" : {
+      "abstract" : null,
+      "name" : "Apache-ConfigParser",
+      "primary" : "Apache::ConfigParser",
+      "version" : "1.02"
+   },
+   "Apache-CookieToQuery" : {
+      "abstract" : null,
+      "name" : "Apache-CookieToQuery",
+      "primary" : "Apache::CookieToQuery",
+      "version" : "1.05"
+   },
+   "Apache-CryptHash" : {
+      "abstract" : null,
+      "name" : "Apache-CryptHash",
+      "primary" : "Apache::CryptHash",
+      "version" : "3.03"
+   },
+   "Apache-DBI" : {
+      "abstract" : null,
+      "name" : "Apache-DBI",
+      "primary" : "Apache::DBI",
+      "version" : "1.12"
+   },
+   "Apache-DebugInfo" : {
+      "abstract" : null,
+      "name" : "Apache-DebugInfo",
+      "primary" : "Apache::DebugInfo",
+      "version" : "0.05"
+   },
+   "Apache-Defaults" : {
+      "abstract" : "Get default settings for Apache httpd daemon",
+      "name" : "Apache-Defaults",
+      "primary" : "Apache::Defaults",
+      "version" : "1.02"
+   },
+   "Apache-Description" : {
+      "abstract" : null,
+      "name" : "Apache-Description",
+      "primary" : "Apache::Description",
+      "version" : "0.5"
+   },
+   "Apache-Dir" : {
+      "abstract" : "Simple Perl Version of mod_dir",
+      "name" : "Apache-Dir",
+      "primary" : "Apache::Dir",
+      "version" : "0.07"
+   },
+   "Apache-DoCoMoProxy" : {
+      "abstract" : null,
+      "name" : "Apache-DoCoMoProxy",
+      "primary" : "Apache::DoCoMoProxy",
+      "version" : "0.01"
    },
    "App-NoPAN" : {
       "abstract" : null,
