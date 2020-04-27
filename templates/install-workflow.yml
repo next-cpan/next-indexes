@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: perl -V
-      - uses: perl-actions/install-cpm@v1.2
+      - uses: perl-actions/install-cpm@cplay-ci
         with:
           install: "${{ env.PRIMARY }}"
           tests: true
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: perl -V
-      - uses: perl-actions/install-cpanm@v1.1
+      - uses: perl-actions/install-cpanm@cplay-ci
         with:
           install: ${{ env.PRIMARY }}
           tests: true
