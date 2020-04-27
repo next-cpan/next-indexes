@@ -19,10 +19,14 @@
   "Acme-Nooo": 'all broken - broken by design'
   "Acme-OneBit": 'cplay ok only'
   "Acme-Pano-Util": 'all broken - The encoding pragma is no longer supported'
-"failures":
-  "Acme-RTB": 'https://github.com/pause-play/Acme-RTB/actions'
-  "Acme-RequireModule": 'https://github.com/pause-play/Acme-RequireModule/actions'
-  "Acme-SGABRIEL-Utils": 'https://github.com/pause-play/Acme-SGABRIEL-Utils/actions'
+  "Acme-RTB": 'cplay ok only'
+  "Acme-RequireModule": 'Can t locate inc/Module/Install.pm'
+  "Acme-SGABRIEL-Utils": 'unit tests failures'
+  "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
+  "Alien-libtermkey": 'Cant locate Module/Build.pm'
+  "Alt-Acme-Math-XS-ModuleInstall": 'Cant locate loadable object for module'
+  "ALPM": 'all broken - pacman/libalpm must be installed to compile ALP'
+"failures":      
   "Acme-Stegano": 'https://github.com/pause-play/Acme-Stegano/actions'
   "Acme-Takahashi-Method": 'https://github.com/pause-play/Acme-Takahashi-Method/actions'
   "Acme-Test": 'https://github.com/pause-play/Acme-Test/actions'
@@ -30,10 +34,14 @@
   "Acme-Thoroughly-Modern-Perl": 'https://github.com/pause-play/Acme-Thoroughly-Modern-Perl/actions'
   "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
 "todo":
-  "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
-  "Acme-Intraweb": 'Cannot locate CPANPLUS.pm'
-  "Acme-NabeAtzz": 'cplay - Cannot locate inc/Module/Install.pm'
-  "Acme-Ook": 'cplay - missing files for tests'
+  "Acme-Filter-Kenny": 'todd | cplay error - Cannot find blib'
+  "Acme-Intraweb": 'todd | Cannot locate CPANPLUS.pm'
+  "Acme-NabeAtzz": 'todd | cplay - Cannot locate inc/Module/Install.pm'
+  "Acme-RequireModule": 'todd | Can t locate inc/Module/Install.pm'
+  "Acme-Ook": 'todd | cplay - missing files for tests'
+  "Alien-Debian-Apt-PM": 'nico | Cant locate Module/Build.pm'
+  "Alien-libtermkey": 'nico | Cant locate Module/Build.pm'
+  "Alt-Acme-Math-XS-ModuleInstall": 'todd | Cant locate loadable object for module'
 "ok":
   "A1z-HTML5-Template": 1
   "A1z-Html": 1
