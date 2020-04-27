@@ -818,8 +818,9 @@ Options:
 
 Sample usages:
 
-$0                                    # add github actions to repositories
-$0 --repo A1z-Html                    # only add the actions to a single repository
+$0                                    # nothing
+$0 --setup                            # add github actions to repositories
+$0 --setup --repo A1z-Html            # only add the actions to a single repository
 $0 --check                            # check the status of the repositories
 
 ./setup-actions.pl --setup
