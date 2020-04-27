@@ -1,6 +1,6 @@
 --- 
 "acknowledge": 
-  "---------------- all broken ----------------": 
+  "---------------- all broken -------------------------------------------------": 
     "ACL-Regex": 'missing deps'
     "AFS": ' Fail to run perl Makefile.PL'
     "ALPM": 'all broken - pacman/libalpm must be installed to compile ALP'
@@ -12,17 +12,33 @@
     "Acme-Morse-Audible": 'broken by design'
     "Acme-Nooo": 'broken by design'
     "Acme-Pano-Util": 'The encoding pragma is no longer supported'
-  "---------------- cplay error ----------------": 
-    "Acme-Filter-Kenny": 'cplay error - Cannot find blib'
-    "Acme-Intraweb": 'cplay deps - Cannot locate CPANPLUS.pm'
+  "---------------- cplay error -----------------------------------------------": 
+    "Acme-Filter-Kenny": 'cplay error - Cannot find blib'    
     "Acme-NabeAtzz": 'Cannot locate inc/Module/Install.pm'
     "Acme-Ook": 'missing files for tests'
     "Acme-RequireModule": 'Can t locate inc/Module/Install.pm'
-    "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
-    "Alien-libtermkey": 'Cant locate Module/Build.pm'
     "Alt-Acme-Math-XS-ModuleInstall": 'Cant locate loadable object for module'
-  "---------------- cplay ok only ----------------": 
+    "Alien-MeCab": "Cant locate inc/Devel/CheckLib.pm"
+    "Algorithm-RabinKarp": "Cannot find module or distribution perl"
+    "Algorithm-LBFGS": "Cant locate inc/Module/Install.pm"
+  "---------------- cplay error Module/Build.pm -------------------------------": 
+    "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
+    "Alien-libtermkey": 'Cant locate Module/Build.pm'    
+    "Alien-GvaScript": 'Cant locate Module/Build.pm'
+  "---------------- cplay error deps missing ----------------------------------": 
+    "AnyLoader": "Class::ISA"
+    "Acme-Intraweb": 'cplay deps - Cannot locate CPANPLUS.pm'
+    "Alien-ROOT": "Archive::Extract"
+    "Alien-InteractiveBrokers": "Archive::Extract"
+    "Algorithm-Odometer-Tiny": "Test::More >= 1.302096"
+    "Algorithm-MinPerfHashTwoLevel": "Test::More >= 1.302164"
+  "---------------- cplay error BUILD.json deps ------------------------------":   
+    "AIX-LPP-lpp_name": "5.005_62"
+  "---------------- cplay error cannot use Test::Harness ---------------------":       
+    "Algorithm-Hamming-Perl": ""
+  "---------------- cplay ok only --------------------------------------------": 
     "ABI": 'broken Build.PL'
+    "Algorithm-Line-Bresenham-C": ''
     "AI-NeuralNet-BackProp": 'The distribution doesn t have a proper Makefile.PL/Build.PL'
     "AI-NeuralNet-Mesh": 'The distribution doesn t have a proper Makefile.PL/Build.PL'
     "AI-NeuralNet-SOM": 'AI-NeuralNet-SOM-0.02.tar.gz bad archive?'
