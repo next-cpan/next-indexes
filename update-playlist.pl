@@ -3,11 +3,7 @@
 package UpdateIndex;
 
 use autodie;
-use strict;
-use warnings;
 use utf8;
-
-use v5.28;
 
 use Test::More;    # for debugging
 use FindBin;
@@ -16,6 +12,9 @@ BEGIN {
     unshift @INC, $FindBin::Bin . "/lib";
     unshift @INC, $FindBin::Bin . "/vendor/lib";
 }
+
+use Play::std;     # strict / warnings / signatures...
+use Play::Logger;
 
 use Moose;
 with 'MooseX::SimpleConfig';
@@ -154,6 +153,18 @@ sub refresh_all_html_file($self) {
         $status = YAML::Syck::LoadFile($status_yml);
     }
     $status->{acknowledge} //= {};
+    $status->{reason} = {};
+
+    # convert acknowledge to a flat hash
+    foreach my $k ( sort keys $status->{acknowledge}->%* ) {
+        my $reason = $k;
+        $reason =~ s{^-+\s*}{};
+        $reason =~ s{\s*-+$}{};
+
+        foreach my $module ( sort keys $status->{acknowledge}->{$k}->%* ) {
+            $status->{reason}->{$module} = "$reason: " . $status->{acknowledge}->{$k}->{$module};
+        }
+    }
 
     foreach my $letter (@all_letters) {
         my $json_file = $self->playlist_json_file_for_letter($letter);
@@ -180,7 +191,7 @@ sub refresh_all_html_file($self) {
             $r->{url_cplay_action} =~ s{:repo}{$name}g;
             $r->{url_cplay_badge}  =~ s{:repo}{$name}g;
 
-            $r->{reason} = $status->{acknowledge}->{$name} // '';
+            $r->{reason} = $status->{reason}->{$name} // '';
         }
 
         my $vars = {
@@ -219,37 +230,6 @@ sub read_json_file ( $self, $file ) {
     my $as_json = $self->json->decode($content) or die "fail to decode json content from $file";
 
     return $as_json;
-}
-
-sub _log(@args) {
-    my $dt = DateTime->now;
-    my $ts = $dt->ymd . ' ' . $dt->hms;
-
-    my $msg = join( ' ', "[${ts}]", grep { defined $_ } @args );
-    chomp $msg;
-    $msg .= "\n";
-
-    print STDERR $msg;
-    ### .. log to an error file
-
-    return $msg;
-}
-
-sub INFO (@what) {
-    _log( '[INFO]', @what );
-
-    return;
-}
-
-sub DEBUG (@what) {
-    _log( '[DEBUG]', @what );
-
-    return;
-}
-
-sub ERROR (@what) {
-    _log( '[ERROR]', @what );
-    return;
 }
 
 sub sleep_until_not_throttled ($self) {
