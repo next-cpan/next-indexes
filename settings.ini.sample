@@ -9,6 +9,6 @@ github_email    = parser@cplay.us
 repo_user_name 	= pause-parser
 repo_email 		= gh@atoomic.org
 
-# path of pause-index@p5 [duplicate repo on p5 branch]
-ix_base_dir    = ~/SOME-WHERE/pause-index-p5
+# path of play-indexes@p5 [duplicate repo on p5 branch]
+ix_base_dir    = ~/SOME-WHERE/play-indexes-p5
 repo_base_dir  = ~/SOME-WHERE/play

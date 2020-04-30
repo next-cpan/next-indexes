@@ -2,13 +2,13 @@
 
 This repository provides alternate index files to use CPAN modules without depending on PAUSE.
 
-[https://pause-play.github.io/pause-index/](https://pause-play.github.io/pause-index/)
+[https://pause-play.github.io/play-indexes/](https://pause-play.github.io/play-indexes/)
 
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
-[Browse the playlist of all repositories](https://pause-play.github.io/pause-index/playlist/playlist-A.html)
+[Browse the playlist of all repositories](https://pause-play.github.io/play-indexes/playlist/playlist-A.html)
 
-This repo `pause-index` host some index files which can be consumed to download and install most Perl modules.
+This repo `play-indexes` host some index files which can be consumed to download and install most Perl modules.
 
 `cplay` is the recommended CPAN client using these indexes and GitHub repositories.
 You can read more about cplay client on the [cplay website](https://pause-play.github.io/cplay/).
@@ -18,20 +18,20 @@ You can read more about cplay client on the [cplay website](https://pause-play.g
 The index files in this repository are a replacement for the traditional index file [02packages.details.txt.gz](https://www.cpan.org/modules/02packages.details.txt.gz) used by CPAN and most/all CPAN clients.
 
 You can download a tarball with all the .idx files using:
-[https://github.com/pause-play/pause-index/archive/p5.tar.gz](https://github.com/pause-play/pause-index/archive/p5.tar.gz)
+[https://github.com/pause-play/play-indexes/archive/p5.tar.gz](https://github.com/pause-play/play-indexes/archive/p5.tar.gz)
 
 1. module.idx
 2. repositories.idx
 3. explicit_versions.idx
 
 You can also browse these files from:
-[https://github.com/pause-play/pause-index/tree/p5](https://github.com/pause-play/pause-index/tree/p5)
+[https://github.com/pause-play/play-indexes/tree/p5](https://github.com/pause-play/play-indexes/tree/p5)
 
 ## module.idx
 
 The `module.idx` file lists the last available version of a module. For each module it indicates which distribution/repository provides it.
 
-[https://raw.githubusercontent.com/pause-play/pause-index/p5/module.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/module.idx)
+[https://raw.githubusercontent.com/pause-play/play-indexes/p5/module.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/module.idx)
 
 For every module you can know:
 
@@ -59,7 +59,7 @@ For every module you can know:
 The `repositories.idx` file list the last available version of all CPAN distributions.
 Each CPAN distribution is available from a repository.
 
-[https://raw.githubusercontent.com/pause-play/pause-index/p5/repositories.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/repositories.idx)
+[https://raw.githubusercontent.com/pause-play/play-indexes/p5/repositories.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/repositories.idx)
 
 For example `XML-Toolkit` distribution from [CPAN](https://metacpan.org/release/XML-Toolkit) is available on [pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit) repository:
 [https://github.com/pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit)
@@ -105,7 +105,7 @@ Sample extract:
 The `explicit_versions.idx` file list all versions published of a distribution.
 It's useful to get for example an older or TRIAL version.
 
-[https://raw.githubusercontent.com/pause-play/pause-index/p5/explicit_versions.idx](https://raw.githubusercontent.com/pause-play/pause-index/p5/explicit_versions.idx)
+[https://raw.githubusercontent.com/pause-play/play-indexes/p5/explicit_versions.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/explicit_versions.idx)
 
 ```json
 {
@@ -163,17 +163,17 @@ One directory is going to provide the tools whereas the other will points to the
 
 ```sh
 # the tools
-git clone git@github.com:pause-play/pause-index.git pause-index
+git clone git@github.com:pause-play/play-indexes.git play-indexes
 
 # the index location
-git clone git@github.com:pause-play/pause-index.git pause-index-p5
-cd pause-index-p5
+git clone git@github.com:pause-play/play-indexes.git play-indexes-p5
+cd play-indexes-p5
 git checkout -t origin/p5
 ```
 
 ### settings.ini
 
-In the `pause-index@master` you will have to copy and adjust the `settings.ini` file.
+In the `play-indexes@master` you will have to copy and adjust the `settings.ini` file.
 
 ```
 cp settings.ini.sample settings.ini

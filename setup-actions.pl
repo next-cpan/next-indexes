@@ -54,7 +54,7 @@ use Parallel::ForkManager  ();
 use IO::Uncompress::Gunzip ();
 use Data::Dumper;
 
-use constant INTERNAL_REPO => qw{pause-index pause-monitor cplay};
+use constant INTERNAL_REPO => qw{play-indexes pause-monitor cplay};
 
 use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
 use constant GITHUB_REPO_SSH => q[git@github.com::org/:repository.git];
