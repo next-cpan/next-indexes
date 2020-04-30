@@ -22,7 +22,6 @@ You can download a tarball with all the .idx files using:
 
 1. module.idx
 2. repositories.idx
-3. explicit_versions.idx
 
 You can also browse these files from:
 [https://github.com/pause-play/play-indexes/tree/p5](https://github.com/pause-play/play-indexes/tree/p5)
@@ -100,44 +99,19 @@ Sample extract:
 }
 ```
 
-## explicit_versions.idx
+## Older and TRIAL releases
 
-The `explicit_versions.idx` file list all versions published of a distribution.
-It's useful to get for example an older or TRIAL version.
+older distribution versions and TRIAL releases are not indexed.
+We are going to use Git ID to download a custom state:
 
-[https://raw.githubusercontent.com/pause-play/play-indexes/p5/explicit_versions.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/explicit_versions.idx)
+```
+  https://github.com/pause-play/:repository/archive/:sha.tar.gz
 
-```json
-{
-  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
-  "version": 20200320203836,
-  "columns": [
-    "module",
-    "version",
-    "repository",
-    "repository_version",
-    "sha",
-    "signature"
-  ],
-  "data": [
-    [
-      "A1z::HTML5::Template",
-      "0.22",
-      "A1z-HTML5-Template",
-      "0.22",
-      "01dc40b38e40f4f905bc7c902e2df08ccad22640",
-      "f96dbc99fbb4dc833945c881c0f81925"
-    ],
-    [
-      "A1z::Html",
-      "0.003",
-      "A1z-Html",
-      "0.003",
-      "43484feee16a3ba360490890a203105525db91fb",
-      "c54c2727eb29d7caab44d5e641491c4c"
-    ]
-  ]
-}
+Example:
+
+  https://github.com/pause-play/:repository/archive/p5-v1.01.tar.gz 
+  https://github.com/pause-play/:repository/archive/p5-v1.02.tar.gz
+  https://github.com/pause-play/:repository/archive/p5-v1.02_01.tar.gz
 ```
 
 # How to update the indexes:

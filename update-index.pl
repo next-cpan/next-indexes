@@ -300,7 +300,7 @@ sub run ($self) {
 }
 
 sub all_ix_files {
-    return [qw{module.idx explicit_versions.idx repositories.idx}];
+    return [qw{module.idx repositories.idx}];
 }
 
 sub commit_and_push($self) {
@@ -377,7 +377,6 @@ sub check_ix_files_version($self) {
 sub load_idx_files($self) {
 
     $self->load_module_idx();
-    $self->load_explicit_versions_idx();
     $self->load_repositories_idx();
 
     return;
@@ -386,7 +385,6 @@ sub load_idx_files($self) {
 sub write_idx_files ( $self, %opts ) {
 
     $self->write_module_idx();
-    $self->write_explicit_versions_idx();
     $self->write_repositories_idx();
 
     my $check = delete $opts{check} // 1;
@@ -402,10 +400,6 @@ sub write_idx_files ( $self, %opts ) {
 
 sub _module_idx($self) {
     return $self->ix_base_dir() . '/module.idx';
-}
-
-sub _explicit_versions_idx($self) {
-    return $self->ix_base_dir() . '/explicit_versions.idx';
 }
 
 sub _repositories_idx($self) {
@@ -440,15 +434,6 @@ sub load_repositories_idx($self) {
     return;
 }
 
-sub load_explicit_versions_idx($self) {
-    my $rows = $self->_load_idx( $self->_explicit_versions_idx ) or return;
-
-    $self->{all_modules} =
-      { map { $_->{module} . "||" . $_->{version} => $_ } @$rows };
-
-    return;
-}
-
 sub read_json_file ( $self, $file ) {
     local $/;
     open( my $fh, '<:utf8', $file ) or die;
@@ -477,18 +462,6 @@ sub _load_idx ( $self, $file ) {
     }
 
     return $rows;
-}
-
-sub write_explicit_versions_idx($self) {
-    my $template_url = $self->template_url;
-    my $headers      = qq[ "template_url": "$template_url",];
-
-    return $self->_write_idx(
-        $self->_explicit_versions_idx,
-        $headers,
-        [qw{module version repository repository_version sha signature}],
-        $self->{all_modules}
-    );
 }
 
 sub write_repositories_idx($self) {
@@ -590,25 +563,6 @@ sub index_module (
         version            => $version,
         repository         => $repository,           # or repo@1.0
         repository_version => $repository_version,
-    };
-
-    # all module version Index: https://raw.githubusercontent.com/newpause/index_repo/p5/explicit_versions.idx
-    # module    version        repo  repo_version sha signature
-    # foo::bar::baz   1.000  foo-bar 1.000 deadbeef   abcdef123435
-    # foo::bar::baz   0.04_01  foo-bar deadbaaf
-    # foo::bar::biz    2.000  foo-bar deadbeef
-
-    $self->{all_modules} //= {};
-
-    my $key = "$module||$version";
-
-    $self->{all_modules}->{$key} = {
-        module             => $module,
-        version            => $version,
-        repository         => $repository,
-        repository_version => $repository_version,
-        sha                => $sha,
-        signature          => $signature,
     };
 
     return;
