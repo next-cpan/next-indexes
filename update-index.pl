@@ -300,7 +300,7 @@ sub run ($self) {
 }
 
 sub all_ix_files {
-    return [qw{module.idx repositories.idx}];
+    return [qw{modules.idx repositories.idx}];
 }
 
 sub commit_and_push($self) {
@@ -376,7 +376,7 @@ sub check_ix_files_version($self) {
 
 sub load_idx_files($self) {
 
-    $self->load_module_idx();
+    $self->load_modules_idx();
     $self->load_repositories_idx();
 
     return;
@@ -384,7 +384,7 @@ sub load_idx_files($self) {
 
 sub write_idx_files ( $self, %opts ) {
 
-    $self->write_module_idx();
+    $self->write_modules_idx();
     $self->write_repositories_idx();
 
     my $check = delete $opts{check} // 1;
@@ -398,8 +398,8 @@ sub write_idx_files ( $self, %opts ) {
     return;
 }
 
-sub _module_idx($self) {
-    return $self->ix_base_dir() . '/module.idx';
+sub _modules_idx($self) {
+    return $self->ix_base_dir() . '/modules.idx';
 }
 
 sub _repositories_idx($self) {
@@ -410,17 +410,17 @@ sub max ( $a, $b ) {
     return $a > $b ? $a : $b;
 }
 
-sub write_module_idx($self) {
+sub write_modules_idx($self) {
     return $self->_write_idx(
-        $self->_module_idx,
+        $self->_modules_idx,
         undef,
         [qw{module version repository repository_version}],
         $self->{latest_module}
     );
 }
 
-sub load_module_idx($self) {
-    my $rows = $self->_load_idx( $self->_module_idx ) or return;
+sub load_modules_idx($self) {
+    my $rows = $self->_load_idx( $self->_modules_idx ) or return;
     $self->{latest_module} = { map { $_->{module} => $_ } @$rows };
 
     return;
@@ -551,7 +551,7 @@ sub index_module (
     $repository_version, $sha,    $signature
 ) {
 
-    # latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/module.idx
+    # latest module Index: https://raw.githubusercontent.com/newpause/index_repo/p5/modules.idx
     # module        version      repo
     # foo::bar::baz   1.000   foo-bar
     # foo::bar::biz   2.000   foo-bar

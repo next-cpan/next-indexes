@@ -20,17 +20,17 @@ The index files in this repository are a replacement for the traditional index f
 You can download a tarball with all the .idx files using:
 [https://github.com/pause-play/play-indexes/archive/p5.tar.gz](https://github.com/pause-play/play-indexes/archive/p5.tar.gz)
 
-1. module.idx
+1. modules.idx
 2. repositories.idx
 
 You can also browse these files from:
 [https://github.com/pause-play/play-indexes/tree/p5](https://github.com/pause-play/play-indexes/tree/p5)
 
-## module.idx
+## modules.idx
 
-The `module.idx` file lists the last available version of a module. For each module it indicates which distribution/repository provides it.
+The `modules.idx` file lists the last available version of a module. For each module it indicates which distribution/repository provides it.
 
-[https://raw.githubusercontent.com/pause-play/play-indexes/p5/module.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/module.idx)
+[https://raw.githubusercontent.com/pause-play/play-indexes/p5/modules.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/modules.idx)
 
 For every module you can know:
 
@@ -203,5 +203,5 @@ PERL_USE_UNSAFE_INC=1 perl Makefile.PL --incpath="/usr/local/Cellar/openssl@1.1/
 # TODO
 
 - [ ] minimal static website listing all available distribution/packages
-- [ ] remove the repository_version from `module.idx`
+- [ ] remove the repository_version from `modules.idx`
 - [ ] use cplay itself instead of cpanm to install dependencies
