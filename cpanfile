@@ -1,3 +1,7 @@
+#
+# After Updating, run: cpanm --installdeps .
+#
+
 requires "Config::Tiny"           => 0;
 requires "Crypt::Digest::MD5"     => 0;
 requires "Cwd"                    => 0;
@@ -18,7 +22,7 @@ requires "Mojolicious"            => '8.35';
 requires "Moose"                  => 0;
 requires "MooseX::Getopt"         => 0;
 requires "MooseX::SimpleConfig"   => 0;
-requires "Net::GitHub::V3"        => '0.99';
+requires "Net::GitHub::V3"        => '1.01';
 requires "Parallel::ForkManager"  => 0;
 requires "Template"               => 0;
 requires "YAML::Syck"             => 0;
