@@ -1,4 +1,10 @@
 {
+   "PAR-WebStart" : {
+      "abstract" : "Perl implementation of Java's WebStart",
+      "name" : "PAR-WebStart",
+      "primary" : "PAR::WebStart",
+      "version" : "0.19"
+   },
    "PApp" : {
       "abstract" : null,
       "name" : "PApp",
@@ -11,10 +17,22 @@
       "primary" : "Perl::Maker",
       "version" : "0.01"
    },
+   "PocketIO-Client-IO" : {
+      "abstract" : "simple pocketio client",
+      "name" : "PocketIO-Client-IO",
+      "primary" : "PocketIO::Client::IO",
+      "version" : "0.01"
+   },
    "PostScript-MailLabels" : {
       "abstract" : null,
       "name" : "PostScript-MailLabels",
       "primary" : "PostScript::MailLabels",
       "version" : "2.32"
+   },
+   "perl-Apache2-LogUtil" : {
+      "abstract" : "Prefix log messages with run-time context",
+      "name" : "perl-Apache2-LogUtil",
+      "primary" : "Apache2::LogUtil",
+      "version" : "00.01001"
    }
 }

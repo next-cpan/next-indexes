@@ -1,4 +1,10 @@
 {
+   "Net-DNAT" : {
+      "abstract" : "Psuedo Layer7 Packet Processer",
+      "name" : "Net-DNAT",
+      "primary" : "Net::DNAT",
+      "version" : "0.15"
+   },
    "Noose" : {
       "abstract" : "just enough object orientation to hang yourself",
       "name" : "Noose",

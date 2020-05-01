@@ -1,4 +1,22 @@
 {
+   "CGI-JSONRPC" : {
+      "abstract" : null,
+      "name" : "CGI-JSONRPC",
+      "primary" : "CGI::JSONRPC",
+      "version" : "0.11"
+   },
+   "CIPP" : {
+      "abstract" : null,
+      "name" : "CIPP",
+      "primary" : "CIPP",
+      "version" : "2.50"
+   },
+   "CPAN-Search-Lite" : {
+      "abstract" : "setup and maintain a searchable CPAN database",
+      "name" : "CPAN-Search-Lite",
+      "primary" : "CPAN::Search::Lite",
+      "version" : "0.78"
+   },
    "CPAN-Unwind" : {
       "abstract" : "Recursively determines dependencies of CPAN modules",
       "name" : "CPAN-Unwind",
@@ -10,6 +28,12 @@
       "name" : "Class-DBI-Relationship-IsA",
       "primary" : "Class::DBI::Relationship::IsA",
       "version" : "0.05"
+   },
+   "Coro-Amazon-SimpleDB" : {
+      "abstract" : "Use C<Amazon::SimpleDB::Client> to do asynchronous requests",
+      "name" : "Coro-Amazon-SimpleDB",
+      "primary" : "Coro::Amazon::SimpleDB",
+      "version" : "0.04"
    },
    "Crypt-XKCDCommon1949" : {
       "abstract" : "xkcd password style wordlist provider",

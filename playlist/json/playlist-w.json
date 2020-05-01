@@ -1,0 +1,8 @@
+{
+   "Win32-SerialPort" : {
+      "abstract" : null,
+      "name" : "Win32-SerialPort",
+      "primary" : "Win32::SerialPort",
+      "version" : "0.19"
+   }
+}

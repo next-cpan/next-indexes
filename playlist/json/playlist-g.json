@@ -1,0 +1,8 @@
+{
+   "GRID-Machine" : {
+      "abstract" : "Remote Procedure Calls over a SSH link",
+      "name" : "GRID-Machine",
+      "primary" : "GRID::Machine",
+      "version" : "0.127"
+   }
+}

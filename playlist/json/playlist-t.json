@@ -16,5 +16,11 @@
       "name" : "Tie-RangeHash",
       "primary" : "Tie::RangeHash",
       "version" : "1.05"
+   },
+   "Twiggy" : {
+      "abstract" : "AnyEvent HTTP server for PSGI (like Thin)",
+      "name" : "Twiggy",
+      "primary" : "Twiggy",
+      "version" : "0.1025"
    }
 }

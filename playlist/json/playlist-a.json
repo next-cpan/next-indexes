@@ -60,19 +60,19 @@
       "version" : "1.1"
    },
    "ACH" : {
-      "abstract" : "ACH perl object",
+      "abstract" : null,
       "name" : "ACH",
       "primary" : "ACH",
       "version" : "0.01"
    },
    "ACH-Generator" : {
-      "abstract" : "Generates an ACH formatted file from an ACH perl object",
+      "abstract" : null,
       "name" : "ACH-Generator",
       "primary" : "ACH::Generator",
       "version" : "0.01"
    },
    "ACH-Parser" : {
-      "abstract" : "Parse an ACH formatted file to ACH perl object",
+      "abstract" : null,
       "name" : "ACH-Parser",
       "primary" : "ACH::Parser",
       "version" : "0.01"
@@ -155,6 +155,12 @@
       "primary" : "ACME::PM::Voronezh",
       "version" : "0.02"
    },
+   "ACME-QuoteDB" : {
+      "abstract" : "API implements CRUD for a Collection of Quotes (adages/proverbs/sayings/epigrams, etc)",
+      "name" : "ACME-QuoteDB",
+      "primary" : "ACME::QuoteDB",
+      "version" : "0.1.2"
+   },
    "ACME-THEDANIEL-Utils" : {
       "abstract" : "The great new ACME::THEDANIEL::Utils!",
       "name" : "ACME-THEDANIEL-Utils",
@@ -196,6 +202,12 @@
       "name" : "AFS",
       "primary" : "AFS",
       "version" : "v2.6.4"
+   },
+   "AFS-Monitor" : {
+      "abstract" : null,
+      "name" : "AFS-Monitor",
+      "primary" : "AFS::Monitor",
+      "version" : "0.3.3"
    },
    "AFS-PAG" : {
       "abstract" : "Perl bindings for AFS PAG manipulation",
@@ -545,6 +557,12 @@
       "primary" : "AI::Prolog",
       "version" : "0.741"
    },
+   "AI-SimulatedAnnealing" : {
+      "abstract" : null,
+      "name" : "AI-SimulatedAnnealing",
+      "primary" : "AI::SimulatedAnnealing",
+      "version" : "1.02"
+   },
    "AI-Termites" : {
       "abstract" : "Artificial termites simulation",
       "name" : "AI-Termites",
@@ -580,6 +598,18 @@
       "name" : "AIX-LVM",
       "primary" : "AIX::LVM",
       "version" : "1.1"
+   },
+   "AIX-Perfstat" : {
+      "abstract" : null,
+      "name" : "AIX-Perfstat",
+      "primary" : "AIX::Perfstat",
+      "version" : "0.04.1"
+   },
+   "AIX-SysInfo" : {
+      "abstract" : null,
+      "name" : "AIX-SysInfo",
+      "primary" : "AIX::SysInfo",
+      "version" : "1.2"
    },
    "ALBD" : {
       "abstract" : "a perl implementation of Literature Based Discovery",
@@ -2135,12 +2165,6 @@
       "primary" : "Acme::Cake",
       "version" : "0.01"
    },
-   "Acme-Can-t" : {
-      "abstract" : "Determine whether your object can B<NOT> call a given method.",
-      "name" : "Acme-Can-t",
-      "primary" : "Acme::Can::t",
-      "version" : "0.01"
-   },
    "Acme-Canadian" : {
       "abstract" : null,
       "name" : "Acme-Canadian",
@@ -2873,6 +2897,12 @@
       "primary" : "Acme::Include::Data",
       "version" : "0.05"
    },
+   "Acme-Incorporated" : {
+      "abstract" : null,
+      "name" : "Acme-Incorporated",
+      "primary" : "Acme::Incorporated",
+      "version" : "1.00"
+   },
    "Acme-Indent" : {
       "abstract" : "Proper indentation for multi-line strings",
       "name" : "Acme-Indent",
@@ -2969,6 +2999,12 @@
       "primary" : "Acme::KJAM",
       "version" : "0.03"
    },
+   "Acme-KMX-Test" : {
+      "abstract" : "Testing package",
+      "name" : "Acme-KMX-Test",
+      "primary" : "Acme::KMX::Test",
+      "version" : "0.013"
+   },
    "Acme-KemonoFriends-Color" : {
       "abstract" : "Colorfull output.",
       "name" : "Acme-KemonoFriends-Color",
@@ -3004,6 +3040,12 @@
       "name" : "Acme-KnowledgeWisdom",
       "primary" : "Acme::KnowledgeWisdom",
       "version" : "0.01"
+   },
+   "Acme-LOLCAT" : {
+      "abstract" : null,
+      "name" : "Acme-LOLCAT",
+      "primary" : "Acme::LOLCAT",
+      "version" : "0.0.5"
    },
    "Acme-LSD" : {
       "abstract" : "A dumb module that colorize your prints",
@@ -3065,6 +3107,12 @@
       "primary" : "Acme::Lexical::Thief",
       "version" : "0.002"
    },
+   "Acme-Licence" : {
+      "abstract" : null,
+      "name" : "Acme-Licence",
+      "primary" : "Acme::Licence",
+      "version" : "1.0"
+   },
    "Acme-LifeUniverseEverything" : {
       "abstract" : "Revises your code based on The Ultimate Answer, as computed by the organic computer matrix \"Earth\"",
       "name" : "Acme-LifeUniverseEverything",
@@ -3124,6 +3172,12 @@
       "name" : "Acme-Lvalue",
       "primary" : "Acme::Lvalue",
       "version" : "0.03"
+   },
+   "Acme-MITHALDU-BleedingOpenGL" : {
+      "abstract" : "bleeding edge OpenGL experiments - you WILL get cut",
+      "name" : "Acme-MITHALDU-BleedingOpenGL",
+      "primary" : "Acme::MITHALDU::BleedingOpenGL",
+      "version" : "0.67049"
    },
    "Acme-MITHALDU-XSGrabBag" : {
       "abstract" : "a bunch of XS math functions i'm not sure where to shove yet",
@@ -3527,6 +3581,12 @@
       "primary" : "Acme::Monta",
       "version" : "0.01"
    },
+   "Acme-Moose" : {
+      "abstract" : null,
+      "name" : "Acme-Moose",
+      "primary" : "Acme::Moose",
+      "version" : "0.02"
+   },
    "Acme-MorningMusume" : {
       "abstract" : "All about Japanese pop star \"Morning Musume\"",
       "name" : "Acme-MorningMusume",
@@ -3598,6 +3658,12 @@
       "name" : "Acme-MyFirstModule-DRZIGMAN",
       "primary" : "Acme::MyFirstModule::DRZIGMAN",
       "version" : "0.03"
+   },
+   "Acme-MyFirstModule-JWKEENE" : {
+      "abstract" : "The great new Acme::MyFirstModule::JWKEENE!",
+      "name" : "Acme-MyFirstModule-JWKEENE",
+      "primary" : "Acme::MyFirstModule::JWKEENE",
+      "version" : "0.02"
    },
    "Acme-MyFirstModule-MALLEN" : {
       "abstract" : "turns baubles into trinkets",
@@ -4025,6 +4091,12 @@
       "primary" : "Acme::Pointer",
       "version" : "0.03"
    },
+   "Acme-Pony" : {
+      "abstract" : null,
+      "name" : "Acme-Pony",
+      "primary" : "Acme::Pony",
+      "version" : "1.00"
+   },
    "Acme-Pony-Pink" : {
       "abstract" : "make your script look like a pink pony",
       "name" : "Acme-Pony-Pink",
@@ -4090,12 +4162,6 @@
       "name" : "Acme-Python",
       "primary" : "Acme::Python",
       "version" : 0.01
-   },
-   "Acme-Pythonic" : {
-      "abstract" : "Python whitespace conventions for Perl",
-      "name" : "Acme-Pythonic",
-      "primary" : "Acme::Pythonic",
-      "version" : "0.47"
    },
    "Acme-Pythonic-Functions" : {
       "abstract" : "Python-like functions for Perl",
@@ -4571,6 +4637,12 @@
       "primary" : "Acme::Tao",
       "version" : 0.03
    },
+   "Acme-Tategaki" : {
+      "abstract" : "This Module makes a text vertically.",
+      "name" : "Acme-Tategaki",
+      "primary" : "Acme::Tategaki",
+      "version" : "0.12"
+   },
    "Acme-Tau" : {
       "abstract" : "Twice the Pie",
       "name" : "Acme-Tau",
@@ -4823,10 +4895,10 @@
       "primary" : "Acme::USIG",
       "version" : "1.04"
    },
-   "Acme-Ukrop" : {
-      "abstract" : "ukrop parser",
-      "name" : "Acme-Ukrop",
-      "primary" : "Acme::Ukrop",
+   "Acme-UTOPIA-Utils" : {
+      "abstract" : null,
+      "name" : "Acme-UTOPIA-Utils",
+      "primary" : "Acme::UTOPIA::Utils",
       "version" : "0.03"
    },
    "Acme-Umlautify" : {
@@ -5195,6 +5267,12 @@
       "primary" : "Address::PostCode::UserAgent",
       "version" : "0.09"
    },
+   "AddressBook" : {
+      "abstract" : null,
+      "name" : "AddressBook",
+      "primary" : "AddressBook",
+      "version" : "0.16"
+   },
    "Advent-Bundles" : {
       "abstract" : "Collection of year-by-year Bundles of the Perl Advent Calendar modules",
       "name" : "Advent-Bundles",
@@ -5411,6 +5489,18 @@
       "primary" : "Algorithm::C3",
       "version" : "0.10"
    },
+   "Algorithm-CP-IZ" : {
+      "abstract" : "Perl interface for iZ-C library",
+      "name" : "Algorithm-CP-IZ",
+      "primary" : "Algorithm::CP::IZ",
+      "version" : "0.05"
+   },
+   "Algorithm-CRF" : {
+      "abstract" : null,
+      "name" : "Algorithm-CRF",
+      "primary" : "Algorithm::CRF",
+      "version" : "0.04"
+   },
    "Algorithm-CheckDigits" : {
       "abstract" : "Perl extension to generate and test check digits",
       "name" : "Algorithm-CheckDigits",
@@ -5482,6 +5572,12 @@
       "name" : "Algorithm-ConstructDFA-XS",
       "primary" : "Algorithm::ConstructDFA::XS",
       "version" : "0.23"
+   },
+   "Algorithm-ConstructDFA2" : {
+      "abstract" : "Deterministic finite automaton construction",
+      "name" : "Algorithm-ConstructDFA2",
+      "primary" : "Algorithm::ConstructDFA2",
+      "version" : "0.06"
    },
    "Algorithm-ContextVector" : {
       "abstract" : "Simple implementation based on Data::CosineSimilarity",
@@ -5609,6 +5705,12 @@
       "primary" : "Algorithm::DimReduction",
       "version" : "0.00001"
    },
+   "Algorithm-DistanceMatrix" : {
+      "abstract" : "Compute distance matrix for any distance metric",
+      "name" : "Algorithm-DistanceMatrix",
+      "primary" : "Algorithm::DistanceMatrix",
+      "version" : "0.04"
+   },
    "Algorithm-Easing" : {
       "abstract" : "Calculate eased translations between two positive whole integer values over time",
       "name" : "Algorithm-Easing",
@@ -5687,6 +5789,12 @@
       "primary" : "Algorithm::Functional::BFS",
       "version" : "0.01"
    },
+   "Algorithm-GDiffDelta" : {
+      "abstract" : null,
+      "name" : "Algorithm-GDiffDelta",
+      "primary" : "Algorithm::GDiffDelta",
+      "version" : "0.01"
+   },
    "Algorithm-GaussianElimination-GF2" : {
       "abstract" : "Solve linear systems of equations on GF(2)",
       "name" : "Algorithm-GaussianElimination-GF2",
@@ -5759,6 +5867,12 @@
       "primary" : "Algorithm::HowSimilar",
       "version" : "0.01"
    },
+   "Algorithm-Huffman" : {
+      "abstract" : null,
+      "name" : "Algorithm-Huffman",
+      "primary" : "Algorithm::Huffman",
+      "version" : "0.09"
+   },
    "Algorithm-HyperLogLog" : {
       "abstract" : "Implementation of the HyperLogLog cardinality estimation algorithm",
       "name" : "Algorithm-HyperLogLog",
@@ -5795,10 +5909,22 @@
       "primary" : "Algorithm::KMeans",
       "version" : "2.05"
    },
+   "Algorithm-KNN-XS" : {
+      "abstract" : "A class that performs a fast KNN search",
+      "name" : "Algorithm-KNN-XS",
+      "primary" : "Algorithm::KNN::XS",
+      "version" : "0.01001"
+   },
    "Algorithm-Kelly" : {
       "abstract" : "calculates the fraction of a bankroll to bet using the Kelly formula",
       "name" : "Algorithm-Kelly",
       "primary" : "Algorithm::Kelly",
+      "version" : "0.03"
+   },
+   "Algorithm-KernelKMeans" : {
+      "abstract" : "Weighted kernel k-means clusterer",
+      "name" : "Algorithm-KernelKMeans",
+      "primary" : "Algorithm::KernelKMeans",
       "version" : "0.03"
    },
    "Algorithm-Knap01DP" : {
@@ -5909,6 +6035,12 @@
       "primary" : "Algorithm::MLCS",
       "version" : "1.02"
    },
+   "Algorithm-MOS" : {
+      "abstract" : "Algorithm::MOS - Calculate MOS (Mean Opinion Score)",
+      "name" : "Algorithm-MOS",
+      "primary" : "Algorithm::MOS",
+      "version" : "0.001"
+   },
    "Algorithm-MarkovChain" : {
       "abstract" : "Object oriented Markov chain generator",
       "name" : "Algorithm-MarkovChain",
@@ -5920,6 +6052,12 @@
       "name" : "Algorithm-MasterMind",
       "primary" : "Algorithm::MasterMind",
       "version" : "v0.4.5"
+   },
+   "Algorithm-MedianSelect-XS" : {
+      "abstract" : "Median finding algorithm",
+      "name" : "Algorithm-MedianSelect-XS",
+      "primary" : "Algorithm::MedianSelect::XS",
+      "version" : "0.21"
    },
    "Algorithm-Merge" : {
       "abstract" : null,
@@ -5980,6 +6118,12 @@
       "name" : "Algorithm-Networksort",
       "primary" : "Algorithm::Networksort",
       "version" : "2.02"
+   },
+   "Algorithm-Networksort-Chooser" : {
+      "abstract" : null,
+      "name" : "Algorithm-Networksort-Chooser",
+      "primary" : "Algorithm::Networksort::Chooser",
+      "version" : "0.110"
    },
    "Algorithm-Nhash" : {
       "abstract" : "Exim nhash algorithm",
@@ -6113,6 +6257,18 @@
       "primary" : "Algorithm::SISort",
       "version" : "0.14"
    },
+   "Algorithm-SVM" : {
+      "abstract" : "Perl bindings for the libsvm Support Vector Machine library.",
+      "name" : "Algorithm-SVM",
+      "primary" : "Algorithm::SVM",
+      "version" : "0.13"
+   },
+   "Algorithm-SVMLight" : {
+      "abstract" : "Perl interface to SVMLight Machine-Learning Package",
+      "name" : "Algorithm-SVMLight",
+      "primary" : "Algorithm::SVMLight",
+      "version" : "0.09"
+   },
    "Algorithm-Scale2x" : {
       "abstract" : "Generic implementation of the Scale2x algorithm",
       "name" : "Algorithm-Scale2x",
@@ -6143,6 +6299,12 @@
       "primary" : "Algorithm::Simplex",
       "version" : "0.44"
    },
+   "Algorithm-SixDegrees" : {
+      "abstract" : "Find a path through linked elements in a set",
+      "name" : "Algorithm-SixDegrees",
+      "primary" : "Algorithm::SixDegrees",
+      "version" : "0.03"
+   },
    "Algorithm-SkipList" : {
       "abstract" : "Perl implementation of skip lists",
       "name" : "Algorithm-SkipList",
@@ -6154,6 +6316,12 @@
       "name" : "Algorithm-SlopeOne",
       "primary" : "Algorithm::SlopeOne",
       "version" : "0.004"
+   },
+   "Algorithm-SocialNetwork" : {
+      "abstract" : "Social Network Analysis",
+      "name" : "Algorithm-SocialNetwork",
+      "primary" : "Algorithm::SocialNetwork",
+      "version" : "0.07"
    },
    "Algorithm-SpatialIndex" : {
       "abstract" : "Flexible 2D/3D spacial indexing",
@@ -6203,6 +6371,12 @@
       "primary" : "Algorithm::TSort",
       "version" : "0.05"
    },
+   "Algorithm-TicketClusterer" : {
+      "abstract" : "A Perl Module for Retrieving Tickets Similar to a Given Ticket",
+      "name" : "Algorithm-TicketClusterer",
+      "primary" : "Algorithm::TicketClusterer",
+      "version" : "1.01"
+   },
    "Algorithm-TokenBucket" : {
       "abstract" : "Token bucket rate limiting algorithm",
       "name" : "Algorithm-TokenBucket",
@@ -6245,6 +6419,12 @@
       "primary" : "Algorithm::Verhoeff",
       "version" : "0.3"
    },
+   "Algorithm-Viterbi" : {
+      "abstract" : null,
+      "name" : "Algorithm-Viterbi",
+      "primary" : "Algorithm::Viterbi",
+      "version" : "0.01"
+   },
    "Algorithm-Voting" : {
       "abstract" : "voting algorithm implementations",
       "name" : "Algorithm-Voting",
@@ -6256,6 +6436,12 @@
       "name" : "Algorithm-WordLevelStatistics",
       "primary" : "Algorithm::WordLevelStatistics",
       "version" : "0.03"
+   },
+   "Alias" : {
+      "abstract" : null,
+      "name" : "Alias",
+      "primary" : "Alias",
+      "version" : "2.32"
    },
    "Alias-Any" : {
       "abstract" : "Create lexical aliases under different versions of Perl",
@@ -6394,6 +6580,12 @@
       "name" : "Alien-Build-Plugin-Probe-Override",
       "primary" : "Alien::Build::Plugin::Probe::Override",
       "version" : "0.02"
+   },
+   "Alien-CImg" : {
+      "abstract" : "CImg distribution for CPAN.",
+      "name" : "Alien-CImg",
+      "primary" : "Alien::CImg",
+      "version" : "0.01"
    },
    "Alien-CMake" : {
       "abstract" : "Build and make available CMake library - L<http://cmake.org/>",
@@ -6917,6 +7109,24 @@
       "primary" : "Alien::Packages",
       "version" : "0.003"
    },
+   "Alien-Plotly-Orca" : {
+      "abstract" : "Finds or installs plotly-orca",
+      "name" : "Alien-Plotly-Orca",
+      "primary" : "Alien::Plotly::Orca",
+      "version" : "0.0001"
+   },
+   "Alien-Pluto" : {
+      "abstract" : "Find Or Download/Build/Install libpluto In Pluto",
+      "name" : "Alien-Pluto",
+      "primary" : "Alien::Pluto",
+      "version" : "0.003000"
+   },
+   "Alien-Poppler" : {
+      "abstract" : "Alien package for the Poppler PDF rendering library",
+      "name" : "Alien-Poppler",
+      "primary" : "Alien::Poppler",
+      "version" : "0.002"
+   },
    "Alien-Proj4" : {
       "abstract" : "Alien package for version 4 of the PROJ library",
       "name" : "Alien-Proj4",
@@ -6983,11 +7193,35 @@
       "primary" : "Alien::SDL2",
       "version" : "0.002"
    },
+   "Alien-SFML" : {
+      "abstract" : "Build and install SFML 2.0 (RC)",
+      "name" : "Alien-SFML",
+      "primary" : "Alien::SFML",
+      "version" : "0.0101"
+   },
    "Alien-SLOCCount" : {
       "abstract" : "Build and make available the sloccount tool",
       "name" : "Alien-SLOCCount",
       "primary" : "Alien::SLOCCount",
       "version" : "0.07"
+   },
+   "Alien-SNMP" : {
+      "abstract" : "Build and install Net-SNMP",
+      "name" : "Alien-SNMP",
+      "primary" : "Alien::SNMP",
+      "version" : "2.001000"
+   },
+   "Alien-SNMP-MAXTC" : {
+      "abstract" : "Build and install Net-SNMP",
+      "name" : "Alien-SNMP-MAXTC",
+      "primary" : "Alien::SNMP::MAXTC",
+      "version" : "1.000001"
+   },
+   "Alien-SVN" : {
+      "abstract" : "A wrapper for installing the SVN Perl bindings",
+      "name" : "Alien-SVN",
+      "primary" : "Alien::SVN",
+      "version" : "v1.8.11.0"
    },
    "Alien-SamTools" : {
       "abstract" : "Fetch/build/stash the SamTools headers and libs.",
@@ -7042,6 +7276,12 @@
       "name" : "Alien-Texinfo",
       "primary" : "Alien::Texinfo",
       "version" : "0.005000"
+   },
+   "Alien-Thrust" : {
+      "abstract" : "Download and install the Thrust cross-platform GUI framework",
+      "name" : "Alien-Thrust",
+      "primary" : "Alien::Thrust",
+      "version" : "0.101"
    },
    "Alien-TidyHTML5" : {
       "abstract" : "Download and install HTML Tidy",
@@ -7139,6 +7379,12 @@
       "primary" : "Alien::WhiteDB",
       "version" : "0.1"
    },
+   "Alien-WiX-Version30" : {
+      "abstract" : "Installing and finding Windows Installer XML (WiX)",
+      "name" : "Alien-WiX-Version30",
+      "primary" : "Alien::WiX::Version30",
+      "version" : "1.305419001"
+   },
    "Alien-Win32-LZMA" : {
       "abstract" : "Install and make available lzma.exe",
       "name" : "Alien-Win32-LZMA",
@@ -7157,6 +7403,18 @@
       "primary" : "Alien::XInputSimulator",
       "version" : "0.001"
    },
+   "Alien-XPA" : {
+      "abstract" : "Find or Build libxpa",
+      "name" : "Alien-XPA",
+      "primary" : "Alien::XPA",
+      "version" : "0.01"
+   },
+   "Alien-Z3" : {
+      "abstract" : "Perl distribution for Z3 Solver",
+      "name" : "Alien-Z3",
+      "primary" : "Alien::Z3",
+      "version" : "0.002"
+   },
    "Alien-ZMQ" : {
       "abstract" : "find and install libzmq, the core zeromq library",
       "name" : "Alien-ZMQ",
@@ -7168,6 +7426,12 @@
       "name" : "Alien-ZMQ-latest",
       "primary" : "Alien::ZMQ::latest",
       "version" : "0.004"
+   },
+   "Alien-Zcash" : {
+      "abstract" : "Easy installation of the Zcash cryptocoin full node daemon",
+      "name" : "Alien-Zcash",
+      "primary" : "Alien::Zcash",
+      "version" : "0.01"
    },
    "Alien-astyle" : {
       "abstract" : "Find or build astyle, the Artistic Style code formatter",
@@ -7445,6 +7709,12 @@
       "primary" : "Alien::qd",
       "version" : "0.01"
    },
+   "Alien-raylib" : {
+      "abstract" : "Alien distribution for Raylib",
+      "name" : "Alien-raylib",
+      "primary" : "Alien::raylib",
+      "version" : "0.025"
+   },
    "Alien-scriptaculous" : {
       "abstract" : "installing and finding script.aculo.us",
       "name" : "Alien-scriptaculous",
@@ -7583,6 +7853,12 @@
       "primary" : "Alister::Base::Sums",
       "version" : "1.05"
    },
+   "Aliyun" : {
+      "abstract" : "é¿éäºSDK",
+      "name" : "Aliyun",
+      "primary" : "Aliyun",
+      "version" : "v1.0.0"
+   },
    "Alt" : {
       "abstract" : "Alternate Module Implementations",
       "name" : "Alt",
@@ -7630,6 +7906,12 @@
       "name" : "Alt-CPAN-Uploader-tinyua",
       "primary" : "Alt::CPAN::Uploader::tinyua",
       "version" : "0.000001"
+   },
+   "Alt-CWB-CL-ambs" : {
+      "abstract" : null,
+      "name" : "Alt-CWB-CL-ambs",
+      "primary" : "Alt::CWB::CL::ambs",
+      "version" : "v2.2.102.1"
    },
    "Alt-Crypt-RSA-BigInt" : {
       "abstract" : "RSA public-key cryptosystem, using Math::BigInt",
@@ -7721,6 +8003,12 @@
       "primary" : "AltaVista::BabelFish",
       "version" : "v42.0.2"
    },
+   "AltaVista-PerlSDK" : {
+      "abstract" : null,
+      "name" : "AltaVista-PerlSDK",
+      "primary" : "AltaVista::PerlSDK",
+      "version" : "0.01"
+   },
    "Alter" : {
       "abstract" : "Alter Ego Objects",
       "name" : "Alter",
@@ -7739,6 +8027,12 @@
       "primary" : "Alvis::Pipeline",
       "version" : "0.11"
    },
+   "Alvis-QueryFilter" : {
+      "abstract" : null,
+      "name" : "Alvis-QueryFilter",
+      "primary" : "Alvis::QueryFilter",
+      "version" : "0.3"
+   },
    "Alvis-Saa" : {
       "abstract" : null,
       "name" : "Alvis-Saa",
@@ -7756,12 +8050,6 @@
       "name" : "Alvis-URLs",
       "primary" : "Alvis::URLs",
       "version" : "0.3"
-   },
-   "Alzabo" : {
-      "abstract" : "A data modelling tool and RDBMS-OO mapper",
-      "name" : "Alzabo",
-      "primary" : "Alzabo",
-      "version" : "0.92"
    },
    "Alzabo-Display-SWF" : {
       "abstract" : null,
@@ -7877,6 +8165,12 @@
       "primary" : "Amazon::SES",
       "version" : "0.06"
    },
+   "Amazon-SNS" : {
+      "abstract" : "Amazon Simple Notification Service made simpler",
+      "name" : "Amazon-SNS",
+      "primary" : "Amazon::SNS",
+      "version" : "1.3"
+   },
    "Amazon-SQS-Producer" : {
       "abstract" : "Perl interface to the Amazon Simple Queue Service (SQS) environment",
       "name" : "Amazon-SQS-Producer",
@@ -7912,6 +8206,12 @@
       "name" : "Ambassador-API-V2",
       "primary" : "Ambassador::API::V2",
       "version" : "0.001"
+   },
+   "AmbientOrb-Serial" : {
+      "abstract" : null,
+      "name" : "AmbientOrb-Serial",
+      "primary" : "AmbientOrb::Serial",
+      "version" : "0.02"
    },
    "Ambrosia" : {
       "abstract" : "a powerful web application framework that can be used to create general applications too.",
@@ -8243,6 +8543,12 @@
       "primary" : "Anego",
       "version" : "0.02"
    },
+   "Angle-Omega" : {
+      "abstract" : null,
+      "name" : "Angle-Omega",
+      "primary" : "Angle::Omega",
+      "version" : "1.00"
+   },
    "Aniki" : {
       "abstract" : "The ORM as our great brother.",
       "name" : "Aniki",
@@ -8279,6 +8585,18 @@
       "primary" : "Announcements",
       "version" : "0.01"
    },
+   "Ansible" : {
+      "abstract" : "The great new Ansible!",
+      "name" : "Ansible",
+      "primary" : "Ansible",
+      "version" : "0.101"
+   },
+   "AnsibleModule" : {
+      "abstract" : null,
+      "name" : "AnsibleModule",
+      "primary" : "AnsibleModule",
+      "version" : "0.4"
+   },
    "AntTweakBar" : {
       "abstract" : "Perl bindings for AntTweakBar",
       "name" : "AntTweakBar",
@@ -8290,6 +8608,12 @@
       "name" : "Ante-Deluvian-Dialog",
       "primary" : "Ante::Deluvian::Dialog",
       "version" : "0.02"
+   },
+   "Anticaptcha" : {
+      "abstract" : "The Perl implementation for anti-captcha.com API",
+      "name" : "Anticaptcha",
+      "primary" : "Anticaptcha",
+      "version" : "1.02"
    },
    "Antispam-Toolkit" : {
       "abstract" : "Classes, roles, and types for use by other Antispam modules",
@@ -8326,6 +8650,12 @@
       "name" : "Any-Moose-Convert",
       "primary" : "Any::Moose::Convert",
       "version" : "0.004"
+   },
+   "Any-Renderer" : {
+      "abstract" : null,
+      "name" : "Any-Renderer",
+      "primary" : "Any::Renderer",
+      "version" : "1.014"
    },
    "Any-Renderer-Data-Printer" : {
       "abstract" : "Render data structures through Data::Printer",
@@ -8410,6 +8740,12 @@
       "name" : "AnyEvent-Beanstalk",
       "primary" : "AnyEvent::Beanstalk",
       "version" : "1.170590"
+   },
+   "AnyEvent-Beanstalk-Worker" : {
+      "abstract" : "Event-driven FSA for beanstalk queues",
+      "name" : "AnyEvent-Beanstalk-Worker",
+      "primary" : "AnyEvent::Beanstalk::Worker",
+      "version" : "0.05"
    },
    "AnyEvent-BitTorrent" : {
       "abstract" : "Yet Another BitTorrent Client Module",
@@ -8519,6 +8855,12 @@
       "primary" : "AnyEvent::Cron",
       "version" : "0.03"
    },
+   "AnyEvent-Curl-Multi" : {
+      "abstract" : null,
+      "name" : "AnyEvent-Curl-Multi",
+      "primary" : "AnyEvent::Curl::Multi",
+      "version" : "1.1"
+   },
    "AnyEvent-CurrentCost" : {
       "abstract" : "AnyEvent module for reading from Current Cost energy meters",
       "name" : "AnyEvent-CurrentCost",
@@ -8614,6 +8956,12 @@
       "name" : "AnyEvent-Digest",
       "primary" : "AnyEvent::Digest",
       "version" : "v0.0.5"
+   },
+   "AnyEvent-Discord-Client" : {
+      "abstract" : "A Discord client library for the AnyEvent framework.",
+      "name" : "AnyEvent-Discord-Client",
+      "primary" : "AnyEvent::Discord::Client",
+      "version" : "0.000002"
    },
    "AnyEvent-EC2-Tiny" : {
       "abstract" : "Tiny asynchronous (non-blocking) interface to EC2 using AnyEvent",
@@ -8728,6 +9076,12 @@
       "name" : "AnyEvent-ForkObject",
       "primary" : "AnyEvent::ForkObject",
       "version" : "0.09"
+   },
+   "AnyEvent-FreeSWITCH" : {
+      "abstract" : "The great new AnyEvent::FreeSWITCH!",
+      "name" : "AnyEvent-FreeSWITCH",
+      "primary" : "AnyEvent::FreeSWITCH",
+      "version" : "0.01"
    },
    "AnyEvent-FriendFeed-Realtime" : {
       "abstract" : "Subscribe to FriendFeed Real-time API",
@@ -8945,6 +9299,12 @@
       "primary" : "AnyEvent::ImageShack",
       "version" : "0.2"
    },
+   "AnyEvent-Impl-NSRunLoop" : {
+      "abstract" : "AnyEvent adaptor for Cocoa NSRunLoop",
+      "name" : "AnyEvent-Impl-NSRunLoop",
+      "primary" : "AnyEvent::Impl::NSRunLoop",
+      "version" : "0.04"
+   },
    "AnyEvent-Impl-Prima" : {
       "abstract" : "Prima event loop adapter for AnyEvent",
       "name" : "AnyEvent-Impl-Prima",
@@ -8968,6 +9328,12 @@
       "name" : "AnyEvent-Inotify-Simple",
       "primary" : "AnyEvent::Inotify::Simple",
       "version" : "0.03"
+   },
+   "AnyEvent-JSONRPC" : {
+      "abstract" : "Simple TCP-based JSONRPC client/server",
+      "name" : "AnyEvent-JSONRPC",
+      "primary" : "AnyEvent::JSONRPC",
+      "version" : "0.15"
    },
    "AnyEvent-JSONRPC-Lite" : {
       "abstract" : "Simple TCP-based JSONRPC client/server",
@@ -9016,6 +9382,12 @@
       "name" : "AnyEvent-MSN",
       "primary" : "AnyEvent::MSN",
       "version" : "0.002"
+   },
+   "AnyEvent-Mac-Pasteboard" : {
+      "abstract" : "observation and hook pasteboard changing.",
+      "name" : "AnyEvent-Mac-Pasteboard",
+      "primary" : "AnyEvent::Mac::Pasteboard",
+      "version" : "0.03"
    },
    "AnyEvent-Mattermost" : {
       "abstract" : "AnyEvent module for interacting with Mattermost APIs",
@@ -9076,6 +9448,12 @@
       "name" : "AnyEvent-MySQL-ConnPool",
       "primary" : "AnyEvent::MySQL::ConnPool",
       "version" : "0.07"
+   },
+   "AnyEvent-Net-Amazon-S3" : {
+      "abstract" : "Use the Amazon S3 - Simple Storage Service",
+      "name" : "AnyEvent-Net-Amazon-S3",
+      "primary" : "AnyEvent::Net::Amazon::S3",
+      "version" : "v0.04.0.80"
    },
    "AnyEvent-Net-Curl-Queued" : {
       "abstract" : "Moo wrapper for queued downloads via Net::Curl & AnyEvent",
@@ -9155,6 +9533,18 @@
       "primary" : "AnyEvent::Ping::TCP",
       "version" : "1.01"
    },
+   "AnyEvent-Plackup" : {
+      "abstract" : "Easily establish an HTTP server inside a program",
+      "name" : "AnyEvent-Plackup",
+      "primary" : "AnyEvent::Plackup",
+      "version" : "0.02"
+   },
+   "AnyEvent-Plurk" : {
+      "abstract" : "plurk interface for AnyEvent-based programs",
+      "name" : "AnyEvent-Plurk",
+      "primary" : "AnyEvent::Plurk",
+      "version" : "0.12"
+   },
    "AnyEvent-Porttracker" : {
       "abstract" : null,
       "name" : "AnyEvent-Porttracker",
@@ -9203,6 +9593,12 @@
       "primary" : "AnyEvent::Promises",
       "version" : "0.06"
    },
+   "AnyEvent-REST-Server" : {
+      "abstract" : "An AnyEvent-based TCP server providing a RESTful interface.",
+      "name" : "AnyEvent-REST-Server",
+      "primary" : "AnyEvent::REST::Server",
+      "version" : "0.05"
+   },
    "AnyEvent-RFXCOM" : {
       "abstract" : "Perl modules for RFXCOM RF receivers/transmitters with AnyEvent",
       "name" : "AnyEvent-RFXCOM",
@@ -9239,6 +9635,12 @@
       "primary" : "AnyEvent::RabbitMQ::PubSub",
       "version" : "3.2.1"
    },
+   "AnyEvent-RabbitMQ-RPC" : {
+      "abstract" : "RPC queues via RabbitMQ",
+      "name" : "AnyEvent-RabbitMQ-RPC",
+      "primary" : "AnyEvent::RabbitMQ::RPC",
+      "version" : "0.5"
+   },
    "AnyEvent-RabbitMQ-Simple" : {
       "abstract" : "Easy to use asynchronous AMQP client",
       "name" : "AnyEvent-RabbitMQ-Simple",
@@ -9262,6 +9664,12 @@
       "name" : "AnyEvent-Redis",
       "primary" : "AnyEvent::Redis",
       "version" : "0.24"
+   },
+   "AnyEvent-Redis-Federated" : {
+      "abstract" : "Full-featured Async Perl Redis client",
+      "name" : "AnyEvent-Redis-Federated",
+      "primary" : "AnyEvent::Redis::Federated",
+      "version" : "0.08"
    },
    "AnyEvent-Redis-RipeRedis" : {
       "abstract" : "DEPRECATED. Use AnyEvent::RipeRedis instead",
@@ -9311,6 +9719,12 @@
       "primary" : "AnyEvent::SCGI",
       "version" : "1.1"
    },
+   "AnyEvent-SIP" : {
+      "abstract" : "Fusing together AnyEvent and Net::SIP",
+      "name" : "AnyEvent-SIP",
+      "primary" : "AnyEvent::SIP",
+      "version" : "0.002"
+   },
    "AnyEvent-SKKServ" : {
       "abstract" : "Lightweight skkserv implementation for AnyEvent",
       "name" : "AnyEvent-SKKServ",
@@ -9329,6 +9743,12 @@
       "primary" : "AnyEvent::SNMP",
       "version" : "6.02"
    },
+   "AnyEvent-SOCKS-Client" : {
+      "abstract" : "AnyEvent-based SOCKS client!",
+      "name" : "AnyEvent-SOCKS-Client",
+      "primary" : "AnyEvent::SOCKS::Client",
+      "version" : "0.01"
+   },
    "AnyEvent-SSH2" : {
       "abstract" : null,
       "name" : "AnyEvent-SSH2",
@@ -9340,6 +9760,12 @@
       "name" : "AnyEvent-STOMP",
       "primary" : "AnyEvent::STOMP",
       "version" : "0.7"
+   },
+   "AnyEvent-STOMP-Client" : {
+      "abstract" : "An event-based non-blocking STOMP 1.2 client based on AnyEvent and Object::Event.",
+      "name" : "AnyEvent-STOMP-Client",
+      "primary" : "AnyEvent::STOMP::Client",
+      "version" : "0.39"
    },
    "AnyEvent-Semaphore" : {
       "abstract" : "Semaphore implementation for AnyEvent",
@@ -9424,6 +9850,12 @@
       "name" : "AnyEvent-TermKey",
       "primary" : "AnyEvent::TermKey",
       "version" : "0.02"
+   },
+   "AnyEvent-Tickit" : {
+      "abstract" : "Use L<AnyEvent> with L<Tickit> user interface.",
+      "name" : "AnyEvent-Tickit",
+      "primary" : "AnyEvent::Tickit",
+      "version" : "0.01"
    },
    "AnyEvent-Timer-Cron" : {
       "abstract" : "cron based timers for AnyEvent",
@@ -9545,6 +9977,12 @@
       "primary" : "AnyEvent::YACurl",
       "version" : "0.14"
    },
+   "AnyEvent-Yubico" : {
+      "abstract" : "AnyEvent based Perl extension for validating YubiKey OTPs.",
+      "name" : "AnyEvent-Yubico",
+      "primary" : "AnyEvent::Yubico",
+      "version" : "0.9.3"
+   },
    "AnyEvent-ZabbixSender" : {
       "abstract" : null,
       "name" : "AnyEvent-ZabbixSender",
@@ -9605,6 +10043,18 @@
       "primary" : "AnyMQ::ZeroMQ",
       "version" : "0.06"
    },
+   "AnyMerchant" : {
+      "abstract" : "A generic and consistent interface for online payment services",
+      "name" : "AnyMerchant",
+      "primary" : "AnyMerchant",
+      "version" : "0.0002"
+   },
+   "AnyMongo" : {
+      "abstract" : "Asynchronous non-blocking MongoDB driver for AnyEvent applications",
+      "name" : "AnyMongo",
+      "primary" : "AnyMongo",
+      "version" : "0.03"
+   },
    "AnySan" : {
       "abstract" : "ANY mesSaging protocol hANdler",
       "name" : "AnySan",
@@ -9646,6 +10096,12 @@
       "name" : "Apache-Action",
       "primary" : "Apache::Action",
       "version" : 0.02
+   },
+   "Apache-AddHostPath" : {
+      "abstract" : null,
+      "name" : "Apache-AddHostPath",
+      "primary" : "Apache::AddHostPath",
+      "version" : "0.02"
    },
    "Apache-AddReqHeader" : {
       "abstract" : null,
@@ -9719,6 +10175,18 @@
       "primary" : "Apache::Auth::UserDB",
       "version" : "v0.120"
    },
+   "Apache-AuthCASSimple" : {
+      "abstract" : "Apache module to authentificate trough a CAS server",
+      "name" : "Apache-AuthCASSimple",
+      "primary" : "Apache::AuthCASSimple",
+      "version" : "0.0.4"
+   },
+   "Apache-AuthChecker" : {
+      "abstract" : null,
+      "name" : "Apache-AuthChecker",
+      "primary" : "Apache::AuthChecker",
+      "version" : "1.01"
+   },
    "Apache-AuthCookie" : {
       "abstract" : "Perl Authentication and Authorization via cookies",
       "name" : "Apache-AuthCookie",
@@ -9749,6 +10217,24 @@
       "primary" : "Apache::AuthCookieURL",
       "version" : "1.003"
    },
+   "Apache-AuthDigest" : {
+      "abstract" : null,
+      "name" : "Apache-AuthDigest",
+      "primary" : "Apache::AuthDigest",
+      "version" : "0.022"
+   },
+   "Apache-AuthExpire" : {
+      "abstract" : null,
+      "name" : "Apache-AuthExpire",
+      "primary" : "Apache::AuthExpire",
+      "version" : "0.36"
+   },
+   "Apache-AuthLDAP" : {
+      "abstract" : null,
+      "name" : "Apache-AuthLDAP",
+      "primary" : "Apache::AuthLDAP",
+      "version" : "0.21"
+   },
    "Apache-AuthLDAPBind" : {
       "abstract" : null,
       "name" : "Apache-AuthLDAPBind",
@@ -9766,6 +10252,12 @@
       "name" : "Apache-AuthPOP3",
       "primary" : "Apache::AuthPOP3",
       "version" : "0.02"
+   },
+   "Apache-AuthPerLDAP" : {
+      "abstract" : null,
+      "name" : "Apache-AuthPerLDAP",
+      "primary" : "Apache::AuthPerLDAP",
+      "version" : "0.5"
    },
    "Apache-AuthTicket" : {
       "abstract" : "Cookie Based Access and Authorization Module",
@@ -9809,6 +10301,12 @@
       "primary" : "Apache::AuthenLDAP",
       "version" : "1.00"
    },
+   "Apache-AuthenMSAD" : {
+      "abstract" : "Microsoft Active Directory authentication for Apache",
+      "name" : "Apache-AuthenMSAD",
+      "primary" : "Apache::AuthenMSAD",
+      "version" : "0.02"
+   },
    "Apache-AuthenMT" : {
       "abstract" : "Authenticate using Movable Type's database",
       "name" : "Apache-AuthenMT",
@@ -9820,6 +10318,12 @@
       "name" : "Apache-AuthenN2",
       "primary" : "Apache::AuthenN2",
       "version" : "0.06"
+   },
+   "Apache-AuthenNIS" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenNIS",
+      "primary" : "Apache::AuthenNIS",
+      "version" : "0.13"
    },
    "Apache-AuthenNISPlus" : {
       "abstract" : null,
@@ -9833,11 +10337,47 @@
       "primary" : "Apache::AuthenNTLM",
       "version" : 2.1
    },
+   "Apache-AuthenPasswd" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenPasswd",
+      "primary" : "Apache::AuthenPasswd",
+      "version" : "0.12"
+   },
+   "Apache-AuthenProgram" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenProgram",
+      "primary" : "Apache::AuthenProgram",
+      "version" : "0.90"
+   },
+   "Apache-AuthenRadius" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenRadius",
+      "primary" : "Apache::AuthenRadius",
+      "version" : "0.9"
+   },
    "Apache-AuthenSecurID" : {
       "abstract" : null,
       "name" : "Apache-AuthenSecurID",
       "primary" : "Apache::AuthenSecurID",
       "version" : "0.4"
+   },
+   "Apache-AuthenSmb" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenSmb",
+      "primary" : "Apache::AuthenSmb",
+      "version" : "0.72"
+   },
+   "Apache-AuthenURL" : {
+      "abstract" : null,
+      "name" : "Apache-AuthenURL",
+      "primary" : "Apache::AuthenURL",
+      "version" : "2.05"
+   },
+   "Apache-Authenlemonldap" : {
+      "abstract" : null,
+      "name" : "Apache-Authenlemonldap",
+      "primary" : "Apache::Authenlemonldap",
+      "version" : "1.0.0"
    },
    "Apache-AuthzCache" : {
       "abstract" : null,
@@ -9850,6 +10390,42 @@
       "name" : "Apache-AuthzLDAP",
       "primary" : "Apache::AuthzLDAP",
       "version" : "1.11"
+   },
+   "Apache-AuthzNIS" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzNIS",
+      "primary" : "Apache::AuthzNIS",
+      "version" : "0.11"
+   },
+   "Apache-AuthzPasswd" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzPasswd",
+      "primary" : "Apache::AuthzPasswd",
+      "version" : "0.12"
+   },
+   "Apache-AuthzSplitDomainUser" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzSplitDomainUser",
+      "primary" : "Apache::AuthzSplitDomainUser",
+      "version" : "0.01"
+   },
+   "Apache-AuthzUnix" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzUnix",
+      "primary" : "Apache::AuthzUnix",
+      "version" : "0.02"
+   },
+   "Apache-AuthzUserDir" : {
+      "abstract" : null,
+      "name" : "Apache-AuthzUserDir",
+      "primary" : "Apache::AuthzUserDir",
+      "version" : "0.92"
+   },
+   "Apache-AutoIndex" : {
+      "abstract" : null,
+      "name" : "Apache-AutoIndex",
+      "primary" : "Apache::AutoIndex",
+      "version" : "0.08"
    },
    "Apache-AutoLogin" : {
       "abstract" : "Automatic login module based on encrypted cookies for sites using basic authentication.",
@@ -9881,6 +10457,12 @@
       "primary" : "Apache::AxKit::Language::XSP::ObjectTaglib",
       "version" : "0.09000"
    },
+   "Apache-AxKit-Plugin-AddXSLParams-Request" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Plugin-AddXSLParams-Request",
+      "primary" : "Apache::AxKit::Plugin::AddXSLParams::Request",
+      "version" : "1.02"
+   },
    "Apache-AxKit-Plugin-NotFoundIfPathInfo" : {
       "abstract" : null,
       "name" : "Apache-AxKit-Plugin-NotFoundIfPathInfo",
@@ -9905,6 +10487,12 @@
       "primary" : "Apache::AxKit::Plugin::Upload",
       "version" : "0.2"
    },
+   "Apache-AxKit-Provider-CGI" : {
+      "abstract" : "CGI generated XML content without Taglibs",
+      "name" : "Apache-AxKit-Provider-CGI",
+      "primary" : "Apache::AxKit::Provider::CGI",
+      "version" : "0.02"
+   },
    "Apache-AxKit-Provider-DOM" : {
       "abstract" : null,
       "name" : "Apache-AxKit-Provider-DOM",
@@ -9917,11 +10505,23 @@
       "primary" : "Apache::AxKit::Provider::File::Formatter",
       "version" : "0.96"
    },
+   "Apache-AxKit-Provider-File-Syntax" : {
+      "abstract" : null,
+      "name" : "Apache-AxKit-Provider-File-Syntax",
+      "primary" : "Apache::AxKit::Provider::File::Syntax",
+      "version" : "0.06"
+   },
    "Apache-AxKit-Provider-OpenOffice" : {
       "abstract" : null,
       "name" : "Apache-AxKit-Provider-OpenOffice",
       "primary" : "Apache::AxKit::Provider::OpenOffice",
       "version" : "1.02"
+   },
+   "Apache-AxKit-Provider-PodSAX" : {
+      "abstract" : "Dynamically Serve POD Files as XML ",
+      "name" : "Apache-AxKit-Provider-PodSAX",
+      "primary" : "Apache::AxKit::Provider::PodSAX",
+      "version" : "1.00"
    },
    "Apache-AxKit-Provider-RDBMS" : {
       "abstract" : "Perl extension AxKit ",
@@ -9945,6 +10545,12 @@
       "abstract" : "Communicate with a POE server using persistent connections",
       "name" : "Apache-Backend-POE",
       "primary" : "Apache::Backend::POE",
+      "version" : "0.02"
+   },
+   "Apache-Backhand" : {
+      "abstract" : null,
+      "name" : "Apache-Backhand",
+      "primary" : "Apache::Backhand",
       "version" : "0.02"
    },
    "Apache-BalancerManager" : {
@@ -9995,17 +10601,35 @@
       "primary" : "Apache::Cache",
       "version" : "0.05"
    },
+   "Apache-CacheContent" : {
+      "abstract" : null,
+      "name" : "Apache-CacheContent",
+      "primary" : "Apache::CacheContent",
+      "version" : "0.12"
+   },
    "Apache-Centipaid" : {
       "abstract" : "Micropayment module with interface to centipaid.com payment gateway",
       "name" : "Apache-Centipaid",
       "primary" : "Apache::Centipaid",
       "version" : "v1.3.1"
    },
+   "Apache-ChildExit" : {
+      "abstract" : "Modify ModPerl Apache::Registry's treatment of B<END>  blocks",
+      "name" : "Apache-ChildExit",
+      "primary" : "Apache::ChildExit",
+      "version" : "0.1"
+   },
    "Apache-ChooseLanguage" : {
       "abstract" : "Apache mod_perl handler to manage sites available in many languages",
       "name" : "Apache-ChooseLanguage",
       "primary" : "Apache::ChooseLanguage",
       "version" : "1.02"
+   },
+   "Apache-ClearSilver" : {
+      "abstract" : null,
+      "name" : "Apache-ClearSilver",
+      "primary" : "Apache::ClearSilver",
+      "version" : "0.01"
    },
    "Apache-Clickable" : {
       "abstract" : null,
@@ -10018,6 +10642,12 @@
       "name" : "Apache-CodeRed",
       "primary" : "Apache::CodeRed",
       "version" : 1.07
+   },
+   "Apache-Compress" : {
+      "abstract" : "Auto-compress web files with Gzip",
+      "name" : "Apache-Compress",
+      "primary" : "Apache::Compress",
+      "version" : "1.005"
    },
    "Apache-CompressClientFixup" : {
       "abstract" : "Perl extension for Apache-1.3.X to avoid C<gzip> compression for some buggy browsers.",
@@ -10037,6 +10667,18 @@
       "primary" : "Apache::ConfigParser",
       "version" : "1.02"
    },
+   "Apache-ContentHandler" : {
+      "abstract" : null,
+      "name" : "Apache-ContentHandler",
+      "primary" : "Apache::ContentHandler",
+      "version" : "v1.3.3"
+   },
+   "Apache-Cookie-Encrypted" : {
+      "abstract" : "Encrypted HTTP Cookies Class",
+      "name" : "Apache-Cookie-Encrypted",
+      "primary" : "Apache::Cookie::Encrypted",
+      "version" : "0.03"
+   },
    "Apache-CookieToQuery" : {
       "abstract" : null,
       "name" : "Apache-CookieToQuery",
@@ -10049,17 +10691,59 @@
       "primary" : "Apache::CryptHash",
       "version" : "3.03"
    },
+   "Apache-CustomKeywords" : {
+      "abstract" : null,
+      "name" : "Apache-CustomKeywords",
+      "primary" : "Apache::CustomKeywords",
+      "version" : "0.03"
+   },
+   "Apache-DB" : {
+      "abstract" : null,
+      "name" : "Apache-DB",
+      "primary" : "Apache::DB",
+      "version" : "0.16"
+   },
    "Apache-DBI" : {
       "abstract" : null,
       "name" : "Apache-DBI",
       "primary" : "Apache::DBI",
       "version" : "1.12"
    },
+   "Apache-DBI-Cache" : {
+      "abstract" : null,
+      "name" : "Apache-DBI-Cache",
+      "primary" : "Apache::DBI::Cache",
+      "version" : "0.08"
+   },
+   "Apache-DBILogConfig" : {
+      "abstract" : null,
+      "name" : "Apache-DBILogConfig",
+      "primary" : "Apache::DBILogConfig",
+      "version" : "0.02"
+   },
+   "Apache-DBILogin" : {
+      "abstract" : null,
+      "name" : "Apache-DBILogin",
+      "primary" : "Apache::DBILogin",
+      "version" : "2.06"
+   },
    "Apache-DebugInfo" : {
       "abstract" : null,
       "name" : "Apache-DebugInfo",
       "primary" : "Apache::DebugInfo",
       "version" : "0.05"
+   },
+   "Apache-DebugLog" : {
+      "abstract" : null,
+      "name" : "Apache-DebugLog",
+      "primary" : "Apache::DebugLog",
+      "version" : "0.02"
+   },
+   "Apache-DefaultCharset" : {
+      "abstract" : null,
+      "name" : "Apache-DefaultCharset",
+      "primary" : "Apache::DefaultCharset",
+      "version" : "0.02"
    },
    "Apache-Defaults" : {
       "abstract" : "Get default settings for Apache httpd daemon",
@@ -10085,11 +10769,1277 @@
       "primary" : "Apache::DoCoMoProxy",
       "version" : "0.01"
    },
+   "Apache-Dynagzip" : {
+      "abstract" : null,
+      "name" : "Apache-Dynagzip",
+      "primary" : "Apache::Dynagzip",
+      "version" : "0.16"
+   },
+   "Apache-Earlybird" : {
+      "abstract" : "The Earlybird gets the worm. Responds to CodeRed and Nimda worm attacks with e-mail warnings.",
+      "name" : "Apache-Earlybird",
+      "primary" : "Apache::Earlybird",
+      "version" : 1.03
+   },
+   "Apache-EmbeddedPerl-Lite" : {
+      "abstract" : null,
+      "name" : "Apache-EmbeddedPerl-Lite",
+      "primary" : "Apache::EmbeddedPerl::Lite",
+      "version" : "0.06"
+   },
+   "Apache-Emulator" : {
+      "abstract" : null,
+      "name" : "Apache-Emulator",
+      "primary" : "Apache::Emulator",
+      "version" : "0.06"
+   },
+   "Apache-EnvDir" : {
+      "abstract" : null,
+      "name" : "Apache-EnvDir",
+      "primary" : "Apache::EnvDir",
+      "version" : "1.00"
+   },
+   "Apache-ErrorControl" : {
+      "abstract" : null,
+      "name" : "Apache-ErrorControl",
+      "primary" : "Apache::ErrorControl",
+      "version" : "1.026"
+   },
+   "Apache-ExtDirect" : {
+      "abstract" : "RPC::ExtDirect gateway for Apache2/mod_perl",
+      "name" : "Apache-ExtDirect",
+      "primary" : "Apache::ExtDirect",
+      "version" : "0.90"
+   },
+   "Apache-FakeCookie" : {
+      "abstract" : null,
+      "name" : "Apache-FakeCookie",
+      "primary" : "Apache::FakeCookie",
+      "version" : "0.08"
+   },
+   "Apache-FakeTable" : {
+      "abstract" : "Pure Perl implementation of the Apache::Table interface",
+      "name" : "Apache-FakeTable",
+      "primary" : "Apache::FakeTable",
+      "version" : "0.06"
+   },
+   "Apache-File-Resumable" : {
+      "abstract" : null,
+      "name" : "Apache-File-Resumable",
+      "primary" : "Apache::File::Resumable",
+      "version" : "v1.1.1.1"
+   },
+   "Apache-FileManager" : {
+      "abstract" : null,
+      "name" : "Apache-FileManager",
+      "primary" : "Apache::FileManager",
+      "version" : "0.19"
+   },
+   "Apache-Filter" : {
+      "abstract" : "Alter the output of previous handlers",
+      "name" : "Apache-Filter",
+      "primary" : "Apache::Filter",
+      "version" : "1.024"
+   },
+   "Apache-Filter-HanConvert" : {
+      "abstract" : "Filter between Chinese variant and encodings",
+      "name" : "Apache-Filter-HanConvert",
+      "primary" : "Apache::Filter::HanConvert",
+      "version" : "0.02"
+   },
+   "Apache-FilteringProxy" : {
+      "abstract" : null,
+      "name" : "Apache-FilteringProxy",
+      "primary" : "Apache::FilteringProxy",
+      "version" : "0.1"
+   },
+   "Apache-ForwardedFor" : {
+      "abstract" : "Transfer X-Forwarded-For or Forwarded-For header to the remote_ip so requests will have the original client's IP when running behind a reverse proxy server.",
+      "name" : "Apache-ForwardedFor",
+      "primary" : "Apache::ForwardedFor",
+      "version" : "0.5"
+   },
+   "Apache-GD-Thumbnail" : {
+      "abstract" : null,
+      "name" : "Apache-GD-Thumbnail",
+      "primary" : "Apache::GD::Thumbnail",
+      "version" : "0.03"
+   },
+   "Apache-GTopLimit" : {
+      "abstract" : "Limit Apache httpd processes ",
+      "name" : "Apache-GTopLimit",
+      "primary" : "Apache::GTopLimit",
+      "version" : "1.02"
+   },
+   "Apache-Gateway" : {
+      "abstract" : null,
+      "name" : "Apache-Gateway",
+      "primary" : "Apache::Gateway",
+      "version" : "1.11"
+   },
+   "Apache-GeoIP" : {
+      "abstract" : "Look up country by IP address",
+      "name" : "Apache-GeoIP",
+      "primary" : "Apache::GeoIP",
+      "version" : "1.99"
+   },
+   "Apache-GopherHandler" : {
+      "abstract" : null,
+      "name" : "Apache-GopherHandler",
+      "primary" : "Apache::GopherHandler",
+      "version" : "0.1"
+   },
+   "Apache-GuessCharset" : {
+      "abstract" : null,
+      "name" : "Apache-GuessCharset",
+      "primary" : "Apache::GuessCharset",
+      "version" : 0.03
+   },
+   "Apache-GzipChain" : {
+      "abstract" : null,
+      "name" : "Apache-GzipChain",
+      "primary" : "Apache::GzipChain",
+      "version" : "1.20"
+   },
+   "Apache-HEADRegistry" : {
+      "abstract" : null,
+      "name" : "Apache-HEADRegistry",
+      "primary" : "Apache::HEADRegistry",
+      "version" : "0.01"
+   },
+   "Apache-HTMLView" : {
+      "abstract" : null,
+      "name" : "Apache-HTMLView",
+      "primary" : "Apache::HTMLView",
+      "version" : "0.91"
+   },
+   "Apache-Hadoop-Config" : {
+      "abstract" : "Perl extension for Hadoop node configuration",
+      "name" : "Apache-Hadoop-Config",
+      "primary" : "Apache::Hadoop::Config",
+      "version" : "0.01"
+   },
+   "Apache-Hadoop-Watcher" : {
+      "abstract" : "Perl extension for Hadoop Monitoring",
+      "name" : "Apache-Hadoop-Watcher",
+      "primary" : "Apache::Hadoop::Watcher",
+      "version" : "0.01"
+   },
+   "Apache-Hadoop-WebHDFS" : {
+      "abstract" : "interface to Hadoop's WebHDS API that supports GSSAPI/SPNEGO (secure) access.",
+      "name" : "Apache-Hadoop-WebHDFS",
+      "primary" : "Apache::Hadoop::WebHDFS",
+      "version" : "0.04"
+   },
+   "Apache-Handlers" : {
+      "abstract" : null,
+      "name" : "Apache-Handlers",
+      "primary" : "Apache::Handlers",
+      "version" : "0.02"
+   },
+   "Apache-HeavyCGI" : {
+      "abstract" : null,
+      "name" : "Apache-HeavyCGI",
+      "primary" : "Apache::HeavyCGI",
+      "version" : "0.013302"
+   },
+   "Apache-Hendrix" : {
+      "abstract" : "Provides a route-to-sub based web framework",
+      "name" : "Apache-Hendrix",
+      "primary" : "Apache::Hendrix",
+      "version" : "v0.3.0"
+   },
+   "Apache-Htaccess" : {
+      "abstract" : "Create and manipulate Apache .htaccess files",
+      "name" : "Apache-Htaccess",
+      "primary" : "Apache::Htaccess",
+      "version" : "1.6"
+   },
+   "Apache-Htgroup" : {
+      "abstract" : "Manage Apache htgroup files",
+      "name" : "Apache-Htgroup",
+      "primary" : "Apache::Htgroup",
+      "version" : "1.23"
+   },
+   "Apache-Htpasswd" : {
+      "abstract" : null,
+      "name" : "Apache-Htpasswd",
+      "primary" : "Apache::Htpasswd",
+      "version" : "1.9"
+   },
+   "Apache-Htpasswd-Perishable" : {
+      "abstract" : "Perl extension for expiring htaccess entries",
+      "name" : "Apache-Htpasswd-Perishable",
+      "primary" : "Apache::Htpasswd::Perishable",
+      "version" : "1.00"
+   },
+   "Apache-Icon" : {
+      "abstract" : null,
+      "name" : "Apache-Icon",
+      "primary" : "Apache::Icon",
+      "version" : "0.02"
+   },
+   "Apache-Image" : {
+      "abstract" : "Generate a new image size, e.g. Thumbnail on the fly of any image, even dynamically generated (EXPERIMENTAL RELEASE)",
+      "name" : "Apache-Image",
+      "primary" : "Apache::Image",
+      "version" : "v0.0.4"
+   },
+   "Apache-Imager-Resize" : {
+      "abstract" : null,
+      "name" : "Apache-Imager-Resize",
+      "primary" : "Apache::Imager::Resize",
+      "version" : "0.11"
+   },
+   "Apache-JAF" : {
+      "abstract" : "setup_handler must be implemented in derived ",
+      "name" : "Apache-JAF",
+      "primary" : "Apache::JAF",
+      "version" : "0.21"
+   },
+   "Apache-JavaScript-DocumentWrite" : {
+      "abstract" : null,
+      "name" : "Apache-JavaScript-DocumentWrite",
+      "primary" : "Apache::JavaScript::DocumentWrite",
+      "version" : "0.02"
+   },
+   "Apache-JemplateFilter" : {
+      "abstract" : "Jemplate complie filter for Apache",
+      "name" : "Apache-JemplateFilter",
+      "primary" : "Apache::JemplateFilter",
+      "version" : "0.02"
+   },
+   "Apache-JumpByReferer" : {
+      "abstract" : null,
+      "name" : "Apache-JumpByReferer",
+      "primary" : "Apache::JumpByReferer",
+      "version" : "0.01"
+   },
+   "Apache-Keywords" : {
+      "abstract" : null,
+      "name" : "Apache-Keywords",
+      "primary" : "Apache::Keywords",
+      "version" : "0.1"
+   },
+   "Apache-LangPrefCookie" : {
+      "abstract" : null,
+      "name" : "Apache-LangPrefCookie",
+      "primary" : "Apache::LangPrefCookie",
+      "version" : "1.03"
+   },
+   "Apache-LangURI" : {
+      "abstract" : null,
+      "name" : "Apache-LangURI",
+      "primary" : "Apache::LangURI",
+      "version" : "0.19"
+   },
+   "Apache-Layer" : {
+      "abstract" : null,
+      "name" : "Apache-Layer",
+      "primary" : "Apache::Layer",
+      "version" : "1.07"
+   },
+   "Apache-Lint" : {
+      "abstract" : null,
+      "name" : "Apache-Lint",
+      "primary" : "Apache::Lint",
+      "version" : "0.10"
+   },
+   "Apache-LoadAvgLimit" : {
+      "abstract" : "limiting client request by system CPU load-averages (deprecated)",
+      "name" : "Apache-LoadAvgLimit",
+      "primary" : "Apache::LoadAvgLimit",
+      "version" : "0.04"
+   },
+   "Apache-Log-Parser" : {
+      "abstract" : "Parser for Apache Log (common, combined, and any other custom styles by LogFormat).",
+      "name" : "Apache-Log-Parser",
+      "primary" : "Apache::Log::Parser",
+      "version" : "0.02"
+   },
+   "Apache-LogF" : {
+      "abstract" : null,
+      "name" : "Apache-LogF",
+      "primary" : "Apache::LogF",
+      "version" : "0.01"
+   },
+   "Apache-LogFile" : {
+      "abstract" : null,
+      "name" : "Apache-LogFile",
+      "primary" : "Apache::LogFile",
+      "version" : "0.12"
+   },
+   "Apache-LogFormat-Compiler" : {
+      "abstract" : "Compile a log format string to perl-code ",
+      "name" : "Apache-LogFormat-Compiler",
+      "primary" : "Apache::LogFormat::Compiler",
+      "version" : "0.36"
+   },
+   "Apache-LogIgnore" : {
+      "abstract" : null,
+      "name" : "Apache-LogIgnore",
+      "primary" : "Apache::LogIgnore",
+      "version" : 0.03
+   },
+   "Apache-LogRegex" : {
+      "abstract" : "Parse a line from an Apache logfile into a hash",
+      "name" : "Apache-LogRegex",
+      "primary" : "Apache::LogRegex",
+      "version" : "1.71"
+   },
+   "Apache-LoggedAuthDBI" : {
+      "abstract" : null,
+      "name" : "Apache-LoggedAuthDBI",
+      "primary" : "Apache::LoggedAuthDBI",
+      "version" : "0.12"
+   },
+   "Apache-Logmonster" : {
+      "abstract" : "Apache log utility for merging, sorting, and processing web logs",
+      "name" : "Apache-Logmonster",
+      "primary" : "Apache::Logmonster",
+      "version" : "5.36"
+   },
+   "Apache-MIMEMapper" : {
+      "abstract" : null,
+      "name" : "Apache-MIMEMapper",
+      "primary" : "Apache::MIMEMapper",
+      "version" : "0.10"
+   },
+   "Apache-MONITOR" : {
+      "abstract" : null,
+      "name" : "Apache-MONITOR",
+      "primary" : "Apache::MONITOR",
+      "version" : "0.02"
+   },
+   "Apache-MP3" : {
+      "abstract" : null,
+      "name" : "Apache-MP3",
+      "primary" : "Apache::MP3",
+      "version" : "4.00"
+   },
+   "Apache-MP3-Skin" : {
+      "abstract" : "mod_perl class for generating browsable MP3 directory lists with templated skins",
+      "name" : "Apache-MP3-Skin",
+      "primary" : "Apache::MP3::Skin",
+      "version" : "0.91"
+   },
+   "Apache-MagicPOST" : {
+      "abstract" : null,
+      "name" : "Apache-MagicPOST",
+      "primary" : "Apache::MagicPOST",
+      "version" : "1.2"
+   },
+   "Apache-Mailtrack" : {
+      "abstract" : null,
+      "name" : "Apache-Mailtrack",
+      "primary" : "Apache::Mailtrack",
+      "version" : "0.03"
+   },
+   "Apache-MiniWiki" : {
+      "abstract" : "Miniature Wiki for Apache",
+      "name" : "Apache-MiniWiki",
+      "primary" : "Apache::MiniWiki",
+      "version" : 0.92
+   },
+   "Apache-Mmap" : {
+      "abstract" : null,
+      "name" : "Apache-Mmap",
+      "primary" : "Apache::Mmap",
+      "version" : "0.05"
+   },
+   "Apache-Module" : {
+      "abstract" : null,
+      "name" : "Apache-Module",
+      "primary" : "Apache::Module",
+      "version" : "0.11"
+   },
+   "Apache-Mojo" : {
+      "abstract" : "mod_perl handler for Mojo",
+      "name" : "Apache-Mojo",
+      "primary" : "Apache::Mojo",
+      "version" : "0.003"
+   },
+   "Apache-Motd" : {
+      "abstract" : null,
+      "name" : "Apache-Motd",
+      "primary" : "Apache::Motd",
+      "version" : "1.00"
+   },
+   "Apache-MultiAuth" : {
+      "abstract" : null,
+      "name" : "Apache-MultiAuth",
+      "primary" : "Apache::MultiAuth",
+      "version" : "0.06"
+   },
+   "Apache-Mysql" : {
+      "abstract" : null,
+      "name" : "Apache-Mysql",
+      "primary" : "Apache::Mysql",
+      "version" : "0.3"
+   },
+   "Apache-NNTPGateway" : {
+      "abstract" : null,
+      "name" : "Apache-NNTPGateway",
+      "primary" : "Apache::NNTPGateway",
+      "version" : "0.9"
+   },
+   "Apache-NavBarDD" : {
+      "abstract" : "A dynamic double-decker (two level) Navigation Bar",
+      "name" : "Apache-NavBarDD",
+      "primary" : "Apache::NavBarDD",
+      "version" : "0.75"
+   },
+   "Apache-No404Proxy" : {
+      "abstract" : null,
+      "name" : "Apache-No404Proxy",
+      "primary" : "Apache::No404Proxy",
+      "version" : 0.05
+   },
+   "Apache-No404Proxy-Mogile" : {
+      "abstract" : "Implementation of Apache::No404Proxy",
+      "name" : "Apache-No404Proxy-Mogile",
+      "primary" : "Apache::No404Proxy::Mogile",
+      "version" : "0.1"
+   },
+   "Apache-OWA" : {
+      "abstract" : null,
+      "name" : "Apache-OWA",
+      "primary" : "Apache::OWA",
+      "version" : "0.7"
+   },
+   "Apache-OneTimeURL" : {
+      "abstract" : null,
+      "name" : "Apache-OneTimeURL",
+      "primary" : "Apache::OneTimeURL",
+      "version" : "1.34"
+   },
+   "Apache-OutputChain" : {
+      "abstract" : null,
+      "name" : "Apache-OutputChain",
+      "primary" : "Apache::OutputChain",
+      "version" : "0.11"
+   },
+   "Apache-PAR" : {
+      "abstract" : null,
+      "name" : "Apache-PAR",
+      "primary" : "Apache::PAR",
+      "version" : "0.30"
+   },
+   "Apache-PHLogin" : {
+      "abstract" : null,
+      "name" : "Apache-PHLogin",
+      "primary" : "Apache::PHLogin",
+      "version" : "0.5"
+   },
+   "Apache-PageKit" : {
+      "abstract" : null,
+      "name" : "Apache-PageKit",
+      "primary" : "Apache::PageKit",
+      "version" : "1.18"
+   },
+   "Apache-ParseFormData" : {
+      "abstract" : "Perl extension for dealing with client request data",
+      "name" : "Apache-ParseFormData",
+      "primary" : "Apache::ParseFormData",
+      "version" : "0.09"
+   },
+   "Apache-PerlVINC" : {
+      "abstract" : null,
+      "name" : "Apache-PerlVINC",
+      "primary" : "Apache::PerlVINC",
+      "version" : "0.03"
+   },
+   "Apache-Perldoc" : {
+      "abstract" : null,
+      "name" : "Apache-Perldoc",
+      "primary" : "Apache::Perldoc",
+      "version" : "1.11"
+   },
+   "Apache-Pod" : {
+      "abstract" : null,
+      "name" : "Apache-Pod",
+      "primary" : "Apache::Pod",
+      "version" : "0.22"
+   },
+   "Apache-Precompress" : {
+      "abstract" : "Apache::Preompress - Deliver already compressed files or decompress on the fly",
+      "name" : "Apache-Precompress",
+      "primary" : "Apache::Precompress",
+      "version" : "0.1"
+   },
+   "Apache-PrettyPerl" : {
+      "abstract" : null,
+      "name" : "Apache-PrettyPerl",
+      "primary" : "Apache::PrettyPerl",
+      "version" : "2.10"
+   },
+   "Apache-PrettyText" : {
+      "abstract" : "Simple mod_perl PerlHandler for text files",
+      "name" : "Apache-PrettyText",
+      "primary" : "Apache::PrettyText",
+      "version" : "1.08"
+   },
+   "Apache-Profiler" : {
+      "abstract" : "profiles time seconds needed for every request",
+      "name" : "Apache-Profiler",
+      "primary" : "Apache::Profiler",
+      "version" : "0.10"
+   },
+   "Apache-Proxy" : {
+      "abstract" : null,
+      "name" : "Apache-Proxy",
+      "primary" : "Apache::Proxy",
+      "version" : "0.02"
+   },
+   "Apache-ProxyConf" : {
+      "abstract" : null,
+      "name" : "Apache-ProxyConf",
+      "primary" : "Apache::ProxyConf",
+      "version" : "1.0"
+   },
+   "Apache-ProxyRewrite" : {
+      "abstract" : null,
+      "name" : "Apache-ProxyRewrite",
+      "primary" : "Apache::ProxyRewrite",
+      "version" : "0.17"
+   },
+   "Apache-Reload" : {
+      "abstract" : "Reload changed modules",
+      "name" : "Apache-Reload",
+      "primary" : "Apache::Reload",
+      "version" : "0.13"
+   },
+   "Apache-RewritingProxy" : {
+      "abstract" : null,
+      "name" : "Apache-RewritingProxy",
+      "primary" : "Apache::RewritingProxy",
+      "version" : "0.7"
+   },
+   "Apache-SSI" : {
+      "abstract" : "Implement Server Side Includes in Perl",
+      "name" : "Apache-SSI",
+      "primary" : "Apache::SSI",
+      "version" : "2.19"
+   },
+   "Apache-Scoreboard" : {
+      "abstract" : null,
+      "name" : "Apache-Scoreboard",
+      "primary" : "Apache::Scoreboard",
+      "version" : "2.10"
+   },
+   "Apache-forks" : {
+      "abstract" : "Transparent Apache ithreads interface using forks",
+      "name" : "Apache-forks",
+      "primary" : "Apache::forks",
+      "version" : "0.03"
+   },
+   "Apache-iNcom" : {
+      "abstract" : null,
+      "name" : "Apache-iNcom",
+      "primary" : "Apache::iNcom",
+      "version" : "0.09"
+   },
+   "Apache-iTunes" : {
+      "abstract" : "control iTunes from mod_perl",
+      "name" : "Apache-iTunes",
+      "primary" : "Apache::iTunes",
+      "version" : 0.12
+   },
+   "Apache2-ASP" : {
+      "abstract" : "ASP for Perl, reloaded.",
+      "name" : "Apache2-ASP",
+      "primary" : "Apache2::ASP",
+      "version" : "2.46"
+   },
+   "Apache2-AUS" : {
+      "abstract" : "Authorization, Users, and Sessions for Apache2.",
+      "name" : "Apache2-AUS",
+      "primary" : "Apache2::AUS",
+      "version" : "0.02"
+   },
+   "Apache2-Ajax" : {
+      "abstract" : "mod_perl interface to CGI::Ajax",
+      "name" : "Apache2-Ajax",
+      "primary" : "Apache2::Ajax",
+      "version" : "0.11"
+   },
+   "Apache2-ApacheMobileFilter" : {
+      "abstract" : null,
+      "name" : "Apache2-ApacheMobileFilter",
+      "primary" : "Apache2::AMFDetectRightFilter",
+      "version" : "4.33"
+   },
+   "Apache2-Archive" : {
+      "abstract" : "Expose archive files through the Apache web server.",
+      "name" : "Apache2-Archive",
+      "primary" : "Apache2::Archive",
+      "version" : "0.1"
+   },
+   "Apache2-AuthCAS" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthCAS",
+      "primary" : "Apache2::AuthCAS",
+      "version" : "0.4"
+   },
+   "Apache2-AuthCASSimple" : {
+      "abstract" : "Apache2 module to authentificate through a CAS server",
+      "name" : "Apache2-AuthCASSimple",
+      "primary" : "Apache2::AuthCASSimple",
+      "version" : "0.10"
+   },
+   "Apache2-AuthCASpbh" : {
+      "abstract" : "CAS SSO integration for Apache/mod_perl",
+      "name" : "Apache2-AuthCASpbh",
+      "primary" : "Apache2::AuthCASpbh",
+      "version" : "0.10"
+   },
+   "Apache2-AuthColloquy" : {
+      "abstract" : "mod_perl authentication against the Colloquy users.lua file",
+      "name" : "Apache2-AuthColloquy",
+      "primary" : "Apache2::AuthColloquy",
+      "version" : "1.13"
+   },
+   "Apache2-AuthCookieDBI" : {
+      "abstract" : "An AuthCookie module backed by a DBI database.",
+      "name" : "Apache2-AuthCookieDBI",
+      "primary" : "Apache2::AuthCookieDBI",
+      "version" : "2.19"
+   },
+   "Apache2-AuthCookieDBImg" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthCookieDBImg",
+      "primary" : "Apache2::AuthCookieDBImg",
+      "version" : "2.2"
+   },
+   "Apache2-AuthCookieLDAP" : {
+      "abstract" : "An Apache2::AuthCookie backend for LDAP based authentication",
+      "name" : "Apache2-AuthCookieLDAP",
+      "primary" : "Apache2::AuthCookieLDAP",
+      "version" : "1.15"
+   },
+   "Apache2-AuthEnv" : {
+      "abstract" : "Perl Authentication and Authorisation via Environment Variables.",
+      "name" : "Apache2-AuthEnv",
+      "primary" : "Apache2::AuthEnv",
+      "version" : "v1.3.8"
+   },
+   "Apache2-AuthPAM" : {
+      "abstract" : "Authenticate apache request using PAM services",
+      "name" : "Apache2-AuthPAM",
+      "primary" : "Apache2::AuthPAM",
+      "version" : "0.01"
+   },
+   "Apache2-AuthTicketLDAP" : {
+      "abstract" : "Cookie Ticketing with LDAP Authentication",
+      "name" : "Apache2-AuthTicketLDAP",
+      "primary" : "Apache2::AuthTicketLDAP",
+      "version" : "0.01"
+   },
+   "Apache2-AuthZLDAP" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthZLDAP",
+      "primary" : "Apache2::AuthZLDAP",
+      "version" : "0.02"
+   },
+   "Apache2-AuthZSympa" : {
+      "abstract" : "Authorization module based on Sympa mailing list server group definition",
+      "name" : "Apache2-AuthZSympa",
+      "primary" : "Apache2::AuthZSympa",
+      "version" : "0.5.2"
+   },
+   "Apache2-Authen-Passphrase" : {
+      "abstract" : "basic authentication with Authen::Passphrase",
+      "name" : "Apache2-Authen-Passphrase",
+      "primary" : "Apache2::Authen::Passphrase",
+      "version" : 0.002002
+   },
+   "Apache2-AuthenDBMCache" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthenDBMCache",
+      "primary" : "Apache2::AuthenDBMCache",
+      "version" : "0.01"
+   },
+   "Apache2-AuthenMSAD" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthenMSAD",
+      "primary" : "Apache2::AuthenMSAD",
+      "version" : "0.02"
+   },
+   "Apache2-AuthenNIS" : {
+      "abstract" : "mod_perl2 NIS Authentication module",
+      "name" : "Apache2-AuthenNIS",
+      "primary" : "Apache2::AuthenNIS",
+      "version" : "0.15"
+   },
+   "Apache2-AuthenNTLM" : {
+      "abstract" : "Perform Microsoft NTLM and Basic User Authentication",
+      "name" : "Apache2-AuthenNTLM",
+      "primary" : "Apache2::AuthenNTLM",
+      "version" : 0.02
+   },
+   "Apache2-AuthenNTLM-Cookie" : {
+      "abstract" : "Store NTLM identity in a cookie",
+      "name" : "Apache2-AuthenNTLM-Cookie",
+      "primary" : "Apache2::AuthenNTLM::Cookie",
+      "version" : "1.02"
+   },
+   "Apache2-AuthenRadius" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthenRadius",
+      "primary" : "Apache2::AuthenRadius",
+      "version" : "0.9"
+   },
+   "Apache2-AuthenSecurID" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthenSecurID",
+      "primary" : "Apache2::AuthenSecurID",
+      "version" : "0.5"
+   },
+   "Apache2-AuthenSmb" : {
+      "abstract" : null,
+      "name" : "Apache2-AuthenSmb",
+      "primary" : "Apache2::AuthenSmb",
+      "version" : "0.01"
+   },
+   "Apache2-AuthzCaps" : {
+      "abstract" : "mod_perl2 capability authorization",
+      "name" : "Apache2-AuthzCaps",
+      "primary" : "Apache2::AuthzCaps",
+      "version" : "0.002"
+   },
+   "Apache2-AuthzNIS" : {
+      "abstract" : "mod_perl2 NIS Group Authorization module",
+      "name" : "Apache2-AuthzNIS",
+      "primary" : "Apache2::AuthzNIS",
+      "version" : "0.13"
+   },
+   "Apache2-Autocomplete" : {
+      "abstract" : "Autocomplete service backend via mod_perl",
+      "name" : "Apache2-Autocomplete",
+      "primary" : "Apache2::Autocomplete",
+      "version" : "0.12"
+   },
+   "Apache2-BalanceLogic" : {
+      "abstract" : "Perl extension for mod_proxy_balancer",
+      "name" : "Apache2-BalanceLogic",
+      "primary" : "Apache2::BalanceLogic",
+      "version" : "0.0.1"
+   },
+   "Apache2-Banner" : {
+      "abstract" : null,
+      "name" : "Apache2-Banner",
+      "primary" : "Apache2::Banner",
+      "version" : "0.01"
+   },
+   "Apache2-Camelcadedb" : {
+      "abstract" : "mod_perl2 integration for Devel::Camelcadedb",
+      "name" : "Apache2-Camelcadedb",
+      "primary" : "Apache2::Camelcadedb",
+      "version" : "0.02"
+   },
+   "Apache2-ClickPath" : {
+      "abstract" : "Apache WEB Server User Tracking",
+      "name" : "Apache2-ClickPath",
+      "primary" : "Apache2::ClickPath",
+      "version" : "1.901"
+   },
+   "Apache2-CondProxy" : {
+      "abstract" : "This module implements logic for a conditional reverse proxy.",
+      "name" : "Apache2-CondProxy",
+      "primary" : "Apache2::CondProxy",
+      "version" : "0.17"
+   },
+   "Apache2-Connection-Arp" : {
+      "abstract" : "use arp to get the mac address of remote clients",
+      "name" : "Apache2-Connection-Arp",
+      "primary" : "Apache2::Connection::Arp",
+      "version" : "0.01"
+   },
+   "Apache2-Connection-SkipDummy" : {
+      "abstract" : "Skip main server requests to wake up child httpds",
+      "name" : "Apache2-Connection-SkipDummy",
+      "primary" : "Apache2::Connection::SkipDummy",
+      "version" : "0.01"
+   },
+   "Apache2-Connection-XForwardedFor" : {
+      "abstract" : "Sets the connection remote_ip to X-Forwarded-For header",
+      "name" : "Apache2-Connection-XForwardedFor",
+      "primary" : "Apache2::Connection::XForwardedFor",
+      "version" : "0.02"
+   },
+   "Apache2-Controller" : {
+      "abstract" : "fast MVC-style Apache2 handler apps",
+      "name" : "Apache2-Controller",
+      "primary" : "Apache2::Controller",
+      "version" : "v1.1.1"
+   },
+   "Apache2-DirBasedHandler" : {
+      "abstract" : "Directory based Location Handler helper",
+      "name" : "Apache2-DirBasedHandler",
+      "primary" : "Apache2::DirBasedHandler",
+      "version" : "0.04"
+   },
+   "Apache2-DirBasedHandler-TT" : {
+      "abstract" : "TT hooked into DirBasedHandler",
+      "name" : "Apache2-DirBasedHandler-TT",
+      "primary" : "Apache2::DirBasedHandler::TT",
+      "version" : "0.03"
+   },
+   "Apache2-Dispatch" : {
+      "abstract" : "call PerlHandlers with the ease of Registry scripts",
+      "name" : "Apache2-Dispatch",
+      "primary" : "Apache2::Dispatch",
+      "version" : "0.15"
+   },
+   "Apache2-EmbedFLV" : {
+      "abstract" : null,
+      "name" : "Apache2-EmbedFLV",
+      "primary" : "Apache2::EmbedFLV",
+      "version" : "0.2"
+   },
+   "Apache2-EmbedMP3" : {
+      "abstract" : "Embed MP3 audio files into a templated web interface",
+      "name" : "Apache2-EmbedMP3",
+      "primary" : "Apache2::EmbedMP3",
+      "version" : "0.1"
+   },
+   "Apache2-FakeRequest" : {
+      "abstract" : null,
+      "name" : "Apache2-FakeRequest",
+      "primary" : "Apache2::FakeRequest",
+      "version" : "0.04"
+   },
+   "Apache2-FileManager" : {
+      "abstract" : null,
+      "name" : "Apache2-FileManager",
+      "primary" : "Apache2::FileManager",
+      "version" : "0.20"
+   },
+   "Apache2-Filter-CSS-LESS" : {
+      "abstract" : "Apache2 LESS to CSS conversion filter",
+      "name" : "Apache2-Filter-CSS-LESS",
+      "primary" : "Apache2::Filter::CSS::LESS",
+      "version" : "0.30"
+   },
+   "Apache2-Filter-GoogleAnalytics" : {
+      "abstract" : "Add GA code to served HTML document",
+      "name" : "Apache2-Filter-GoogleAnalytics",
+      "primary" : "Apache2::Filter::GoogleAnalytics",
+      "version" : "1.01"
+   },
+   "Apache2-Filter-Minifier-CSS" : {
+      "abstract" : "CSS minifying output filter",
+      "name" : "Apache2-Filter-Minifier-CSS",
+      "primary" : "Apache2::Filter::Minifier::CSS",
+      "version" : "1.05"
+   },
+   "Apache2-Filter-Minifier-JavaScript" : {
+      "abstract" : "JS minifying output filter",
+      "name" : "Apache2-Filter-Minifier-JavaScript",
+      "primary" : "Apache2::Filter::Minifier::JavaScript",
+      "version" : "1.05"
+   },
+   "Apache2-Filter-TagAware" : {
+      "abstract" : "Tag Awareness for Apache2::Filter",
+      "name" : "Apache2-Filter-TagAware",
+      "primary" : "Apache2::Filter::TagAware",
+      "version" : "0.02"
+   },
+   "Apache2-FixRemote" : {
+      "abstract" : null,
+      "name" : "Apache2-FixRemote",
+      "primary" : "Apache2::FixRemote",
+      "version" : "0.01"
+   },
+   "Apache2-FixupContentLanguage" : {
+      "abstract" : null,
+      "name" : "Apache2-FixupContentLanguage",
+      "primary" : "Apache2::FixupContentLanguage",
+      "version" : "0.01"
+   },
+   "Apache2-FixupLastModified" : {
+      "abstract" : null,
+      "name" : "Apache2-FixupLastModified",
+      "primary" : "Apache2::FixupLastModified",
+      "version" : "0.01"
+   },
+   "Apache2-HTML-Detergent" : {
+      "abstract" : "Clean the gunk off HTML documents on the fly",
+      "name" : "Apache2-HTML-Detergent",
+      "primary" : "Apache2::HTML::Detergent",
+      "version" : "0.07"
+   },
+   "Apache2-HttpEquiv" : {
+      "abstract" : "Convert <meta http-equiv=...> to HTTP headers",
+      "name" : "Apache2-HttpEquiv",
+      "primary" : "Apache2::HttpEquiv",
+      "version" : "1.00"
+   },
+   "Apache2-Imager-Resize" : {
+      "abstract" : "Fixup handler that resizes and crops images on the fly, caching the results, and doesn't require ImageMagick.",
+      "name" : "Apache2-Imager-Resize",
+      "primary" : "Apache2::Imager::Resize",
+      "version" : "0.16"
+   },
+   "Apache2-Instrument" : {
+      "abstract" : null,
+      "name" : "Apache2-Instrument",
+      "primary" : "Apache2::Instrument",
+      "version" : "0.03"
+   },
+   "Apache2-JemplateFilter" : {
+      "abstract" : null,
+      "name" : "Apache2-JemplateFilter",
+      "primary" : "Apache2::JemplateFilter",
+      "version" : "0.02"
+   },
+   "Apache2-Layer" : {
+      "abstract" : "Layers for DocumentRoot",
+      "name" : "Apache2-Layer",
+      "primary" : "Apache2::Layer",
+      "version" : "1.103360"
+   },
+   "Apache2-Layout" : {
+      "abstract" : "mod_perl 2.0 html layout engine",
+      "name" : "Apache2-Layout",
+      "primary" : "Apache2::Layout",
+      "version" : "0.6"
+   },
+   "Apache2-LogNotify" : {
+      "abstract" : null,
+      "name" : "Apache2-LogNotify",
+      "primary" : "Apache2::LogNotify",
+      "version" : "0.1"
+   },
+   "Apache2-MimeInfo" : {
+      "abstract" : "Content-Type header informed by shared-mime-info",
+      "name" : "Apache2-MimeInfo",
+      "primary" : "Apache2::MimeInfo",
+      "version" : "0.06"
+   },
+   "Apache2-ModLogConfig" : {
+      "abstract" : null,
+      "name" : "Apache2-ModLogConfig",
+      "primary" : "Apache2::ModLogConfig",
+      "version" : "0.01"
+   },
+   "Apache2-ModSSL" : {
+      "abstract" : null,
+      "name" : "Apache2-ModSSL",
+      "primary" : "Apache2::ModSSL",
+      "version" : "0.10"
+   },
+   "Apache2-ModXml2" : {
+      "abstract" : "makes mod_xml2 funtionality available to perl modules",
+      "name" : "Apache2-ModXml2",
+      "primary" : "Apache2::ModXml2",
+      "version" : "0.01"
+   },
+   "Apache2-Mogile-Dispatch" : {
+      "abstract" : "An Apache2 MogileFS Dispatcher",
+      "name" : "Apache2-Mogile-Dispatch",
+      "primary" : "Apache2::Mogile::Dispatch",
+      "version" : "0.2"
+   },
+   "Apache2-Mojo" : {
+      "abstract" : "mod_perl2 handler for Mojo",
+      "name" : "Apache2-Mojo",
+      "primary" : "Apache2::Mojo",
+      "version" : "0.004"
+   },
+   "Apache2-OneTimeDownload" : {
+      "abstract" : "Tolerant mechanism for expiring downloads",
+      "name" : "Apache2-OneTimeDownload",
+      "primary" : "Apache2::OneTimeDownload",
+      "version" : "1.01"
+   },
+   "Apache2-PPI-HTML" : {
+      "abstract" : "Apache 2 interface to PPI::HTML",
+      "name" : "Apache2-PPI-HTML",
+      "primary" : "Apache2::PPI::HTML",
+      "version" : "0.02"
+   },
+   "Apache2-PageKit" : {
+      "abstract" : null,
+      "name" : "Apache2-PageKit",
+      "primary" : "Apache2::PageKit",
+      "version" : "2.15"
+   },
+   "Apache2-Pod" : {
+      "abstract" : "base class for converting Pod files to prettier forms",
+      "name" : "Apache2-Pod",
+      "primary" : "Apache2::Pod",
+      "version" : "0.27"
+   },
+   "Apache2-PodBrowser" : {
+      "abstract" : "show your POD in a browser",
+      "name" : "Apache2-PodBrowser",
+      "primary" : "Apache2::PodBrowser",
+      "version" : "0.08"
+   },
+   "Apache2-Protocol" : {
+      "abstract" : null,
+      "name" : "Apache2-Protocol",
+      "primary" : "Apache2::Protocol",
+      "version" : "0.1"
+   },
+   "Apache2-Protocol-ESMTP" : {
+      "abstract" : null,
+      "name" : "Apache2-Protocol-ESMTP",
+      "primary" : "Apache2::Protocol::ESMTP",
+      "version" : "0.01"
+   },
+   "Apache2-Proxy" : {
+      "abstract" : "a mod_perl based http proxy base class",
+      "name" : "Apache2-Proxy",
+      "primary" : "Apache2::Proxy",
+      "version" : "0.04"
+   },
+   "Apache2-REST" : {
+      "abstract" : "Micro framework for REST API implementation under apache2/mod_perl2/apreq2",
+      "name" : "Apache2-REST",
+      "primary" : "Apache2::REST",
+      "version" : "0.07"
+   },
+   "Apache2-RequestRec-Time" : {
+      "abstract" : "Bring microseconds to Apache2::RequestRec",
+      "name" : "Apache2-RequestRec-Time",
+      "primary" : "Apache2::RequestRec::Time",
+      "version" : "1.1"
+   },
+   "Apache2-S3" : {
+      "abstract" : null,
+      "name" : "Apache2-S3",
+      "primary" : "Apache2::S3",
+      "version" : "0.05"
+   },
+   "Apache2-SOAP" : {
+      "abstract" : "mod_perl-2 SOAP server",
+      "name" : "Apache2-SOAP",
+      "primary" : "Apache2::SOAP",
+      "version" : "0.73"
+   },
+   "Apache2-SQLRequest" : {
+      "abstract" : null,
+      "name" : "Apache2-SQLRequest",
+      "primary" : "Apache2::SQLRequest",
+      "version" : "0.02"
+   },
+   "Apache2-SafePnotes" : {
+      "abstract" : null,
+      "name" : "Apache2-SafePnotes",
+      "primary" : "Apache2::SafePnotes",
+      "version" : "0.03"
+   },
+   "Apache2-ScoreBoardFile" : {
+      "abstract" : "Perl extension for blah blah blah",
+      "name" : "Apache2-ScoreBoardFile",
+      "primary" : "Apache2::ScoreBoardFile",
+      "version" : "0.01"
+   },
+   "Apache2-ScoreboardDumper" : {
+      "abstract" : null,
+      "name" : "Apache2-ScoreboardDumper",
+      "primary" : "Apache2::ScoreboardDumper",
+      "version" : "0.01"
+   },
+   "Apache2-ScoreboardIsFull" : {
+      "abstract" : "set $r->pnotes('scoreboard_is_full' => 1) if no servers left",
+      "name" : "Apache2-ScoreboardIsFull",
+      "primary" : "Apache2::ScoreboardIsFull",
+      "version" : "0.01"
+   },
+   "Apache2-ShowStatus" : {
+      "abstract" : null,
+      "name" : "Apache2-ShowStatus",
+      "primary" : "Apache2::ShowStatus",
+      "version" : "0.02"
+   },
+   "Apache2-SiteControl" : {
+      "abstract" : null,
+      "name" : "Apache2-SiteControl",
+      "primary" : "Apache2::SiteControl",
+      "version" : "1.05"
+   },
+   "Apache2-SizeLimit" : {
+      "abstract" : "Because size does matter.",
+      "name" : "Apache2-SizeLimit",
+      "primary" : "Apache2::SizeLimit",
+      "version" : "0.96"
+   },
+   "Apache2-Tail" : {
+      "abstract" : "mod_perl handler to display the error_log",
+      "name" : "Apache2-Tail",
+      "primary" : "Apache2::Tail",
+      "version" : "0.03"
+   },
+   "Apache2-TaintRequest" : {
+      "abstract" : "HTML Escape tainted data to prevent CSS Attacks",
+      "name" : "Apache2-TaintRequest",
+      "primary" : "Apache2::TaintRequest",
+      "version" : "0.01"
+   },
+   "Apache2-TieBucketBrigade" : {
+      "abstract" : null,
+      "name" : "Apache2-TieBucketBrigade",
+      "primary" : "Apache2::TieBucketBrigade",
+      "version" : "0.07"
+   },
+   "Apache2-Translation" : {
+      "abstract" : "Configuring Apache dynamically",
+      "name" : "Apache2-Translation",
+      "primary" : "Apache2::Translation",
+      "version" : "0.34"
+   },
+   "Apache2-TrapSubRequest" : {
+      "abstract" : null,
+      "name" : "Apache2-TrapSubRequest",
+      "primary" : "Apache2::TrapSubRequest",
+      "version" : "0.03"
+   },
+   "Apache2-UploadProgress" : {
+      "abstract" : "Track the progress and give realtime feedback of file uploads",
+      "name" : "Apache2-UploadProgress",
+      "primary" : "Apache2::UploadProgress",
+      "version" : "0.2"
+   },
+   "Apache2-UserDirAuthz" : {
+      "abstract" : "Give access to one directory (actually location prefix) to each user",
+      "name" : "Apache2-UserDirAuthz",
+      "primary" : "Apache2::UserDirAuthz",
+      "version" : "v0.1.2"
+   },
+   "Apache2-WURFLFilter" : {
+      "abstract" : null,
+      "name" : "Apache2-WURFLFilter",
+      "primary" : "Apache2::WURFLFilter",
+      "version" : "2.21"
+   },
+   "Apache2-WebApp-Extra-Admin" : {
+      "abstract" : "Web based admin control panel",
+      "name" : "Apache2-WebApp-Extra-Admin",
+      "primary" : "Apache2::WebApp::Extra::Admin",
+      "version" : "0.19"
+   },
+   "Apache2-WebApp-Plugin-Cookie" : {
+      "abstract" : "Common methods for creating and manipulating web browser cookies.",
+      "name" : "Apache2-WebApp-Plugin-Cookie",
+      "primary" : "Apache2::WebApp::Plugin::Cookie",
+      "version" : "0.10"
+   },
+   "Apache2-WebApp-Plugin-DBI" : {
+      "abstract" : "Database interface wrapper for MySQL, PostGre, and Oracle",
+      "name" : "Apache2-WebApp-Plugin-DBI",
+      "primary" : "Apache2::WebApp::Plugin::DBI",
+      "version" : "0.10"
+   },
+   "Apache2-WebApp-Plugin-DateTime" : {
+      "abstract" : "Common methods for dealing with Date/Time.",
+      "name" : "Apache2-WebApp-Plugin-DateTime",
+      "primary" : "Apache2::WebApp::Plugin::DateTime",
+      "version" : "0.07"
+   },
+   "Apache2-WebApp-Plugin-Filters" : {
+      "abstract" : "Common methods for filtering HTTP request parameters.",
+      "name" : "Apache2-WebApp-Plugin-Filters",
+      "primary" : "Apache2::WebApp::Plugin::Filters",
+      "version" : "0.09"
+   },
+   "Apache2-WebApp-Plugin-JSON" : {
+      "abstract" : "Interface to the JSON (JavaScript Object Notation) encoder/decoder",
+      "name" : "Apache2-WebApp-Plugin-JSON",
+      "primary" : "Apache2::WebApp::Plugin::JSON",
+      "version" : "0.10"
+   },
+   "Apache2-WebApp-Plugin-Mail" : {
+      "abstract" : "Methods for sending template based multi-format e-mail.",
+      "name" : "Apache2-WebApp-Plugin-Mail",
+      "primary" : "Apache2::WebApp::Plugin::Mail",
+      "version" : "0.09"
+   },
+   "Apache2-WebApp-Plugin-Session" : {
+      "abstract" : "Provides session handling methods",
+      "name" : "Apache2-WebApp-Plugin-Session",
+      "primary" : "Apache2::WebApp::Plugin::Session",
+      "version" : "0.16"
+   },
+   "Apache2-WebApp-Plugin-Session-File" : {
+      "abstract" : "Store persistent data on the filesystem",
+      "name" : "Apache2-WebApp-Plugin-Session-File",
+      "primary" : "Apache2::WebApp::Plugin::Session::File",
+      "version" : "0.14"
+   },
+   "Apache2-WebApp-Plugin-Session-Memcached" : {
+      "abstract" : "Store persistent data using memcached (memory cache daemon)",
+      "name" : "Apache2-WebApp-Plugin-Session-Memcached",
+      "primary" : "Apache2::WebApp::Plugin::Session::Memcached",
+      "version" : "0.13"
+   },
+   "Apache2-WebApp-Plugin-Session-MySQL" : {
+      "abstract" : "Store session data in a MySQL database",
+      "name" : "Apache2-WebApp-Plugin-Session-MySQL",
+      "primary" : "Apache2::WebApp::Plugin::Session::MySQL",
+      "version" : "0.12"
+   },
+   "Apache2-WebApp-Plugin-Validate" : {
+      "abstract" : "Common methods used for validating user input",
+      "name" : "Apache2-WebApp-Plugin-Validate",
+      "primary" : "Apache2::WebApp::Plugin::Validate",
+      "version" : "0.08"
+   },
+   "Apache2-WebApp-Toolkit" : {
+      "abstract" : "Simplified web application framework",
+      "name" : "Apache2-WebApp-Toolkit",
+      "primary" : "Apache2::WebApp::Toolkit",
+      "version" : "0.391"
+   },
+   "Apache2-WurflPremium" : {
+      "abstract" : "A module that the Wurfl Perl client to retrieve capabilities data from the Wurfl server",
+      "name" : "Apache2-WurflPremium",
+      "primary" : "Apache2::WurflPremium",
+      "version" : "0.002"
+   },
+   "Apache2-WurflSimple" : {
+      "abstract" : "module that the Wurfl Perl client to retrieve capabilities data from the Wurfl server",
+      "name" : "Apache2-WurflSimple",
+      "primary" : "Apache2::WurflSimple",
+      "version" : "0.002"
+   },
+   "Apache2-reCaptcha" : {
+      "abstract" : null,
+      "name" : "Apache2-reCaptcha",
+      "primary" : "Apache2::reCaptcha",
+      "version" : "0.02"
+   },
+   "Apache2-xForwardedFor" : {
+      "abstract" : null,
+      "name" : "Apache2-xForwardedFor",
+      "primary" : "Apache2::xForwardedFor",
+      "version" : "0.04"
+   },
+   "Apache2_4-AuthCookieMultiDBI" : {
+      "abstract" : "An AuthCookie module backed by a DBI database for apache 2.4.",
+      "name" : "Apache2_4-AuthCookieMultiDBI",
+      "primary" : "Apache2_4::AuthCookieMultiDBI",
+      "version" : "0.04"
+   },
    "App-NoPAN" : {
       "abstract" : null,
       "name" : "App-NoPAN",
       "primary" : "App::NoPAN",
       "version" : "0.01"
+   },
+   "AxKit-XSP-BasicSession" : {
+      "abstract" : null,
+      "name" : "AxKit-XSP-BasicSession",
+      "primary" : "AxKit::XSP::BasicSession",
+      "version" : "0.22"
+   },
+   "AxKit-XSP-Session" : {
+      "abstract" : null,
+      "name" : "AxKit-XSP-Session",
+      "primary" : "AxKit::XSP::Session",
+      "version" : "0.11"
    },
    "abbreviation" : {
       "abstract" : null,
@@ -10138,5 +12088,29 @@
       "name" : "aliased-factory",
       "primary" : "aliased::factory",
       "version" : "v0.0.1"
+   },
+   "all" : {
+      "abstract" : "Load all packages under a namespace",
+      "name" : "all",
+      "primary" : "all",
+      "version" : "0.5101"
+   },
+   "ansi-unicode" : {
+      "abstract" : "ANSI to IRC and HTML converter",
+      "name" : "ansi-unicode",
+      "primary" : "ANSI::Unicode",
+      "version" : "0.03"
+   },
+   "any" : {
+      "abstract" : null,
+      "name" : "any",
+      "primary" : "any",
+      "version" : "v0.0.1"
+   },
+   "anywhere" : {
+      "abstract" : "Use a module (or feature) everywhere",
+      "name" : "anywhere",
+      "primary" : "anywhere",
+      "version" : "0.002"
    }
 }

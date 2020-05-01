@@ -1,0 +1,14 @@
+{
+   "Embperl" : {
+      "abstract" : "Embed Perl code in HTML documents",
+      "name" : "Embperl",
+      "primary" : "Embperl",
+      "version" : "v2.5.0"
+   },
+   "Event-ExecFlow" : {
+      "abstract" : null,
+      "name" : "Event-ExecFlow",
+      "primary" : "Event::ExecFlow",
+      "version" : "0.64"
+   }
+}

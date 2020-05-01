@@ -1,0 +1,14 @@
+{
+   "SOAP-Amazon-MerchantTransport" : {
+      "abstract" : null,
+      "name" : "SOAP-Amazon-MerchantTransport",
+      "primary" : "SOAP::Amazon::MerchantTransport",
+      "version" : "0.02"
+   },
+   "SOAP-Lite-ActiveWorks" : {
+      "abstract" : null,
+      "name" : "SOAP-Lite-ActiveWorks",
+      "primary" : "SOAP::Transport::ActiveWorks::Lite",
+      "version" : "0.11"
+   }
+}

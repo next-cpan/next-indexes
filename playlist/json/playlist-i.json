@@ -1,0 +1,14 @@
+{
+   "Image-OpenALPR" : {
+      "abstract" : "Perl binding for Automatic License Plate Recognition library",
+      "name" : "Image-OpenALPR",
+      "primary" : "Image::OpenALPR",
+      "version" : "0.001001"
+   },
+   "Image-Shoehorn" : {
+      "abstract" : null,
+      "name" : "Image-Shoehorn",
+      "primary" : "Image::Shoehorn",
+      "version" : "1.42"
+   }
+}

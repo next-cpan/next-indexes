@@ -1,0 +1,14 @@
+{
+   "JSON" : {
+      "abstract" : null,
+      "name" : "JSON",
+      "primary" : "JSON",
+      "version" : "1.15"
+   },
+   "Just-Another-Perl-Hacker" : {
+      "abstract" : null,
+      "name" : "Just-Another-Perl-Hacker",
+      "primary" : "Just::Another::Perl::Hacker",
+      "version" : "0.01"
+   }
+}

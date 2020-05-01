@@ -1,0 +1,8 @@
+{
+   "HTTP-MultiGet" : {
+      "abstract" : "Run many http requests at once! ",
+      "name" : "HTTP-MultiGet",
+      "primary" : "HTTP::MultiGet",
+      "version" : "1.021"
+   }
+}

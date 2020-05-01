@@ -1,4 +1,10 @@
 {
+   "Mandel" : {
+      "abstract" : "Async model layer for MongoDB objects using Mango",
+      "name" : "Mandel",
+      "primary" : "Mandel",
+      "version" : "0.31"
+   },
    "Microarray" : {
       "abstract" : null,
       "name" : "Microarray",
