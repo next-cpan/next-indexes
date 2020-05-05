@@ -250,6 +250,8 @@
   "ActionExporter": 1
   "Advent-Bundles": 1
   "Affix-Infix2Postfix": 1
+  "abbreviation": 1
+  "accessors": 1
 "todo": 
   "Acme-Intraweb": 'todd | Cannot locate CPANPLUS.pm'
   "Alien-Debian-Apt-PM": 'nico | Cant locate Module/Build.pm'

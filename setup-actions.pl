@@ -380,7 +380,7 @@ sub check_ci_for_repository ( $self, $repository ) {
                 last;
             }
         }
-        if ($is_known) {
+        if ( !$is_known ) {
             $self->{status_ci}->{'failures'}->{$repository} = qq[https://github.com/pause-play/${repository}/actions];
             delete $self->{status_ci}->{'ok'}->{$repository};
         }
