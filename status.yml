@@ -38,14 +38,22 @@
     "Acme-SGABRIEL-Utils": 'unit tests failures'
     "Algorithm-Line-Bresenham-C": ''
 "failures": 
-  "ABI": 'https://github.com/pause-play/ABI/actions'
-  "ACL-Regex": 'https://github.com/pause-play/ACL-Regex/actions'
+  "Acme-Glue": 'https://github.com/pause-play/Acme-Glue/actions'
   "Acme-Stegano": 'https://github.com/pause-play/Acme-Stegano/actions'
   "Acme-Takahashi-Method": 'https://github.com/pause-play/Acme-Takahashi-Method/actions'
+  "Acme-Tao": 'https://github.com/pause-play/Acme-Tao/actions'
   "Acme-Test": 'https://github.com/pause-play/Acme-Test/actions'
-  "Acme-Test-42": 'https://github.com/pause-play/Acme-Test-42/actions'
   "Acme-Thoroughly-Modern-Perl": 'https://github.com/pause-play/Acme-Thoroughly-Modern-Perl/actions'
   "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
+  "Alt-Acme-Math-XS-ModuleBuild": 'https://github.com/pause-play/Alt-Acme-Math-XS-ModuleBuild/actions'
+  "Apache-AppCluster": 'https://github.com/pause-play/Apache-AppCluster/actions'
+  "Apache-AuthenNTLM": 'https://github.com/pause-play/Apache-AuthenNTLM/actions'
+  "Apache-HeavyCGI": 'https://github.com/pause-play/Apache-HeavyCGI/actions'
+  "Apache2-AuthenNTLM": 'https://github.com/pause-play/Apache2-AuthenNTLM/actions'
+  "Just-Another-Perl-Hacker": 'https://github.com/pause-play/Just-Another-Perl-Hacker/actions'
+  "PostScript-MailLabels": 'https://github.com/pause-play/PostScript-MailLabels/actions'
+  "Win32-SerialPort": 'https://github.com/pause-play/Win32-SerialPort/actions'
+  "all": 'https://github.com/pause-play/all/actions'
 "ok": 
   "A1z-HTML5-Template": 1
   "A1z-Html": 1
@@ -66,6 +74,11 @@
   "AI-MegaHAL": 1
   "AI-NeuralNet-FastSOM": 1
   "AI-NeuralNet-Kohonen": 1
+  "AI-Pathfinding-AStar-Rectangle": 1
+  "AI-Perceptron": 1
+  "AIX-LPP-lpp_name": 1
+  "AIX-LVM": 1
+  "AOL-TOC": 1
   "Acme-123": 1
   "Acme-ADEAS-Utils": 1
   "Acme-ALEXEY-Utils": 1
@@ -120,12 +133,12 @@
   "Acme-EnclosedChar": 1
   "Acme-EyeDrops": 1
   "Acme-FIREXFLY-Utils": 1
+  "Acme-Filter-Kenny": 1
   "Acme-Flip": 1
   "Acme-Frog": 1
   "Acme-GILLIGAN-Utils": 1
   "Acme-GRYLLIDA-Utils": 1
   "Acme-Github-Test": 1
-  "Acme-Glue": 1
   "Acme-Goatse": 1
   "Acme-Goedelize": 1
   "Acme-HOIGAN": 1
@@ -182,12 +195,14 @@
   "Acme-MyFirstModule-WWILLIS": 1
   "Acme-MyFirstModule-ddeimeke": 1
   "Acme-NAHCNUJ-Utils": 1
+  "Acme-NabeAtzz": 1
   "Acme-NameGen": 1
   "Acme-NamespaceRoulette": 1
   "Acme-No": 1
   "Acme-Note": 1
   "Acme-Nothing": 1
   "Acme-Ognon": 1
+  "Acme-Ook": 1
   "Acme-Opish": 1
   "Acme-Oppai": 1
   "Acme-PIA-Export": 1
@@ -205,6 +220,7 @@
   "Acme-Rant": 1
   "Acme-Ref": 1
   "Acme-RemoteINC": 1
+  "Acme-RequireModule": 1
   "Acme-Robd-Boring": 1
   "Acme-SOAP-Dodger": 1
   "Acme-Scurvy-Whoreson-BilgeRat": 1
@@ -223,11 +239,12 @@
   "Acme-Syntax-Python": 1
   "Acme-TAINT": 1
   "Acme-Tanasinn": 1
-  "Acme-Tao": 1
   "Acme-Teddy": 1
   "Acme-Terror-AU": 1
+  "Acme-Test-42": 1
   "Acme-Test-Buffy": 1
   "Acme-Text-Rhombus": 1
+  "Acme-Throw": 1
   "Acme-Tie-Formatted": 1
   "Acme-Time-Asparagus": 1
   "Acme-Time-Baby": 1
@@ -243,15 +260,102 @@
   "Acme-XKCD-DebianRandom": 1
   "Acme-Zalgo": 1
   "Acme-dwcarder": 1
+  "Acme-emcA": 1
   "Acme-kevinz": 1
   "Acme-landmine": 1
+  "Acme-phillup": 1
   "Acme-please": 1
   "Acme-rafl-Everywhere": 1
   "ActionExporter": 1
   "Advent-Bundles": 1
   "Affix-Infix2Postfix": 1
+  "Alarm-Queued": 1
+  "Algorithm": 1
+  "Algorithm-Annotate": 1
+  "Algorithm-BIT-XS": 1
+  "Algorithm-Bayesian": 1
+  "Algorithm-BinPack": 1
+  "Algorithm-BinarySearch-Vec": 1
+  "Algorithm-BloomFilter": 1
+  "Algorithm-BreakOverlappingRectangles": 1
+  "Algorithm-C3": 1
+  "Algorithm-ChooseSubsets": 1
+  "Algorithm-Closest-NetworkAddress": 1
+  "Algorithm-Cluster": 1
+  "Algorithm-ClusterPoints": 1
+  "Algorithm-Combinatorics": 1
+  "Algorithm-ConsistentHash-CHash": 1
+  "Algorithm-ConsistentHash-JumpHash": 1
+  "Algorithm-Damm": 1
+  "Algorithm-Diff": 1
+  "Algorithm-Evolve": 1
+  "Algorithm-FEC": 1
+  "Algorithm-FastPermute": 1
+  "Algorithm-GaussianElimination-GF2": 1
+  "Algorithm-GenerateSequence": 1
+  "Algorithm-GooglePolylineEncoding": 1
+  "Algorithm-Heapify-XS": 1
+  "Algorithm-HowSimilar": 1
+  "Algorithm-InversionList": 1
+  "Algorithm-Knap01DP": 1
+  "Algorithm-Knapsack": 1
+  "Algorithm-Kuhn-Munkres": 1
+  "Algorithm-LBFGS": 1
+  "Algorithm-LCSS": 1
+  "Algorithm-LUHN": 1
+  "Algorithm-LUHN_XS": 1
+  "Algorithm-LatticePoints": 1
+  "Algorithm-Line-Bresenham": 1
+  "Algorithm-Loops": 1
+  "Algorithm-MLCS": 1
+  "Algorithm-Merge": 1
+  "Algorithm-Metric-Chessboard": 1
+  "Algorithm-Munkres": 1
+  "Algorithm-NaiveBayes": 1
+  "Algorithm-NeedlemanWunsch": 1
+  "Algorithm-Nhash": 1
+  "Algorithm-Numerical-Sample": 1
+  "Algorithm-Numerical-Shuffle": 1
+  "Algorithm-PageRank-XS": 1
+  "Algorithm-Pair-Best2": 1
+  "Algorithm-Points-MinimumDistance": 1
+  "Algorithm-QuadTree": 1
+  "Algorithm-RabinKarp": 1
+  "Algorithm-RandomMatrixGeneration": 1
+  "Algorithm-RectanglesContainingDot": 1
+  "Algorithm-Scale2x": 1
+  "Algorithm-Search": 1
+  "Algorithm-Step": 1
+  "Algorithm-StringHash-FromCSharp35-XS": 1
+  "Algorithm-TSort": 1
+  "Algorithm-Tree-NCA": 1
+  "Algorithm-Verhoeff": 1
+  "Algorithm-WordLevelStatistics": 1
+  "Alien-Jerl": 1
+  "Alt-Acme-Math-XS-ModuleInstall": 1
+  "Alter": 1
+  "Alvis-Pipeline": 1
+  "Alvis-Saa": 1
+  "Anagram-Groups": 1
+  "Ananke-Template": 1
+  "Ananke-Utils": 1
+  "Anansi-Class": 1
+  "Anansi-Library": 1
+  "Anansi-ObjectManager": 1
+  "AnyEvent-Emitter": 1
+  "Apache-Admin-Config": 1
+  "Apache-Auth-UserDB": 1
+  "Apache-Bootstrap": 1
+  "Apache-Description": 1
+  "Apache-Dir": 1
+  "Apache-Emulator": 1
+  "Apache-FakeCookie": 1
+  "Apache-FakeTable": 1
+  "Apache-Hadoop-Config": 1
   "abbreviation": 1
   "accessors": 1
+  "again": 1
+  "aliased-factory": 1
 "todo": 
   "Acme-Intraweb": 'todd | Cannot locate CPANPLUS.pm'
   "Alien-Debian-Apt-PM": 'nico | Cant locate Module/Build.pm'
