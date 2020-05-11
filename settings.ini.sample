@@ -4,7 +4,7 @@ github_token 	= YOUR_TOKEN
 github_org 		= next-cpan
 
 github_username = Pause Parser
-github_email    = parser@cplay.us 
+github_email    = parser@cnext.us 
 
 repo_user_name 	= pause-parser
 repo_email 		= gh@atoomic.org

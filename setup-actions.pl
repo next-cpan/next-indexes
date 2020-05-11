@@ -54,7 +54,7 @@ use Parallel::ForkManager  ();
 use IO::Uncompress::Gunzip ();
 use Data::Dumper;
 
-use constant INTERNAL_REPO => qw{next-indexes pause-monitor cplay};
+use constant INTERNAL_REPO => qw{next-indexes pause-monitor cnext};
 
 use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
 use constant GITHUB_REPO_SSH => q[git@github.com::org/:repository.git];
@@ -148,9 +148,9 @@ has 'git_binary' => (
     documentation => 'The location of the git binary that should be used.'
 );
 
-has 'cplay' => (
+has 'cnext' => (
     isa           => 'Str', is => 'rw', required => 1,
-    documentation => 'The location of the cplay fatpack script.'
+    documentation => 'The location of the cnext fatpack script.'
 );
 
 has 'gh' => (
@@ -352,15 +352,15 @@ sub check_ci_for_repository ( $self, $repository ) {
     }
     $self->{status_ci} //= {};
 
-    my $cplay_ready;
+    my $cnext_ready;
     {
         local $Next::Logger::QUIET = 1;
-        $cplay_ready = $self->check_github_action_status_for_repository($repository);
+        $cnext_ready = $self->check_github_action_status_for_repository($repository);
     }
 
-    return unless defined $cplay_ready;
+    return unless defined $cnext_ready;
 
-    if ( $cplay_ready == 1 ) {
+    if ( $cnext_ready == 1 ) {
         OK("$repository");
         $self->{status_ci}->{ok} //= {};
         $self->{status_ci}->{ok}->{$repository} = 1;    # avoid using a list
@@ -368,7 +368,7 @@ sub check_ci_for_repository ( $self, $repository ) {
 
         # maybe also delete the acknowledge
     }
-    elsif ( $cplay_ready == -1 ) {
+    elsif ( $cnext_ready == -1 ) {
 
         ERROR("$repository failure: https://github.com/next-cpan/${repository}/actions");
         my $is_known;
@@ -418,7 +418,7 @@ sub init ($self) {
         File::Path::mkpath($dir) or die "Cannot create directory $dir";
     }
 
-    foreach my $name (qw{cplay}) {
+    foreach my $name (qw{cnext}) {
         my $path = $self->can($name)->($self);
         if ( $path =~ s{~}{$ENV{HOME}} ) {
             $self->can($name)->( $self, $path );      # update it
@@ -496,7 +496,7 @@ sub read_json_file ( $self, $file ) {
     return $as_json;
 }
 
-## FIXME cplay need to use the same rule
+## FIXME cnext need to use the same rule
 sub _read_json_file ( $self, $file, $as_utf8 = 1, $json_utf8 = -1 ) {
     local $/;
 
@@ -509,14 +509,14 @@ sub _read_json_file ( $self, $file, $as_utf8 = 1, $json_utf8 = -1 ) {
     return $self->json->utf8($json_utf8)->decode($content);
 }
 
-sub check_dependencies_cplay_ready ( $self, $build ) {
+sub check_dependencies_cnext_ready ( $self, $build ) {
     return unless ref $build;
 
     #note explain $build;
 
     my @requires_keys = qw{requires_build requires_develop requires_runtime};
 
-    #note $self->cplay;
+    #note $self->cnext;
 
     my %all_modules = map { $build->{$_}->%* } @requires_keys;
 
@@ -531,14 +531,14 @@ sub check_dependencies_cplay_ready ( $self, $build ) {
             return;
         }
 
-        return unless $self->is_repository_cplay_ready($distro);
+        return unless $self->is_repository_cnext_ready($distro);
 
     }
 
     return 1;    # all dependencies satisfied
 }
 
-sub is_repository_cplay_ready ( $self, $repository ) {
+sub is_repository_cnext_ready ( $self, $repository ) {
 
     return unless defined $repository;
 
@@ -564,7 +564,7 @@ sub is_repository_cplay_ready ( $self, $repository ) {
     return;
 }
 
-#$repository = 'cplay'; #HACK
+#$repository = 'cnext'; #HACK
 
 sub check_github_action_status_for_repository ( $self, $repository ) {
 
@@ -614,7 +614,7 @@ sub get_distro_for ( $self, $module ) {
     return $cache->{$module} if defined $cache->{$module};
 
     my ( $out, $err );
-    my $cmd = [ $self->cplay, 'get-repo', $module ];
+    my $cmd = [ $self->cnext, 'get-repo', $module ];
     IPC::Run3::run3( $cmd, undef, \$out, \$err );
 
     my $value = -1;    # used for errors
@@ -670,7 +670,7 @@ sub _setup_ci_for_repository ( $self, $repository, $attempt = 1 ) {
 
     ### FIXME check the deps
     ### their repo and see if they are provided / green
-    if ( !$self->check_dependencies_cplay_ready($build) ) {
+    if ( !$self->check_dependencies_cnext_ready($build) ) {
         DEBUG("skipping $repository - dependencies not met");
         return;
     }

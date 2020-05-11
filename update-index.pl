@@ -57,7 +57,7 @@ use Parallel::ForkManager  ();
 use IO::Uncompress::Gunzip ();
 use Data::Dumper;
 
-use constant INTERNAL_REPO => qw{next-indexes pause-monitor cplay};
+use constant INTERNAL_REPO => qw{next-indexes pause-monitor cnext};
 
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );

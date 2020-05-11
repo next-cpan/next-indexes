@@ -92,7 +92,7 @@
                 <ul>
                   [% FOREACH repo IN repos %]
                   <li>
-                    <a href="[%= repo.url_cplay_action -%]"><img src="[%= repo.url_cplay_badge -%]" alt="none" /></a>&nbsp;<a href="[%= repo.url -%]">[%= repo.name -%]</a>
+                    <a href="[%= repo.url_cnext_action -%]"><img src="[%= repo.url_cnext_badge -%]" alt="none" /></a>&nbsp;<a href="[%= repo.url -%]">[%= repo.name -%]</a>
                   </li>
 [% IF repo.reason %]
                   - <font style="color:red">Known Failure: [%= repo.reason | html %]</font><br>

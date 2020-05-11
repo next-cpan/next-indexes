@@ -15,13 +15,13 @@ env:
 
 jobs:
   # ---------------------------------------------------------
-  # testing module installation using cplay
+  # testing module installation using cnext
   # ---------------------------------------------------------
-  cplay:
+  cnext:
     runs-on: ubuntu-latest
     steps:
       - run: perl -V
-      - uses: perl-actions/install-with-cplay@cplay-ci
+      - uses: perl-actions/install-with-cnext@cnext-ci
       - run: perl -M${{ env.PRIMARY }} -e1
 
   # ---------------------------------------------------------
@@ -31,7 +31,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: perl -V
-      - uses: perl-actions/install-cpm@cplay-ci
+      - uses: perl-actions/install-cpm@cnext-ci
         with:
           install: "${{ env.PRIMARY }}"
       - run: perl -M${{ env.PRIMARY }} -e1
@@ -43,7 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: perl -V
-      - uses: perl-actions/install-cpanm@cplay-ci
+      - uses: perl-actions/install-cpanm@cnext-ci
         with:
           install: ${{ env.PRIMARY }}
       - run: perl -M${{ env.PRIMARY }} -e1

@@ -17,26 +17,26 @@
     "Acme-Takahashi-Method": '-e primary failure'  
     "Acme-Thoroughly-Modern-Perl": '-e primary failure'
     "Win32-SerialPort": 'No support for OS'    
-  "---------------- cplay error -----------------------------------------------": 
+  "---------------- cnext error -----------------------------------------------": 
     "xxxxxxx": 'Cant locate inc/Devel/CheckLib.pm'
-  "---------------- cplay error Module/Build.pm -------------------------------": 
+  "---------------- cnext error Module/Build.pm -------------------------------": 
     "Alien-Debian-Apt-PM": 'Cant locate Module/Build.pm'
     "Alien-GvaScript": 'Cant locate Module/Build.pm'
     "Alien-libtermkey": 'Cant locate Module/Build.pm'
-  "---------------- cplay error cannot use Test::Harness ---------------------": 
+  "---------------- cnext error cannot use Test::Harness ---------------------": 
     "Algorithm-Hamming-Perl": ''
-  "---------------- cplay error deps missing ---------------------------------": 
-    "Acme-Intraweb": 'cplay deps - Cannot locate CPANPLUS.pm'
+  "---------------- cnext error deps missing ---------------------------------": 
+    "Acme-Intraweb": 'cnext deps - Cannot locate CPANPLUS.pm'
     "Algorithm-MinPerfHashTwoLevel": 'Test::More >= 1.302164'
     "Algorithm-Odometer-Tiny": 'Test::More >= 1.302096'
     "Alien-InteractiveBrokers": 'Archive::Extract'
     "Alien-ROOT": 'Archive::Extract'
     "AnyLoader": 'Class::ISA'
-  "---------------- cplay error blib -----------------------------------------":     
+  "---------------- cnext error blib -----------------------------------------":     
     "Acme-Glue": 'https://github.com/next-cpan/Acme-Glue/actions'
-  "---------------- cplay error file relocation ------------------------------":     
+  "---------------- cnext error file relocation ------------------------------":     
     "PostScript-MailLabels": 'Cannot find file demo/print_addrs'
-  "---------------- cplay ok only --------------------------------------------": 
+  "---------------- cnext ok only --------------------------------------------": 
     "ABI": 'broken Build.PL'
     "AI-NeuralNet-BackProp": 'The distribution doesn t have a proper Makefile.PL/Build.PL'
     "AI-NeuralNet-Mesh": 'The distribution doesn t have a proper Makefile.PL/Build.PL'
@@ -46,7 +46,7 @@
     "Acme-SGABRIEL-Utils": 'unit tests failures'
     "Algorithm-Line-Bresenham-C": ''
     "Acme-Stegano": 'https://github.com/next-cpan/Acme-Stegano/actions'
-    "Just-Another-Perl-Hacker": 'cplay ok - Could not find a release matching Just::Another::Perl::Hacker on MetaCPAN'
+    "Just-Another-Perl-Hacker": 'cnext ok - Could not find a release matching Just::Another::Perl::Hacker on MetaCPAN'
 "failures": 
   "Acme-Tao": 'https://github.com/next-cpan/Acme-Tao/actions'
   "Acme-Tie-Eleet": 'https://github.com/next-cpan/Acme-Tie-Eleet/actions'

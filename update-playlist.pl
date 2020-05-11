@@ -51,7 +51,7 @@ use YAML::Syck;
 #       or die("Need custom version of Net::GitHub::V3::Orgs to work!");
 # }
 
-use constant INTERNAL_REPO => qw{next-indexes pause-monitor cplay};
+use constant INTERNAL_REPO => qw{next-indexes pause-monitor cnext};
 
 # main arguments
 has 'limit' => ( is => 'rw', isa => 'Int', default => 0 );
@@ -185,11 +185,11 @@ sub refresh_all_html_file($self) {
         foreach my $r (@repos) {
             my $name = $r->{name};
             $r->{url}              = BASE_URL . '/' . $name;
-            $r->{url_cplay_action} = CPLAY_URL;
-            $r->{url_cplay_badge}  = CPLAY_BADGE;
+            $r->{url_cnext_action} = CPLAY_URL;
+            $r->{url_cnext_badge}  = CPLAY_BADGE;
 
-            $r->{url_cplay_action} =~ s{:repo}{$name}g;
-            $r->{url_cplay_badge}  =~ s{:repo}{$name}g;
+            $r->{url_cnext_action} =~ s{:repo}{$name}g;
+            $r->{url_cnext_badge}  =~ s{:repo}{$name}g;
 
             $r->{reason} = $status->{reason}->{$name} // '';
         }

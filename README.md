@@ -10,8 +10,8 @@ Rather than using distribution tarball from PAUSE itself, `play` is relying on G
 
 This repo `next-indexes` host some index files which can be consumed to download and install most Perl modules.
 
-`cplay` is the recommended CPAN client using these indexes and GitHub repositories.
-You can read more about cplay client on the [cplay website](https://next-cpan.github.io/cplay/).
+`cnext` is the recommended CPAN client using these indexes and GitHub repositories.
+You can read more about cnext client on the [cnext website](https://next-cpan.github.io/cnext/).
 
 # List of index files
 
@@ -185,7 +185,7 @@ You can also limit the number of repositories to check:
 
 Also consider using traditional CPAN Clients, relying on PAUSE index:
 
-- [cplay](https://next-cpan.github.io/cplay/) - CPAN client using next-cpan indexes
+- [cnext](https://next-cpan.github.io/cnext/) - CPAN client using next-cpan indexes
 - cpan
 - [App::cpanminus](https://metacpan.org/pod/App::cpanminus) - get, unpack, build and install modules from CPAN
 - [App::cpm](https://metacpan.org/pod/App::cpm) - a fast CPAN moduler installer
@@ -204,4 +204,4 @@ PERL_USE_UNSAFE_INC=1 perl Makefile.PL --incpath="/usr/local/Cellar/openssl@1.1/
 
 - [ ] minimal static website listing all available distribution/packages
 - [ ] remove the repository_version from `modules.idx`
-- [ ] use cplay itself instead of cpanm to install dependencies
+- [ ] use cnext itself instead of cpanm to install dependencies
