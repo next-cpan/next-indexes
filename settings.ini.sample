@@ -11,4 +11,4 @@ repo_email 		= gh@atoomic.org
 
 # path of next-indexes@p5 [duplicate repo on p5 branch]
 ix_base_dir    = ~/SOME-WHERE/next-indexes-p5
-repo_base_dir  = ~/SOME-WHERE/play
+repo_base_dir  = ~/SOME-WHERE/next
