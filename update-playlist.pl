@@ -51,7 +51,7 @@ use YAML::Syck;
 #       or die("Need custom version of Net::GitHub::V3::Orgs to work!");
 # }
 
-use constant INTERNAL_REPO => qw{play-indexes pause-monitor cplay};
+use constant INTERNAL_REPO => qw{next-indexes pause-monitor cplay};
 
 # main arguments
 has 'limit' => ( is => 'rw', isa => 'Int', default => 0 );

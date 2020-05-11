@@ -2,13 +2,13 @@
 
 This repository provides alternate index files to use CPAN modules without depending on PAUSE.
 
-[https://next-cpan.github.io/play-indexes/](https://next-cpan.github.io/play-indexes/)
+[https://next-cpan.github.io/next-indexes/](https://next-cpan.github.io/next-indexes/)
 
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
-[Browse the playlist of all repositories](https://next-cpan.github.io/play-indexes/playlist/playlist-A.html)
+[Browse the playlist of all repositories](https://next-cpan.github.io/next-indexes/playlist/playlist-A.html)
 
-This repo `play-indexes` host some index files which can be consumed to download and install most Perl modules.
+This repo `next-indexes` host some index files which can be consumed to download and install most Perl modules.
 
 `cplay` is the recommended CPAN client using these indexes and GitHub repositories.
 You can read more about cplay client on the [cplay website](https://next-cpan.github.io/cplay/).
@@ -18,19 +18,19 @@ You can read more about cplay client on the [cplay website](https://next-cpan.gi
 The index files in this repository are a replacement for the traditional index file [02packages.details.txt.gz](https://www.cpan.org/modules/02packages.details.txt.gz) used by CPAN and most/all CPAN clients.
 
 You can download a tarball with all the .idx files using:
-[https://github.com/next-cpan/play-indexes/archive/p5.tar.gz](https://github.com/next-cpan/play-indexes/archive/p5.tar.gz)
+[https://github.com/next-cpan/next-indexes/archive/p5.tar.gz](https://github.com/next-cpan/next-indexes/archive/p5.tar.gz)
 
 1. modules.idx
 2. repositories.idx
 
 You can also browse these files from:
-[https://github.com/next-cpan/play-indexes/tree/p5](https://github.com/next-cpan/play-indexes/tree/p5)
+[https://github.com/next-cpan/next-indexes/tree/p5](https://github.com/next-cpan/next-indexes/tree/p5)
 
 ## modules.idx
 
 The `modules.idx` file lists the last available version of a module. For each module it indicates which distribution/repository provides it.
 
-[https://raw.githubusercontent.com/next-cpan/play-indexes/p5/modules.idx](https://raw.githubusercontent.com/next-cpan/play-indexes/p5/modules.idx)
+[https://raw.githubusercontent.com/next-cpan/next-indexes/p5/modules.idx](https://raw.githubusercontent.com/next-cpan/next-indexes/p5/modules.idx)
 
 For every module you can know:
 
@@ -58,7 +58,7 @@ For every module you can know:
 The `repositories.idx` file list the last available version of all CPAN distributions.
 Each CPAN distribution is available from a repository.
 
-[https://raw.githubusercontent.com/next-cpan/play-indexes/p5/repositories.idx](https://raw.githubusercontent.com/next-cpan/play-indexes/p5/repositories.idx)
+[https://raw.githubusercontent.com/next-cpan/next-indexes/p5/repositories.idx](https://raw.githubusercontent.com/next-cpan/next-indexes/p5/repositories.idx)
 
 For example `XML-Toolkit` distribution from [CPAN](https://metacpan.org/release/XML-Toolkit) is available on [next-cpan/XML-Toolkit](https://github.com/next-cpan/XML-Toolkit) repository:
 [https://github.com/next-cpan/XML-Toolkit](https://github.com/next-cpan/XML-Toolkit)
@@ -137,17 +137,17 @@ One directory is going to provide the tools whereas the other will points to the
 
 ```sh
 # the tools
-git clone git@github.com:next-cpan/play-indexes.git play-indexes
+git clone git@github.com:next-cpan/next-indexes.git next-indexes
 
 # the index location
-git clone git@github.com:next-cpan/play-indexes.git play-indexes-p5
-cd play-indexes-p5
+git clone git@github.com:next-cpan/next-indexes.git next-indexes-p5
+cd next-indexes-p5
 git checkout -t origin/p5
 ```
 
 ### settings.ini
 
-In the `play-indexes@master` you will have to copy and adjust the `settings.ini` file.
+In the `next-indexes@master` you will have to copy and adjust the `settings.ini` file.
 
 ```
 cp settings.ini.sample settings.ini

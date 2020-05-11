@@ -11,6 +11,6 @@ theme: jekyll-theme-architect
 
 # Includes an icon in the footer for each user name you enter
 footer-links:
-  github: next-cpan/play-indexes
+  github: next-cpan/next-indexes
   twitter: next-cpan
 # https://github.com/barryclark/jekyll-now/blob/master/_config.yml
