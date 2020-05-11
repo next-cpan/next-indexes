@@ -2,35 +2,35 @@
 
 This repository provides alternate index files to use CPAN modules without depending on PAUSE.
 
-[https://pause-play.github.io/play-indexes/](https://pause-play.github.io/play-indexes/)
+[https://next-cpan.github.io/play-indexes/](https://next-cpan.github.io/play-indexes/)
 
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
-[Browse the playlist of all repositories](https://pause-play.github.io/play-indexes/playlist/playlist-A.html)
+[Browse the playlist of all repositories](https://next-cpan.github.io/play-indexes/playlist/playlist-A.html)
 
 This repo `play-indexes` host some index files which can be consumed to download and install most Perl modules.
 
 `cplay` is the recommended CPAN client using these indexes and GitHub repositories.
-You can read more about cplay client on the [cplay website](https://pause-play.github.io/cplay/).
+You can read more about cplay client on the [cplay website](https://next-cpan.github.io/cplay/).
 
 # List of index files
 
 The index files in this repository are a replacement for the traditional index file [02packages.details.txt.gz](https://www.cpan.org/modules/02packages.details.txt.gz) used by CPAN and most/all CPAN clients.
 
 You can download a tarball with all the .idx files using:
-[https://github.com/pause-play/play-indexes/archive/p5.tar.gz](https://github.com/pause-play/play-indexes/archive/p5.tar.gz)
+[https://github.com/next-cpan/play-indexes/archive/p5.tar.gz](https://github.com/next-cpan/play-indexes/archive/p5.tar.gz)
 
 1. modules.idx
 2. repositories.idx
 
 You can also browse these files from:
-[https://github.com/pause-play/play-indexes/tree/p5](https://github.com/pause-play/play-indexes/tree/p5)
+[https://github.com/next-cpan/play-indexes/tree/p5](https://github.com/next-cpan/play-indexes/tree/p5)
 
 ## modules.idx
 
 The `modules.idx` file lists the last available version of a module. For each module it indicates which distribution/repository provides it.
 
-[https://raw.githubusercontent.com/pause-play/play-indexes/p5/modules.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/modules.idx)
+[https://raw.githubusercontent.com/next-cpan/play-indexes/p5/modules.idx](https://raw.githubusercontent.com/next-cpan/play-indexes/p5/modules.idx)
 
 For every module you can know:
 
@@ -58,10 +58,10 @@ For every module you can know:
 The `repositories.idx` file list the last available version of all CPAN distributions.
 Each CPAN distribution is available from a repository.
 
-[https://raw.githubusercontent.com/pause-play/play-indexes/p5/repositories.idx](https://raw.githubusercontent.com/pause-play/play-indexes/p5/repositories.idx)
+[https://raw.githubusercontent.com/next-cpan/play-indexes/p5/repositories.idx](https://raw.githubusercontent.com/next-cpan/play-indexes/p5/repositories.idx)
 
-For example `XML-Toolkit` distribution from [CPAN](https://metacpan.org/release/XML-Toolkit) is available on [pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit) repository:
-[https://github.com/pause-play/XML-Toolkit](https://github.com/pause-play/XML-Toolkit)
+For example `XML-Toolkit` distribution from [CPAN](https://metacpan.org/release/XML-Toolkit) is available on [next-cpan/XML-Toolkit](https://github.com/next-cpan/XML-Toolkit) repository:
+[https://github.com/next-cpan/XML-Toolkit](https://github.com/next-cpan/XML-Toolkit)
 
 For each distribution you can know:
 
@@ -73,7 +73,7 @@ Sample extract:
 
 ```json
 {
-  "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
+  "template_url": "https://github.com/next-cpan/:repository/archive/:sha.tar.gz",
   "version": 20200320203836,
   "columns": ["repository", "version", "sha", "signature"],
   "data": [
@@ -105,13 +105,13 @@ older distribution versions and TRIAL releases are not indexed.
 We are going to use Git ID to download a custom state:
 
 ```
-  https://github.com/pause-play/:repository/archive/:sha.tar.gz
+  https://github.com/next-cpan/:repository/archive/:sha.tar.gz
 
 Example:
 
-  https://github.com/pause-play/:repository/archive/p5-v1.01.tar.gz 
-  https://github.com/pause-play/:repository/archive/p5-v1.02.tar.gz
-  https://github.com/pause-play/:repository/archive/p5-v1.02_01.tar.gz
+  https://github.com/next-cpan/:repository/archive/p5-v1.01.tar.gz 
+  https://github.com/next-cpan/:repository/archive/p5-v1.02.tar.gz
+  https://github.com/next-cpan/:repository/archive/p5-v1.02_01.tar.gz
 ```
 
 # How to update the indexes:
@@ -137,10 +137,10 @@ One directory is going to provide the tools whereas the other will points to the
 
 ```sh
 # the tools
-git clone git@github.com:pause-play/play-indexes.git play-indexes
+git clone git@github.com:next-cpan/play-indexes.git play-indexes
 
 # the index location
-git clone git@github.com:pause-play/play-indexes.git play-indexes-p5
+git clone git@github.com:next-cpan/play-indexes.git play-indexes-p5
 cd play-indexes-p5
 git checkout -t origin/p5
 ```
@@ -185,7 +185,7 @@ You can also limit the number of repositories to check:
 
 Also consider using traditional CPAN Clients, relying on PAUSE index:
 
-- [cplay](https://pause-play.github.io/cplay/) - CPAN client using pause-play indexes
+- [cplay](https://next-cpan.github.io/cplay/) - CPAN client using next-cpan indexes
 - cpan
 - [App::cpanminus](https://metacpan.org/pod/App::cpanminus) - get, unpack, build and install modules from CPAN
 - [App::cpm](https://metacpan.org/pod/App::cpm) - a fast CPAN moduler installer

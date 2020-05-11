@@ -13,7 +13,7 @@
     "Acme-Nooo": 'broken by design'
     "Acme-Pano-Util": 'The encoding pragma is no longer supported'
     "Alien-MeCab": 'Cant locate inc/Devel/CheckLib.pm'
-    "Acme-Test": 'https://github.com/pause-play/Acme-Test/actions'
+    "Acme-Test": 'https://github.com/next-cpan/Acme-Test/actions'
     "Acme-Takahashi-Method": '-e primary failure'  
     "Acme-Thoroughly-Modern-Perl": '-e primary failure'
     "Win32-SerialPort": 'No support for OS'    
@@ -33,7 +33,7 @@
     "Alien-ROOT": 'Archive::Extract'
     "AnyLoader": 'Class::ISA'
   "---------------- cplay error blib -----------------------------------------":     
-    "Acme-Glue": 'https://github.com/pause-play/Acme-Glue/actions'
+    "Acme-Glue": 'https://github.com/next-cpan/Acme-Glue/actions'
   "---------------- cplay error file relocation ------------------------------":     
     "PostScript-MailLabels": 'Cannot find file demo/print_addrs'
   "---------------- cplay ok only --------------------------------------------": 
@@ -45,17 +45,17 @@
     "Acme-RTB": ''
     "Acme-SGABRIEL-Utils": 'unit tests failures'
     "Algorithm-Line-Bresenham-C": ''
-    "Acme-Stegano": 'https://github.com/pause-play/Acme-Stegano/actions'
+    "Acme-Stegano": 'https://github.com/next-cpan/Acme-Stegano/actions'
     "Just-Another-Perl-Hacker": 'cplay ok - Could not find a release matching Just::Another::Perl::Hacker on MetaCPAN'
 "failures": 
-  "Acme-Tao": 'https://github.com/pause-play/Acme-Tao/actions'
-  "Acme-Tie-Eleet": 'https://github.com/pause-play/Acme-Tie-Eleet/actions'
-  "Alt-Acme-Math-XS-ModuleBuild": 'https://github.com/pause-play/Alt-Acme-Math-XS-ModuleBuild/actions'
-  "Apache-AppCluster": 'https://github.com/pause-play/Apache-AppCluster/actions'
-  "Apache-AuthenNTLM": 'https://github.com/pause-play/Apache-AuthenNTLM/actions'
-  "Apache-HeavyCGI": 'https://github.com/pause-play/Apache-HeavyCGI/actions'
-  "Apache2-AuthenNTLM": 'https://github.com/pause-play/Apache2-AuthenNTLM/actions'
-  "all": 'https://github.com/pause-play/all/actions'
+  "Acme-Tao": 'https://github.com/next-cpan/Acme-Tao/actions'
+  "Acme-Tie-Eleet": 'https://github.com/next-cpan/Acme-Tie-Eleet/actions'
+  "Alt-Acme-Math-XS-ModuleBuild": 'https://github.com/next-cpan/Alt-Acme-Math-XS-ModuleBuild/actions'
+  "Apache-AppCluster": 'https://github.com/next-cpan/Apache-AppCluster/actions'
+  "Apache-AuthenNTLM": 'https://github.com/next-cpan/Apache-AuthenNTLM/actions'
+  "Apache-HeavyCGI": 'https://github.com/next-cpan/Apache-HeavyCGI/actions'
+  "Apache2-AuthenNTLM": 'https://github.com/next-cpan/Apache2-AuthenNTLM/actions'
+  "all": 'https://github.com/next-cpan/all/actions'
 "ok": 
   "A1z-HTML5-Template": 1
   "A1z-Html": 1

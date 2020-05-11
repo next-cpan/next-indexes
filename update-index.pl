@@ -106,7 +106,7 @@ has 'github_token' => (
 has 'github_org' => (
     isa           => 'Str', is => 'ro', required => 1,
     documentation => q{REQUIRED - The github organization we'll be creating/updating repos in.}
-);    # = pause-play
+);    # = next-cpan
 has 'repo_user_name' => (
     isa           => 'Str', is => 'ro', required => 1,
     documentation => 'The name that will be on commits for this repo.'
@@ -877,7 +877,7 @@ if ( !caller ) {
 
 github_user     = FIXME
 github_token    = FIXME
-github_org      = pause-play
+github_org      = next-cpan
 
 repo_user_name  = pause-parser
 repo_email      = FIXME

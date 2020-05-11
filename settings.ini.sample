@@ -1,7 +1,7 @@
 
 github_user  	= YOUR_USER
 github_token 	= YOUR_TOKEN
-github_org 		= pause-play
+github_org 		= next-cpan
 
 github_username = Pause Parser
 github_email    = parser@cplay.us 

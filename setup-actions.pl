@@ -133,7 +133,7 @@ has 'github_token' => (
 has 'github_org' => (
     isa           => 'Str', is => 'ro', required => 1,
     documentation => q{REQUIRED - The github organization we'll be creating/updating repos in.}
-);    # = pause-play
+);    # = next-cpan
 has 'repo_user_name' => (
     isa           => 'Str', is => 'ro', required => 1,
     documentation => 'The name that will be on commits for this repo.'
@@ -370,7 +370,7 @@ sub check_ci_for_repository ( $self, $repository ) {
     }
     elsif ( $cplay_ready == -1 ) {
 
-        ERROR("$repository failure: https://github.com/pause-play/${repository}/actions");
+        ERROR("$repository failure: https://github.com/next-cpan/${repository}/actions");
         my $is_known;
         foreach my $reason ( sort keys $self->{status_ci}->{'acknowledge'}->%* ) {
             my $tagged = $self->{status_ci}->{'acknowledge'}->{$reason};
@@ -381,7 +381,7 @@ sub check_ci_for_repository ( $self, $repository ) {
             }
         }
         if ( !$is_known ) {
-            $self->{status_ci}->{'failures'}->{$repository} = qq[https://github.com/pause-play/${repository}/actions];
+            $self->{status_ci}->{'failures'}->{$repository} = qq[https://github.com/next-cpan/${repository}/actions];
             delete $self->{status_ci}->{'ok'}->{$repository};
         }
     }
@@ -849,7 +849,7 @@ if ( !caller ) {
 
 github_user     = FIXME
 github_token    = FIXME
-github_org      = pause-play
+github_org      = next-cpan
 
 repo_user_name  = pause-parser
 repo_email      = FIXME

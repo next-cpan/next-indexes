@@ -123,7 +123,7 @@ sub playlist_html_file_for_letter ( $self, $letter ) {
     return $self->playlist_html_dir . '/playlist-' . uc($letter) . '.html';
 }
 
-use constant BASE_URL    => q[https://github.com/pause-play];
+use constant BASE_URL    => q[https://github.com/next-cpan];
 use constant CPLAY_BADGE => BASE_URL . q[/:repo/workflows/install%20with/badge.svg?branch=p5];
 use constant CPLAY_URL   => BASE_URL . q[/:repo/actions?query=branch%3Ap5];
 
@@ -295,7 +295,7 @@ if ( !caller ) {
 
 github_user     = FIXME
 github_token    = FIXME
-github_org      = pause-play
+github_org      = next-cpan
 
 repo_user_name  = pause-parser
 repo_email      = FIXME
