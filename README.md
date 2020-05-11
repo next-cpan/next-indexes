@@ -4,7 +4,7 @@ This repository provides alternate index files to use CPAN modules without depen
 
 [https://next-cpan.github.io/next-indexes/](https://next-cpan.github.io/next-indexes/)
 
-Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
+Rather than using distribution tarball from PAUSE itself, `next` is relying on GitHub infrastructure to download distributions.
 
 [Browse the nextlist of all repositories](https://next-cpan.github.io/next-indexes/nextlist/nextlist-A.html)
 
