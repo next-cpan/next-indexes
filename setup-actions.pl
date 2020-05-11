@@ -304,7 +304,8 @@ sub get_file_from_github ( $self, $repository, $file ) {    # FIXME could add an
     };
 
     if ( $@ || !defined $HEAD ) {
-        ERROR( $repository, "fail to detect HEAD commit for $repository" );
+        my $desc = join( ' ', $self->github_org, $repository, $self->main_branch );
+        ERROR( $repository, "fail to detect HEAD commit for $desc => $@" );
         return;
     }
 

@@ -1,0 +1,8 @@
+{
+   "Next-Test-Module" : {
+      "abstract" : "Fake Module for Testing",
+      "name" : "Next-Test-Module",
+      "primary" : "Next::Test::Module",
+      "version" : "1.00"
+   }
+}

@@ -211,7 +211,8 @@ sub get_build_info ( $self, $repository ) {
     };
 
     if ( $@ || !defined $HEAD ) {
-        ERROR( $repository, "fail to detect HEAD commit" );
+        my $desc = join( ' ', $self->github_org, $repository, $self->main_branch );
+        ERROR( $repository, "fail to detect HEAD commit for $desc => $@" );
         return;
     }
 
