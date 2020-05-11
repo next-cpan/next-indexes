@@ -57,7 +57,7 @@ use Parallel::ForkManager  ();
 use IO::Uncompress::Gunzip ();
 use Data::Dumper;
 
-use constant INTERNAL_REPO => qw{next-indexes pause-monitor cnext};
+use Next::Repositories;
 
 # main arguments
 has 'full_update' => ( is => 'rw', isa => 'Bool', default => 0 );
@@ -189,12 +189,6 @@ sub _build_idx_version($self) {
 
 sub _build_template_url($self) {
     return q[https://github.com/] . $self->github_org . q[/:repository/archive/:sha.tar.gz];
-}
-
-sub is_internal_repo ( $self, $repository ) {
-    $self->{_internal_repo} //= { map { $_ => 1 } INTERNAL_REPO };
-
-    return $self->{_internal_repo}->{$repository};
 }
 
 sub get_build_info ( $self, $repository ) {
@@ -680,7 +674,7 @@ sub load_nextlist_for_letter ( $self, $letter ) {
 
 sub refresh_repository ( $self, $repository ) {
 
-    return if $self->is_internal_repo($repository);
+    return if Next::Repositories::is_internal($repository);
 
     $self->sleep_until_not_throttled;    # check API rate limit
 

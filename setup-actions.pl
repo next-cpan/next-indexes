@@ -54,7 +54,7 @@ use Parallel::ForkManager  ();
 use IO::Uncompress::Gunzip ();
 use Data::Dumper;
 
-use constant INTERNAL_REPO => qw{next-indexes pause-monitor cnext};
+use Next::Repositories;
 
 use constant GITHUB_REPO_URL => q[https://github.com/:org/:repository];
 use constant GITHUB_REPO_SSH => q[git@github.com::org/:repository.git];
@@ -258,12 +258,6 @@ sub _build_idx_version($self) {
 
 sub _build_template_url($self) {
     return q[https://github.com/] . $self->github_org . q[/:repository/archive/:sha.tar.gz];
-}
-
-sub is_internal_repo ( $self, $repository ) {
-    $self->{_internal_repo} //= { map { $_ => 1 } INTERNAL_REPO };
-
-    return $self->{_internal_repo}->{$repository};
 }
 
 sub get_build_info ( $self, $repository ) {
@@ -630,7 +624,7 @@ sub get_distro_for ( $self, $module ) {
 }
 
 sub setup_ci_for_repository ( $self, $repository ) {
-    return if $self->is_internal_repo($repository);
+    return if Next::Repositories::is_internal($repository);
 
     if ( !$self->force && $self->repositories_processed->{$repository} ) {
         DEBUG("Skipping already processed $repository");
