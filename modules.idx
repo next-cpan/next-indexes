@@ -1,5 +1,5 @@
 {
- "version": 20200505160518,
+ "version": 20200511222136,
  "columns": ["module", "version", "repository", "repository_version"],
  "data": [
     ["A1z::HTML5::Template", "0.22", "A1z-HTML5-Template", "0.22"],
@@ -5327,6 +5327,7 @@
     ["NewRelic::Agent::FFI", "0.08", "Alt-NewRelic-Agent-FFI-Empty", "0.02"],
     ["NewRelic::Agent::FFI::Procedural", "0.08", "Alt-NewRelic-Agent-FFI-Empty", "0.02"],
     ["NewsSpider::Terra", 0, "Acme-Jungle-CrawlerExample", "0.01"],
+    ["Next::Test::Module", "1.00", "Next-Test-Module", "1.00"],
     ["Noose", "0.001", "Noose", "0.001"],
     ["PAR::WebStart", "0.19", "PAR-WebStart", "0.19"],
     ["PAR::WebStart::PNLP", "0.19", "PAR-WebStart", "0.19"],

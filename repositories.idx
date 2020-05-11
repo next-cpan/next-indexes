@@ -1,6 +1,6 @@
 {
- "template_url": "https://github.com/pause-play/:repository/archive/:sha.tar.gz",
- "version": 20200505160518,
+ "template_url": "https://github.com/next-cpan/:repository/archive/:sha.tar.gz",
+ "version": 20200511222136,
  "columns": ["repository", "version", "sha", "signature"],
  "data": [
     ["A1z-HTML5-Template", "0.22", "dccbd9b08b53f43ccbc2cf6dd31de707a4080cf0", "fa3364c24396b773d1a6478be2695ba5"],
@@ -2033,6 +2033,7 @@
     ["Mandel", "0.31", "5fc45ab4c3955e1883617b50f68d784ea243593c", "286a54398e78173eb8282bbf01925aa6"],
     ["Microarray", "0.45", "421e43485159dd101acebb9c2615fa49ad2fc69b", "05c98221467818459e417c137f31b3dd"],
     ["Net-DNAT", "0.15", "75080e56aa96ecb7f50f93dd49dc17c4b7761339", "bad86fd14b5496312049f5922932fdbc"],
+    ["Next-Test-Module", "1.00", "0a8937f172e5a17f1f3c028e537cb3e55a396875", "9c00443832ce9a60547ca28c29b98601"],
     ["Noose", "0.001", "8609c68d35bcee6b04a6b1fe88a205da3d1d5465", "c2a1f6eec26054814ea27ebd8ae28b00"],
     ["PAR-WebStart", "0.19", "a789070d16268787ce8c4c5746fa7c2cee1f572d", "d1b11608b91d142567a8f57679450c71"],
     ["PApp", 2.2, "10e4e2f155f5e45592149bd73cdf858e8aa6f978", "eebefb08b9a91efa011c548fe7edd822"],
