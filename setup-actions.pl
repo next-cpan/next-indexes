@@ -12,8 +12,8 @@ BEGIN {
     unshift @INC, $FindBin::Bin . "/vendor/lib";
 }
 
-use Play::std;     # strict / warnings / signatures...
-use Play::Logger;
+use Next::std;     # strict / warnings / signatures...
+use Next::Logger;
 
 use Moose;
 with 'MooseX::SimpleConfig';
@@ -354,7 +354,7 @@ sub check_ci_for_repository ( $self, $repository ) {
 
     my $cplay_ready;
     {
-        local $Play::Logger::QUIET = 1;
+        local $Next::Logger::QUIET = 1;
         $cplay_ready = $self->check_github_action_status_for_repository($repository);
     }
 
@@ -442,7 +442,7 @@ sub run ($self) {
 
 sub action_check_ci($self) {
 
-    $Play::Logger::LOG_WITH_TIMESTAMP = 0;
+    $Next::Logger::LOG_WITH_TIMESTAMP = 0;
 
     if ( $self->repo && scalar $self->repo->@* ) {
         foreach my $name ( $self->repo->@* ) {

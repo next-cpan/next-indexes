@@ -1,4 +1,4 @@
-package Play::std;
+package Next::std;
 
 use strict;
 use warnings;

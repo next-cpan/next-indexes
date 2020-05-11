@@ -13,8 +13,8 @@ BEGIN {
     unshift @INC, $FindBin::Bin . "/vendor/lib";
 }
 
-use Play::std;     # strict / warnings / signatures...
-use Play::Logger;
+use Next::std;     # strict / warnings / signatures...
+use Next::Logger;
 
 use Moose;
 with 'MooseX::SimpleConfig';

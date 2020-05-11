@@ -1,6 +1,6 @@
-package Play::Logger;    # stolen from App::cpm::Logger
+package Next::Logger;    # stolen from App::cpm::Logger
 
-use Play::std;
+use Next::std;
 
 use List::Util 'max';
 
