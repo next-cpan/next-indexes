@@ -84,7 +84,7 @@
                 <h1>Play List repositories ([%= letter %])</h1>
                 <div class="mod_az_list">
                   [% FOREACH L IN all_letters %]
-                  <a href="playlist-[%= L %].html"
+                  <a href="nextlist-[%= L %].html"
                     >[%= L == '0' ? 'Others' : L %]</a
                   >
                   | [% END %]

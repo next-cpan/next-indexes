@@ -71,19 +71,19 @@ has 'root_dir' => (
     default       => sub { Cwd::abs_path($FindBin::Bin) },
     documentation => 'The base directory where the program lives.'
 );
-has 'playlist_html_dir' => (
+has 'nextlist_html_dir' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->root_dir . '/playlist' },
-    documentation => 'The base directory where html files are stored for playlist'
+    default       => sub($self) { $self->root_dir . '/nextlist' },
+    documentation => 'The base directory where html files are stored for nextlist'
 );
-has 'playlist_json_dir' => (
+has 'nextlist_json_dir' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->root_dir . '/playlist/json' },
-    documentation => 'The base directory where json files are stored for playlist'
+    default       => sub($self) { $self->root_dir . '/nextlist/json' },
+    documentation => 'The base directory where json files are stored for nextlist'
 );
-has 'playlist_template' => (
+has 'nextlist_template' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->playlist_html_dir . '/playlist.tt' },
+    default       => sub($self) { $self->nextlist_html_dir . '/nextlist.tt' },
     documentation => 'The template file for generating HTML'
 );
 has 'repo_user_name' => (
@@ -115,12 +115,12 @@ has 'tmp_dir' => (
     default => sub { File::Temp->newdir() }
 );
 
-sub playlist_json_file_for_letter ( $self, $letter ) {
-    return $self->playlist_json_dir . '/playlist-' . lc($letter) . '.json';
+sub nextlist_json_file_for_letter ( $self, $letter ) {
+    return $self->nextlist_json_dir . '/nextlist-' . lc($letter) . '.json';
 }
 
-sub playlist_html_file_for_letter ( $self, $letter ) {
-    return $self->playlist_html_dir . '/playlist-' . uc($letter) . '.html';
+sub nextlist_html_file_for_letter ( $self, $letter ) {
+    return $self->nextlist_html_dir . '/nextlist-' . uc($letter) . '.html';
 }
 
 use constant BASE_URL    => q[https://github.com/next-cpan];
@@ -144,7 +144,7 @@ sub refresh_all_html_file($self) {
         TRIM => 0,
     };
 
-    my $tt_file = $self->playlist_template;
+    my $tt_file = $self->nextlist_template;
     my $tt      = Template->new($config);
 
     my $status_yml = $self->root_dir . '/status.yml';
@@ -167,8 +167,8 @@ sub refresh_all_html_file($self) {
     }
 
     foreach my $letter (@all_letters) {
-        my $json_file = $self->playlist_json_file_for_letter($letter);
-        my $html_file = $self->playlist_html_file_for_letter($letter);
+        my $json_file = $self->nextlist_json_file_for_letter($letter);
+        my $html_file = $self->nextlist_html_file_for_letter($letter);
         my $data      = {};
 
         my $mtime_json = ( stat($json_file) )[9] // 0;
@@ -176,7 +176,7 @@ sub refresh_all_html_file($self) {
 
         next if !$self->force && $mtime_json < $mtime_html;
 
-        INFO("Updating playlist for $letter");
+        INFO("Updating nextlist for $letter");
 
         $data = $self->read_json_file($json_file) if -f $json_file;
         my @repos = map { $data->{$_} } sort { lc($a) cmp lc($b) } keys %$data;

@@ -76,7 +76,7 @@ has 'force' => (
     documentation => 'force refresh one or more modules'
 );
 
-has 'playlist' => ( is => 'rw', isa => 'Bool', default => 1, documentation => 'enable or disable playlist processing' );
+has 'nextlist' => ( is => 'rw', isa => 'Bool', default => 1, documentation => 'enable or disable nextlist processing' );
 
 # settings.ini
 has 'ix_base_dir' => (
@@ -101,15 +101,15 @@ has 'root_dir' => (
     default       => sub { Cwd::abs_path($FindBin::Bin) },
     documentation => 'The base directory where the program lives.'
 );
-has 'playlist_html_dir' => (
+has 'nextlist_html_dir' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->root_dir . '/playlist' },
-    documentation => 'The base directory where html files are stored for playlist'
+    default       => sub($self) { $self->root_dir . '/nextlist' },
+    documentation => 'The base directory where html files are stored for nextlist'
 );
-has 'playlist_json_dir' => (
+has 'nextlist_json_dir' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->root_dir . '/playlist/json' },
-    documentation => 'The base directory where json files are stored for playlist'
+    default       => sub($self) { $self->root_dir . '/nextlist/json' },
+    documentation => 'The base directory where json files are stored for nextlist'
 );
 has 'github_user' => (
     isa           => 'Str', is => 'ro', required => 1,

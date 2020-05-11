@@ -6,7 +6,7 @@ This repository provides alternate index files to use CPAN modules without depen
 
 Rather than using distribution tarball from PAUSE itself, `play` is relying on GitHub infrastructure to download distributions.
 
-[Browse the playlist of all repositories](https://next-cpan.github.io/next-indexes/playlist/playlist-A.html)
+[Browse the nextlist of all repositories](https://next-cpan.github.io/next-indexes/nextlist/nextlist-A.html)
 
 This repo `next-indexes` host some index files which can be consumed to download and install most Perl modules.
 

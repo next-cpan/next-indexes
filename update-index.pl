@@ -72,7 +72,7 @@ has 'force' => (
     documentation => 'force refresh one or more modules'
 );
 
-has 'playlist' => ( is => 'rw', isa => 'Bool', default => 1, documentation => 'enable or disable playlist processing' );
+has 'nextlist' => ( is => 'rw', isa => 'Bool', default => 1, documentation => 'enable or disable nextlist processing' );
 
 # settings.ini
 has 'ix_base_dir' => (
@@ -85,15 +85,15 @@ has 'root_dir' => (
     default       => sub { Cwd::abs_path($FindBin::Bin) },
     documentation => 'The base directory where the program lives.'
 );
-has 'playlist_html_dir' => (
+has 'nextlist_html_dir' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->root_dir . '/playlist' },
-    documentation => 'The base directory where html files are stored for playlist'
+    default       => sub($self) { $self->root_dir . '/nextlist' },
+    documentation => 'The base directory where html files are stored for nextlist'
 );
-has 'playlist_json_dir' => (
+has 'nextlist_json_dir' => (
     isa           => 'Str', is => 'rw', lazy => 1,
-    default       => sub($self) { $self->root_dir . '/playlist/json' },
-    documentation => 'The base directory where json files are stored for playlist'
+    default       => sub($self) { $self->root_dir . '/nextlist/json' },
+    documentation => 'The base directory where json files are stored for nextlist'
 );
 has 'github_user' => (
     isa           => 'Str', is => 'ro', required => 1,
@@ -253,7 +253,7 @@ sub get_build_info ( $self, $repository ) {
 
 sub setup ($self) {
     my @all_dirs = qw{ix_base_dir};
-    push @all_dirs, qw{playlist_html_dir playlist_json_dir} if $self->playlist;
+    push @all_dirs, qw{nextlist_html_dir nextlist_json_dir} if $self->nextlist;
 
     foreach my $dirtype (@all_dirs) {
         my $dir = $self->can($dirtype)->($self);
@@ -291,7 +291,7 @@ sub run ($self) {
 
     # ... update files...
     $self->write_idx_files;
-    $self->update_playlist_files;
+    $self->update_nextlist_files;
 
     # commit
     return 1 unless $self->commit_and_push;
@@ -624,9 +624,9 @@ sub compute_build_signature ( $self, $build ) {
     return $signature;
 }
 
-sub add_to_playlist ( $self, $build ) {
+sub add_to_nextlist ( $self, $build ) {
 
-    return unless $self->playlist;
+    return unless $self->nextlist;
 
     my $letter = '0';              # default
     my $name   = $build->{name};
@@ -634,25 +634,25 @@ sub add_to_playlist ( $self, $build ) {
     # pick one letter
     $letter = lc($1) if $name =~ m{^([a-z])}i;
 
-    $self->{playlist_index} //= {};
+    $self->{nextlist_index} //= {};
 
-    $self->{playlist_index}->{$letter} //= $self->load_playlist_for_letter($letter);
-    $self->{playlist_index}->{$letter}->{$name} = { map { $_ => $build->{$_} } qw{name primary version abstract} };
+    $self->{nextlist_index}->{$letter} //= $self->load_nextlist_for_letter($letter);
+    $self->{nextlist_index}->{$letter}->{$name} = { map { $_ => $build->{$_} } qw{name primary version abstract} };
 
     return;
 }
 
-sub update_playlist_files( $self ) {
+sub update_nextlist_files( $self ) {
 
-    return unless $self->playlist;
+    return unless $self->nextlist;
 
     DEBUG("Updating index files");
     my @all_letters = ( 'a' .. 'z', '0' );
 
-    my $index = $self->{playlist_index} // {};
+    my $index = $self->{nextlist_index} // {};
 
     foreach my $letter (@all_letters) {
-        my $file = $self->playlist_json_file_for_letter($letter);
+        my $file = $self->nextlist_json_file_for_letter($letter);
 
         my $data = $index->{$letter} // {};
         next unless scalar keys $data->%*;
@@ -664,13 +664,13 @@ sub update_playlist_files( $self ) {
     return;
 }
 
-sub playlist_json_file_for_letter ( $self, $letter ) {
-    return $self->playlist_json_dir . '/playlist-' . $letter . '.json';
+sub nextlist_json_file_for_letter ( $self, $letter ) {
+    return $self->nextlist_json_dir . '/nextlist-' . $letter . '.json';
 }
 
-sub load_playlist_for_letter ( $self, $letter ) {
+sub load_nextlist_for_letter ( $self, $letter ) {
     die unless defined $letter && length $letter == 1;
-    my $file = $self->playlist_json_file_for_letter($letter);
+    my $file = $self->nextlist_json_file_for_letter($letter);
 
     return {} if $self->full_update;    # force refresh the json files
     return {} unless -f $file;
@@ -719,7 +719,7 @@ sub refresh_repository ( $self, $repository ) {
         );
     }
 
-    $self->add_to_playlist($build);
+    $self->add_to_nextlist($build);
 
     return;
 }
@@ -841,7 +841,7 @@ Options:
     --force                          force to refresh repositories even if HEAD is the same
     --full_update                    clear index before regenerating them
     --limit N                        stop after processing N repositories
-    --noplaylist                     disable playlist json files updates
+    --nonextlist                     disable nextlist json files updates
 
 Sample usages:
 
@@ -852,7 +852,7 @@ $0 --repo A1z-Html --force            # force refresh a repository
 $0 --repo A1z-Html --repo ACL-Regex   # refresh multiple repositories
 $0 --full_update                      # regenerate the index files
 $0 --limit 5                          # stop after reading X repo
-$0 --limit 5 --noplaylist             # do not update playlist json files
+$0 --limit 5 --nonextlist             # do not update nextlist json files
 
 EOS
 };
